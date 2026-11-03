@@ -10,6 +10,7 @@ function destinos(papel: string, contadores: Record<string, number>): Destino[] 
         { rotulo: "Início", href: "/e", icone: "casa" },
         { rotulo: "Turmas", href: "/e/turmas", icone: "turmas" },
         { rotulo: "Validações", href: "/e/validacoes", icone: "selo", contador: contadores.validacoes_pendentes },
+        { rotulo: "Entidade", href: "/e/entidade", icone: "documento" },
         { rotulo: "Conta", href: "/conta", icone: "pessoa" },
       ];
     case "startup":

@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
   // Modelo de cache anterior (sem Cache Components): as páginas são autenticadas e dinâmicas; ver DECISOES.md.
   cacheComponents: false,
   poweredByHeader: false,
-  output: "standalone", // imagem Docker pequena (docker/Dockerfile.frontend)
+  output: "standalone", // imagem Docker pequena (frontend/Dockerfile)
   async rewrites() {
     return [
       { source: "/api/:caminho*", destination: `${DJANGO}/api/:caminho*` },

@@ -1,0 +1,8 @@
+{% autoescape off %}Olá.
+
+A {{ s.startup.nome }} está à espera da vossa confirmação:
+
+«{{ frase }}»
+
+O pedido expira a {{ validade }}. Confirmar ou recusar: {{ site }}/e/validacoes/{{ s.pk }}
+{% endautoescape %}

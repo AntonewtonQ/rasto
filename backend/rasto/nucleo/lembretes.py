@@ -1,0 +1,93 @@
+"""Lembretes por e-mail (base de UX 5.0; base técnica, Sprint 4).
+
+Cada regra devolve os objectos que precisam de lembrete agora. O envio é idempotente: `LembreteEnviado` guarda
+(regra, objecto, referência) e a referência muda quando o prazo muda (ex.: convite reenviado), para que um prazo
+novo tenha o seu próprio lembrete. O comando `enviar_lembretes` corre no contentor cron.
+"""
+
+from collections.abc import Callable
+from dataclasses import dataclass
+from datetime import timedelta
+
+from django.conf import settings
+from django.db import IntegrityError, transaction
+from django.utils import timezone
+
+from .models import LembreteEnviado
+
+
+@dataclass
+class Regra:
+    nome: str
+    candidatos: Callable[[], list]  # objectos a lembrar agora
+    referencia: Callable[[object], str]  # muda quando o prazo muda
+    enviar: Callable[[object], None]  # enfileira o(s) e-mail(s)
+
+
+def _registar(regra: str, obj, referencia: str) -> bool:
+    """True se for a primeira vez (o lembrete deve ser enviado)."""
+    try:
+        with transaction.atomic():
+            LembreteEnviado.objects.create(regra=regra, objecto_tipo=obj._meta.label_lower, objecto_id=str(obj.pk),
+                                           referencia=referencia)
+        return True
+    except IntegrityError:
+        return False
+
+
+# --- Convites de turma: lembrete ao 7.º dia ----------------------------------------------------------------------
+
+
+def _convites_a_lembrar():
+    from rasto.turmas.models import Convite
+
+    dias = int(settings.PRAZOS_DEFEITO.get("lembrete_convite_dias", 7))
+    agora = timezone.now()
+    # 7 dias depois do envio (ou do último reenvio) e ainda com prazo a correr.
+    return list(Convite.objects.select_related("turma__organizacao", "enviado_por")
+                .filter(estado=Convite.Estado.PENDENTE, expira_em__gt=agora,
+                        actualizado_em__lte=agora - timedelta(days=dias)))
+
+
+def _enviar_convite(c):
+    from rasto.turmas.services import lembrar_convite
+
+    lembrar_convite(c)
+
+
+# --- Pedidos de validação de sinais: lembrete à entidade aos 7 dias -------------------------------------------------
+
+
+def _validacoes_a_lembrar():
+    from rasto.sinais.models import Sinal
+
+    dias = int(settings.PRAZOS_DEFEITO.get("lembrete_validacao_dias", 7))
+    agora = timezone.now()
+    return list(Sinal.objects.select_related("validador", "startup")
+                .filter(estado=Sinal.Estado.PENDENTE, expira_em__gt=agora, pedido_em__lte=agora - timedelta(days=dias)))
+
+
+def _enviar_validacao(s):
+    from rasto.sinais.services import lembrar_validacao
+
+    lembrar_validacao(s)
+
+
+REGRAS = [
+    Regra("convite_7_dias", _convites_a_lembrar, lambda c: c.expira_em.isoformat(), _enviar_convite),
+    Regra("validacao_7_dias", _validacoes_a_lembrar, lambda s: s.expira_em.isoformat(), _enviar_validacao),
+]
+
+
+def enviar_lembretes() -> dict[str, int]:
+    contagem = {}
+    for r in REGRAS:
+        n = 0
+        for obj in r.candidatos():
+            # Registo e e-mail na mesma transacção: ou ficam os dois, ou nenhum.
+            with transaction.atomic():
+                if _registar(r.nome, obj, r.referencia(obj)):
+                    r.enviar(obj)
+                    n += 1
+        contagem[r.nome] = n
+    return contagem

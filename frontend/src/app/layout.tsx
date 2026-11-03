@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { connection } from "next/server";
 import "@/estilos/rasto.css";
 import "@/estilos/app.css";
 
@@ -9,7 +10,9 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = { width: "device-width", initialScale: 1, viewportFit: "cover" };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  // Todas as páginas são renderizadas a pedido, para cada uma receber a nonce da CSP (ver src/proxy.ts).
+  await connection();
   return (
     <html lang="pt-PT">
       <body>

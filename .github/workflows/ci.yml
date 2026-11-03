@@ -13,6 +13,7 @@ jobs:
         ports: ["5433:5432"]
         options: >-
           --health-cmd "pg_isready -U rasto" --health-interval 5s --health-retries 10
+    defaults: { run: { working-directory: backend } }
     env:
       DJANGO_SECRET_KEY: ci-apenas
       DJANGO_DEBUG: "1"
@@ -49,5 +50,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: docker build -f docker/Dockerfile -t rasto-api:${{ github.sha }} .
-      - run: docker build -f docker/Dockerfile.frontend -t rasto-frontend:${{ github.sha }} .
+      - run: docker build -t rasto-api:${{ github.sha }} backend
+      - run: docker build -t rasto-frontend:${{ github.sha }} frontend

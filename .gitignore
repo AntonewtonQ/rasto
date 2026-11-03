@@ -1,13 +1,19 @@
+# Python
 .venv/
 __pycache__/
 *.pyc
-.env
-/media/
-/staticfiles/
 .pytest_cache/
 .ruff_cache/
-/relatorio/build/
-*.sqlite3
 
-# Pacote do relatório (cópia da pasta relatorio/)
-/relatorio_tcc_rasto.zip
+# Backend: segredos e ficheiros enviados (nunca no repositório)
+backend/.env
+backend/media/
+backend/staticfiles/
+
+# Relatório: saídas intermédias e pacote copiado
+docs/relatorio/build/
+docs/relatorio/.venv/
+docs/relatorio/relatorio_tcc_rasto.zip
+
+*.sqlite3
+.DS_Store

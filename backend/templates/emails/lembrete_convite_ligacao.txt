@@ -1,0 +1,6 @@
+{% autoescape off %}Olá.
+
+O convite por ligação para {{ c.email }} (turma {{ t.programa }} {{ t.edicao }}) ainda não foi aceite. Expira a {{ validade }}.
+
+Se a startup perdeu a mensagem, pode cancelar este convite e criar outro na página da turma: {{ site }}/e/turmas/{{ t.pk }}
+{% endautoescape %}

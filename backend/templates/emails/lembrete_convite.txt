@@ -1,0 +1,11 @@
+{% autoescape off %}Olá.
+
+Lembrete: a {{ t.organizacao.nome }} convidou a sua startup para a turma {{ t.programa }} {{ t.edicao }} na Rasto.
+
+Ao aceitar, a {{ t.organizacao.nome }} pode confirmar no perfil da startup que participaram no programa. Os investidores verão essa confirmação com o nome de quem a fez e a data.
+
+Aceitar convite: {{ url }}
+
+Esta ligação substitui a do primeiro e-mail. O convite é válido até {{ validade }}.
+Se não reconhece este convite, ignore esta mensagem.
+{% endautoescape %}

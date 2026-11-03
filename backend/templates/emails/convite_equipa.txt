@@ -1,0 +1,8 @@
+{% autoescape off %}Olá.
+
+{{ de.nome|default:de.email }} convidou-o para a equipa da {{ org.nome }} na Rasto. Como membro da equipa, pode criar turmas, convidar startups e confirmar a participação delas.
+
+Aceitar convite e criar conta: {{ url }}
+
+O convite é válido até {{ validade|date:"d/m/Y" }}. Se não reconhece este convite, ignore esta mensagem.
+{% endautoescape %}

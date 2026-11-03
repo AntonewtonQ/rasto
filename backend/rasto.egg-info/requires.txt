@@ -1,0 +1,17 @@
+Django<5.3,>=5.2
+django-allauth[mfa]<66,>=65
+django-axes<10,>=8
+django-csp<5,>=4
+argon2-cffi>=23
+psycopg[binary]<4,>=3.2
+whitenoise>=6.7
+gunicorn>=22
+djangorestframework<4,>=3.15
+drf-spectacular>=0.27
+
+[dev]
+pytest>=8
+pytest-django>=4.9
+factory-boy>=3.3
+hypothesis>=6
+ruff>=0.6

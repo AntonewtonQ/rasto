@@ -1,0 +1,21 @@
+Metadata-Version: 2.4
+Name: rasto
+Version: 0.1.0
+Summary: Plataforma de gestão e ligação entre startups aceleradas e investidores em Angola
+Requires-Python: >=3.12
+Requires-Dist: Django<5.3,>=5.2
+Requires-Dist: django-allauth[mfa]<66,>=65
+Requires-Dist: django-axes<10,>=8
+Requires-Dist: django-csp<5,>=4
+Requires-Dist: argon2-cffi>=23
+Requires-Dist: psycopg[binary]<4,>=3.2
+Requires-Dist: whitenoise>=6.7
+Requires-Dist: gunicorn>=22
+Requires-Dist: djangorestframework<4,>=3.15
+Requires-Dist: drf-spectacular>=0.27
+Provides-Extra: dev
+Requires-Dist: pytest>=8; extra == "dev"
+Requires-Dist: pytest-django>=4.9; extra == "dev"
+Requires-Dist: factory-boy>=3.3; extra == "dev"
+Requires-Dist: hypothesis>=6; extra == "dev"
+Requires-Dist: ruff>=0.6; extra == "dev"

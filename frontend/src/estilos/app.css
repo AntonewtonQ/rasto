@@ -282,3 +282,6 @@ details > summary { cursor: pointer; min-height: 44px; display: flex; align-item
 .pre { white-space: pre-line; }
 .sk { min-height: 160px; }
 button[disabled].btn { background: var(--color-surface-sunken); color: var(--color-text-subtle); border-color: var(--color-border); cursor: not-allowed; }
+
+dl, dd { margin: 0; }
+dt + dd { margin-top: 2px; }

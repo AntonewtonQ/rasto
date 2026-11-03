@@ -1,0 +1,48 @@
+# Desenvolvimento: docker compose up -d db
+# Staging/produção: docker compose --profile app up -d --build
+name: rasto
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: ${PGDATABASE:-rasto}
+      POSTGRES_USER: ${PGUSER:-rasto}
+      POSTGRES_PASSWORD: ${PGPASSWORD:-rasto}
+    ports: ["127.0.0.1:5433:5432"]
+    volumes: [dbdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U rasto"]
+      interval: 5s
+      retries: 10
+  web:
+    profiles: ["app"]
+    build: ./backend
+    env_file: ./backend/.env
+    environment: { PGHOST: db, PGPORT: "5432" }
+    depends_on: { db: { condition: service_healthy } }
+    volumes: [media:/app/media]
+    command: sh -c "python manage.py migrate --noinput && gunicorn config.wsgi:application -b 0.0.0.0:8000 -w 3 --access-logfile -"
+  cron:
+    profiles: ["app"]
+    build: ./backend
+    env_file: ./backend/.env
+    environment: { PGHOST: db, PGPORT: "5432" }
+    depends_on: { db: { condition: service_healthy } }
+    volumes: [media:/app/media]
+    command: sh -c "while true; do python manage.py expirar_pendentes; python manage.py enviar_lembretes; python manage.py enviar_emails; sleep 300; done"
+  frontend:
+    profiles: ["app"]
+    build: ./frontend
+    environment: { DJANGO_INTERNO: "http://web:8000" }
+    depends_on: [web]
+  caddy:
+    profiles: ["app"]
+    image: caddy:2
+    env_file: ./backend/.env
+    ports: ["80:80", "443:443"]
+    volumes: ["./infra/Caddyfile:/etc/caddy/Caddyfile:ro", "caddydata:/data"]
+    depends_on: [web, frontend]
+volumes:
+  dbdata: {}
+  media: {}
+  caddydata: {}
