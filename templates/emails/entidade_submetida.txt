@@ -1,0 +1,6 @@
+{% autoescape off %}A entidade {{ org.nome_legal }} (NIF {{ org.nif }}) foi submetida para verificação.
+
+Prazo indicativo de resposta: {{ org.prazo_resposta|date:"d/m/Y" }}.
+
+Abrir o processo: {{ site }}/admin/verificacoes/{{ org.pk }}
+{% endautoescape %}

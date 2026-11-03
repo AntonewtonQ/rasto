@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+/media/
+/staticfiles/
+.pytest_cache/
+.ruff_cache/
+/relatorio/build/
+*.sqlite3
+
+# Pacote do relatório (cópia da pasta relatorio/)
+/relatorio_tcc_rasto.zip

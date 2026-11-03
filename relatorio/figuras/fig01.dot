@@ -1,0 +1,13 @@
+digraph G { rankdir=LR; bgcolor="white"; nodesep=0.25; ranksep=0.35;
+ node [shape=box, style="rounded,filled", fillcolor="#EEEBFA", color="#3A2D8F", fontname="Liberation Serif", fontsize=12, fontcolor="#1B1A22", width=1.6, margin="0.12,0.08"];
+ edge [color="#55515F", arrowsize=0.7];
+ subgraph cluster_f { label="Fases da startup (dimensão e idade crescentes)"; fontname="Liberation Serif"; fontsize=12; color="#8A8494"; style="rounded";
+   a [label="Ideia e\npré-seed"]; b [label="Seed"]; c [label="Série A"]; d [label="Séries B\ne seguintes"]; a->b->c->d; }
+ node [shape=box, style="rounded", fillcolor="white", color="#8A8494", fontsize=11, width=1.6];
+ a2 [label="Fundadores, família\ne amigos; prémios\ne subvenções"];
+ b2 [label="Investidores anjo;\naceleradoras"];
+ c2 [label="Capital de risco\n(fundos e CVC)"];
+ d2 [label="Capital de risco\nde fase avançada;\ndívida; mercado"];
+ a->a2 [style=dashed, arrowhead=none]; b->b2 [style=dashed, arrowhead=none]; c->c2 [style=dashed, arrowhead=none]; d->d2 [style=dashed, arrowhead=none];
+ {rank=same; a; a2} {rank=same; b; b2} {rank=same; c; c2} {rank=same; d; d2}
+}

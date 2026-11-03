@@ -1,0 +1,12 @@
+{$DOMINIO:localhost} {
+	encode zstd gzip
+	# A API e a autenticação vão directamente para o Django; os ecrãs para o Next.js (mesma origem).
+	@django path /api/* /_allauth/* /saude
+	handle @django {
+		reverse_proxy web:8000
+	}
+	handle {
+		reverse_proxy frontend:3000
+	}
+	header Strict-Transport-Security "max-age=31536000; includeSubDomains"
+}

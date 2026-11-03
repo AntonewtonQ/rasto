@@ -1,0 +1,1265 @@
+<title>Wireframes Rasto</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..600&family=Lora:wght@500..600&display=swap">
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script>
+  /* Mapeamento Tailwind → tokens da marca (rasto.css). Nenhum hexadecimal nos componentes. */
+  tailwind.config = {
+    theme: {
+      screens: { md: '768px', lg: '1280px' },
+      extend: {
+        colors: {
+          bg: 'var(--color-bg)', surface: 'var(--color-surface)', sunken: 'var(--color-surface-sunken)',
+          line: 'var(--color-border)', 'line-strong': 'var(--color-border-strong)',
+          ink: 'var(--color-text)', muted: 'var(--color-text-muted)', subtle: 'var(--color-text-subtle)',
+          primary: { DEFAULT: 'var(--color-primary)', hover: 'var(--color-primary-hover)', subtle: 'var(--color-primary-subtle)', on: 'var(--color-on-primary)' },
+          laterite: { DEFAULT: 'var(--color-secondary)', subtle: 'var(--color-secondary-subtle)', on: 'var(--color-on-secondary)' },
+          success: { DEFAULT: 'var(--color-success)', subtle: 'var(--color-success-subtle)' },
+          warning: { DEFAULT: 'var(--color-warning)', subtle: 'var(--color-warning-subtle)' },
+          error: { DEFAULT: 'var(--color-error)', subtle: 'var(--color-error-subtle)' },
+          info: { DEFAULT: 'var(--color-info)', subtle: 'var(--color-info-subtle)' }
+        },
+        borderColor: { DEFAULT: 'var(--color-border)' },
+        fontFamily: {
+          sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+          serif: ['Lora', 'Georgia', 'Times New Roman', 'serif']
+        },
+        borderRadius: { sm: '4px', md: '8px', lg: '12px', pill: '999px' }
+      }
+    }
+  };
+</script>
+<style>
+/* Tokens copiados de rasto.css v1.0 (marca). Só se acrescentou color-scheme por tema. */
+:root {
+  color-scheme: light;
+  --color-bg:#FAF9F6; --color-surface:#FFFFFF; --color-surface-sunken:#F2F0EB; --color-border:#E3DFD7; --color-border-strong:#8A8494;
+  --color-text:#1B1A22; --color-text-muted:#55515F; --color-text-subtle:#6E6979;
+  --color-primary:#3A2D8F; --color-primary-hover:#2E2373; --color-primary-subtle:#EEEBFA; --color-on-primary:#FFFFFF;
+  --color-secondary:#A8461E; --color-secondary-subtle:#FBEDE5; --color-on-secondary:#FFFFFF;
+  --color-success:#1C6B45; --color-success-subtle:#E5F4EC; --color-warning:#7A5000; --color-warning-subtle:#FDF3D8;
+  --color-error:#B0221B; --color-error-subtle:#FCE9E7; --color-info:#0D5F78; --color-info-subtle:#E3F2F7; --color-focus:#3A2D8F;
+  --seal-knock:#FFFFFF; --seal-warn:var(--color-warning);
+  --font-sans:Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-serif:Lora, Georgia, "Times New Roman", serif;
+  --text-display:600 2.5rem/1.15 var(--font-serif); --tracking-display:-0.01em;
+  --text-h1:600 1.75rem/1.214 var(--font-sans); --tracking-h1:-0.015em;
+  --text-h2:600 1.375rem/1.273 var(--font-sans); --tracking-h2:-0.01em;
+  --text-h3:600 1.125rem/1.333 var(--font-sans);
+  --text-body-lg:400 1.125rem/1.556 var(--font-sans);
+  --text-body:400 1rem/1.5 var(--font-sans);
+  --text-body-sm:400 0.875rem/1.429 var(--font-sans);
+  --text-label:500 0.875rem/1.429 var(--font-sans);
+  --text-caption:500 0.75rem/1.333 var(--font-sans); --tracking-caption:0.01em;
+  --text-metric-lg:600 2.125rem/1.176 var(--font-sans); --tracking-metric-lg:-0.02em;
+  --text-metric:600 1.25rem/1.3 var(--font-sans); --tracking-metric:-0.01em;
+  --radius-sm:4px; --radius-md:8px; --radius-lg:12px; --radius-pill:999px;
+  --duration-fast:120ms;
+  --shadow-1:0 1px 2px rgb(27 26 34 / .06), 0 1px 3px rgb(27 26 34 / .08);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --color-bg:#111017; --color-surface:#1A1921; --color-surface-sunken:#0C0B10; --color-border:#2F2D39; --color-border-strong:#77728A;
+    --color-text:#EEEDF3; --color-text-muted:#AEAABB; --color-text-subtle:#9692A4;
+    --color-primary:#B4AAFF; --color-primary-hover:#C9C2FF; --color-primary-subtle:#272246; --color-on-primary:#17123A;
+    --color-secondary:#F09A70; --color-secondary-subtle:#3A2219; --color-on-secondary:#2A1208;
+    --color-success:#72D3A2; --color-success-subtle:#11291D; --color-warning:#F0C55A; --color-warning-subtle:#2E2408;
+    --color-error:#FF9088; --color-error-subtle:#361614; --color-info:#72C8E3; --color-info-subtle:#0F2830; --color-focus:#B4AAFF;
+    --seal-knock:var(--color-on-primary); --shadow-1:0 1px 2px rgb(0 0 0 / .4);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-bg:#111017; --color-surface:#1A1921; --color-surface-sunken:#0C0B10; --color-border:#2F2D39; --color-border-strong:#77728A;
+  --color-text:#EEEDF3; --color-text-muted:#AEAABB; --color-text-subtle:#9692A4;
+  --color-primary:#B4AAFF; --color-primary-hover:#C9C2FF; --color-primary-subtle:#272246; --color-on-primary:#17123A;
+  --color-secondary:#F09A70; --color-secondary-subtle:#3A2219; --color-on-secondary:#2A1208;
+  --color-success:#72D3A2; --color-success-subtle:#11291D; --color-warning:#F0C55A; --color-warning-subtle:#2E2408;
+  --color-error:#FF9088; --color-error-subtle:#361614; --color-info:#72C8E3; --color-info-subtle:#0F2830; --color-focus:#B4AAFF;
+  --seal-knock:var(--color-on-primary); --shadow-1:0 1px 2px rgb(0 0 0 / .4);
+}
+
+/* Base */
+body { background:var(--color-bg); color:var(--color-text); font:var(--text-body); font-optical-sizing:auto; -webkit-font-smoothing:antialiased;
+  padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); padding-block:0 64px; }
+.num { font-variant-numeric:tabular-nums lining-nums; }
+:focus-visible { outline:2px solid var(--color-focus); outline-offset:2px; }
+@media (prefers-reduced-motion: reduce) { * { transition-duration:0ms !important; animation:none !important; } }
+
+/* Tipografia (tokens da marca) */
+.t-display { font:var(--text-display); letter-spacing:var(--tracking-display); text-wrap:balance; }
+.t-h1 { font:var(--text-h1); letter-spacing:var(--tracking-h1); text-wrap:balance; }
+.t-h2 { font:var(--text-h2); letter-spacing:var(--tracking-h2); text-wrap:balance; }
+.t-h3 { font:var(--text-h3); }
+.t-body-lg { font:var(--text-body-lg); }
+.t-body { font:var(--text-body); }
+.t-sm { font:var(--text-body-sm); }
+.t-label { font:var(--text-label); }
+.t-caption { font:var(--text-caption); letter-spacing:var(--tracking-caption); }
+.eyebrow { font:var(--text-caption); letter-spacing:.06em; text-transform:uppercase; }
+.t-metric-lg { font:var(--text-metric-lg); letter-spacing:var(--tracking-metric-lg); font-variant-numeric:tabular-nums lining-nums; }
+.t-metric { font:var(--text-metric); letter-spacing:var(--tracking-metric); font-variant-numeric:tabular-nums lining-nums; }
+.muted { color:var(--color-text-muted); } .subtle { color:var(--color-text-subtle); }
+
+/* Ícones e selos */
+.ic { width:20px; height:20px; flex:none; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+.ic-16 { width:16px; height:16px; }
+.seal { width:24px; height:24px; flex:none; color:var(--color-primary); }
+.seal-16 { width:16px; height:16px; } .seal-20 { width:20px; height:20px; }
+.seal-neutral { color:var(--color-text-muted); }
+
+/* Botões */
+.btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:44px; padding:0 16px; border-radius:var(--radius-md);
+  font:var(--text-label); font-weight:600; border:1px solid transparent; cursor:pointer; text-align:center; white-space:nowrap;
+  transition:background-color var(--duration-fast), border-color var(--duration-fast); }
+.btn-lg { min-height:48px; font-size:1rem; }
+.btn-block { width:100%; }
+.btn-primary { background:var(--color-primary); color:var(--color-on-primary); }
+.btn-primary:hover, .btn-primary.is-hover { background:var(--color-primary-hover); }
+.btn-secondary { background:var(--color-surface); color:var(--color-primary); border-color:var(--color-border-strong); }
+.btn-secondary:hover, .btn-secondary.is-hover { background:var(--color-primary-subtle); }
+.btn-ghost { background:transparent; color:var(--color-primary); padding:0 12px; }
+.btn-ghost:hover { background:var(--color-primary-subtle); }
+.btn-danger { background:var(--color-surface); color:var(--color-error); border-color:var(--color-error); }
+.btn[aria-disabled="true"] { background:var(--color-surface-sunken); color:var(--color-text-subtle); border-color:var(--color-border); cursor:not-allowed; }
+.btn.is-focus { outline:2px solid var(--color-focus); outline-offset:2px; }
+.btn-icon { width:44px; padding:0; }
+.link { color:var(--color-primary); text-decoration:underline; text-underline-offset:3px; font-weight:500; }
+
+/* Campos */
+.field { display:grid; gap:6px; min-width:0; }
+.label { font:var(--text-label); color:var(--color-text); }
+.req { color:var(--color-text-muted); font-weight:400; }
+.input { min-height:48px; width:100%; padding:11px 12px; border:1px solid var(--color-border-strong); border-radius:var(--radius-md);
+  background:var(--color-surface); color:var(--color-text); font:var(--text-body); }
+.input::placeholder { color:var(--color-text-subtle); }
+.input.is-error { border-color:var(--color-error); box-shadow:inset 0 0 0 1px var(--color-error); }
+.input.is-readonly { background:var(--color-surface-sunken); color:var(--color-text-muted); border-style:dashed; }
+.input.is-focus { outline:2px solid var(--color-focus); outline-offset:2px; }
+textarea.input { min-height:96px; resize:vertical; }
+.help { font:var(--text-body-sm); color:var(--color-text-muted); }
+.err { font:var(--text-body-sm); color:var(--color-error); display:flex; gap:6px; align-items:flex-start; }
+.counter { font:var(--text-caption); color:var(--color-text-subtle); text-align:right; font-variant-numeric:tabular-nums; }
+.affix { display:flex; align-items:stretch; }
+.affix .pre { display:flex; align-items:center; padding:0 12px; border:1px solid var(--color-border-strong); border-right:0;
+  border-radius:var(--radius-md) 0 0 var(--radius-md); background:var(--color-surface-sunken); font:var(--text-label); color:var(--color-text-muted); }
+.affix .input { border-radius:0 var(--radius-md) var(--radius-md) 0; }
+.check { display:flex; gap:12px; align-items:flex-start; min-height:44px; padding-top:10px; }
+.box { width:20px; height:20px; flex:none; border:2px solid var(--color-border-strong); border-radius:4px; background:var(--color-surface); display:grid; place-items:center; }
+.box.on { background:var(--color-primary); border-color:var(--color-primary); color:var(--color-on-primary); }
+.radio { width:20px; height:20px; flex:none; border:2px solid var(--color-border-strong); border-radius:50%; background:var(--color-surface); }
+.radio.on { border:6px solid var(--color-primary); }
+.seg { display:inline-flex; border:1px solid var(--color-border-strong); border-radius:var(--radius-md); overflow:hidden; }
+.seg span { min-height:40px; padding:0 14px; display:flex; align-items:center; font:var(--text-label); color:var(--color-text-muted); }
+.seg span + span { border-left:1px solid var(--color-border-strong); }
+.seg span[aria-pressed="true"] { background:var(--color-primary-subtle); color:var(--color-primary); font-weight:600; }
+.pick { display:inline-flex; align-items:center; gap:6px; min-height:40px; padding:0 14px; border:1px solid var(--color-border-strong); border-radius:var(--radius-pill); font:var(--text-label); color:var(--color-text); background:var(--color-surface); }
+.pick[aria-pressed="true"] { background:var(--color-primary-subtle); border-color:var(--color-primary); color:var(--color-primary); font-weight:600; }
+
+/* Cartões, chips */
+.card { background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-lg); }
+.chip { display:inline-flex; align-items:center; gap:6px; min-height:24px; padding:2px 10px; border-radius:var(--radius-pill); font:var(--text-caption); letter-spacing:var(--tracking-caption); white-space:nowrap; }
+.chip-neutral { background:var(--color-surface-sunken); color:var(--color-text-muted); }
+.chip-primary { background:var(--color-primary-subtle); color:var(--color-primary); }
+.chip-warn { background:var(--color-warning-subtle); color:var(--color-warning); }
+.chip-err { background:var(--color-error-subtle); color:var(--color-error); }
+.chip-ok { background:var(--color-success-subtle); color:var(--color-success); }
+.chip-info { background:var(--color-info-subtle); color:var(--color-info); }
+.chip-laterite { background:var(--color-secondary-subtle); color:var(--color-secondary); }
+
+/* Chip de etapa: nome + posição (pips). Progresso de captação a laterite, a partir de Soft commit. */
+.stage { display:inline-flex; align-items:center; gap:8px; min-height:24px; padding:2px 10px 2px 8px; border-radius:var(--radius-pill); background:var(--color-surface-sunken); color:var(--color-text); font:var(--text-caption); }
+.pips { display:inline-flex; gap:2px; }
+.pips i { width:6px; height:6px; border-radius:2px; background:var(--color-border); display:block; }
+.pips i.f { background:var(--color-text-muted); }
+.pips i.l { background:var(--color-secondary); }
+.stage.lost { color:var(--color-text-muted); text-decoration:line-through; text-decoration-thickness:1px; }
+
+/* Sinais */
+.sig { display:flex; gap:12px; padding:12px 14px; border-radius:var(--radius-md); }
+.sig-val { background:var(--color-surface); border:1px solid var(--color-primary); box-shadow:inset 3px 0 0 var(--color-primary); }
+.sig-dec { background:transparent; border:1px dashed var(--color-border-strong); }
+.sig-pend { background:transparent; border:1px dashed var(--color-border-strong); }
+
+/* Barras de progresso */
+.bar { height:8px; border-radius:var(--radius-pill); background:var(--color-surface-sunken); overflow:hidden; display:flex; }
+.bar > i { display:block; height:100%; }
+.bar-lat > i { background:var(--color-secondary); }
+.bar-pri > i { background:var(--color-primary); }
+.crit { height:6px; border-radius:var(--radius-pill); background:var(--color-surface-sunken); overflow:hidden; }
+.crit > i { display:block; height:100%; background:var(--color-primary); }
+
+/* Esqueleto: estático, sem animação */
+.sk { background:var(--color-surface-sunken); border-radius:4px; }
+
+/* Molduras dos wireframes */
+.phone { width:360px; max-width:100%; flex:none; border:1px solid var(--color-border-strong); border-radius:20px; overflow:hidden; background:var(--color-bg); display:flex; flex-direction:column; box-shadow:var(--shadow-1); }
+.ph-top { display:flex; align-items:center; justify-content:space-between; gap:8px; min-height:56px; padding:0 8px 0 16px; background:var(--color-surface); border-bottom:1px solid var(--color-border); }
+.ph-body { padding:16px; display:flex; flex-direction:column; gap:16px; flex:1; }
+.bnav { display:grid; grid-template-columns:repeat(5, 1fr); border-top:1px solid var(--color-border); background:var(--color-surface); }
+.bnav span { position:relative; min-height:56px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; font:var(--text-caption); color:var(--color-text-muted); }
+.bnav span[aria-current] { color:var(--color-primary); font-weight:600; }
+.bnav span[aria-current]::before { content:""; position:absolute; top:0; left:25%; right:25%; height:3px; border-radius:0 0 3px 3px; background:var(--color-primary); }
+.bnav .dot { position:absolute; top:8px; right:calc(50% - 16px); min-width:16px; height:16px; padding:0 4px; border-radius:8px; background:var(--color-primary); color:var(--color-on-primary); font-size:10px; line-height:16px; text-align:center; }
+.desk-wrap { overflow-x:auto; padding-bottom:8px; max-width:100%; }
+.desk { display:grid; grid-template-columns:232px 1fr; min-width:1040px; border:1px solid var(--color-border-strong); border-radius:12px; overflow:hidden; background:var(--color-bg); box-shadow:var(--shadow-1); }
+.side { background:var(--color-surface); border-right:1px solid var(--color-border); padding:16px 12px; display:flex; flex-direction:column; gap:4px; }
+.side a { display:flex; align-items:center; gap:12px; min-height:44px; padding:0 12px; border-radius:8px; color:var(--color-text-muted); font:var(--text-label); }
+.side a[aria-current] { background:var(--color-primary-subtle); color:var(--color-primary); font-weight:600; }
+.d-top { display:flex; align-items:center; justify-content:space-between; gap:16px; height:64px; padding:0 32px; background:var(--color-surface); border-bottom:1px solid var(--color-border); }
+.d-main { padding:24px 32px 32px; display:flex; flex-direction:column; gap:24px; min-width:0; }
+.sheet { border-top:1px solid var(--color-border-strong); border-radius:16px 16px 0 0; background:var(--color-surface); padding:8px 16px 16px; display:flex; flex-direction:column; gap:12px; box-shadow:0 -4px 16px rgb(0 0 0 / .08); }
+.grabber { width:36px; height:4px; border-radius:2px; background:var(--color-border-strong); margin:4px auto 4px; }
+.scrim { background:color-mix(in srgb, var(--color-text) 35%, transparent); }
+
+/* Tabela */
+.tbl { width:100%; border-collapse:collapse; font:var(--text-body-sm); }
+.tbl th { text-align:left; font:var(--text-caption); letter-spacing:.04em; text-transform:uppercase; color:var(--color-text-muted); padding:10px 12px; border-bottom:1px solid var(--color-border-strong); white-space:nowrap; }
+.tbl td { padding:12px; border-bottom:1px solid var(--color-border); vertical-align:middle; }
+.tbl td.num, .tbl th.num { text-align:right; }
+.tbl tr.sel td { background:var(--color-primary-subtle); }
+
+/* Legenda dos quadros */
+.frame { display:flex; flex-direction:column; gap:10px; min-width:0; max-width:100%; }
+.cap { display:flex; flex-wrap:wrap; align-items:center; gap:6px 8px; font:var(--text-label); color:var(--color-text); }
+.cap .id { font:var(--text-caption); font-weight:600; letter-spacing:.04em; padding:2px 8px; border-radius:4px; background:var(--color-text); color:var(--color-bg); }
+.tag { font:var(--text-caption); padding:2px 8px; border-radius:var(--radius-pill); border:1px solid var(--color-border-strong); color:var(--color-text-muted); }
+.tag.p0 { border-color:var(--color-primary); color:var(--color-primary); }
+.state { border:1px dashed var(--color-border-strong); border-radius:var(--radius-md); padding:12px; display:flex; flex-direction:column; gap:8px; background:var(--color-surface); }
+.states { display:flex; flex-direction:column; gap:12px; width:300px; max-width:100%; flex:none; }
+.note { font:var(--text-body-sm); color:var(--color-text-muted); max-width:68ch; }
+
+/* Página */
+.page-head { position:sticky; top:env(safe-area-inset-top, 0px); z-index:20; background:var(--color-bg); border-bottom:1px solid var(--color-border); margin-inline:calc(-1 * max(16px, env(safe-area-inset-left, 0px))); padding:12px max(16px, env(safe-area-inset-left, 0px)); }
+body::before { content:""; position:fixed; inset:0 0 auto; height:env(safe-area-inset-top, 0px); z-index:21; background:var(--color-bg); }
+.toc a { font:var(--text-label); color:var(--color-text-muted); padding:6px 10px; border-radius:6px; white-space:nowrap; }
+.toc a:hover { background:var(--color-surface-sunken); color:var(--color-text); }
+section.sec { scroll-margin-top:120px; padding-top:48px; display:flex; flex-direction:column; gap:24px; }
+.row { display:flex; flex-wrap:wrap; gap:32px; align-items:flex-start; }
+</style>
+
+<!-- Ícones (traço 2, grelha 24) e selos da marca (aproximação dos SVG de sinais/) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V21h-6v-6H9v6H3z"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5M16 4.6a3.5 3.5 0 0 1 0 6.8M18.5 14.8c1.6.8 2.6 2.6 3 5.2"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3 2.5 8 12 13l9.5-5z"/><path d="m2.5 12.5 9.5 5 9.5-5M2.5 16.5l9.5 5 9.5-5"/></symbol>
+    <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M3 13.5 5.5 5h13l2.5 8.5V19H3z"/><path d="M3 13.5h5l1.5 2.5h5l1.5-2.5h5"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M9 7h1M14 7h1M9 11h1M14 11h1M9 15h1M14 15h1M10 21v-3h4v3"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4.2-6 8-6s7 2 8 6"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 21h4"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h.01"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5h.01"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-offline" viewBox="0 0 24 24"><path d="M3 3l18 18M8.5 16.5a5 5 0 0 1 7 0M5 12.5a10 10 0 0 1 5-2.6M14 9.9a10 10 0 0 1 5 2.6M12 20h.01"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></symbol>
+    <symbol id="i-more" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></symbol>
+    <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></symbol>
+    <symbol id="i-columns" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16M15 4v16"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M5 20V11M11 20V5M17 20v-6M3 20h18"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></symbol>
+    <symbol id="i-done" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.3-4.9L4 8M4 4v4h4M4 13a8 8 0 0 0 14.3 4.9L20 16M20 20v-4h-4"/></symbol>
+    <symbol id="i-move" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+
+    <!-- Marca: símbolo A (visto em rasto) -->
+    <symbol id="logo-a" viewBox="0 0 24 24"><path d="M4.5 12.5 9.5 17.5 19 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="4.5" cy="12.5" r="2.6" fill="currentColor"/><circle cx="9.5" cy="17.5" r="2.6" fill="currentColor"/><circle cx="19" cy="7" r="3.6" fill="currentColor"/></symbol>
+
+    <!-- Selos (forma > texto > cor). Os definitivos são os de sinais/*.svg do guia de marca. -->
+    <symbol id="s-alto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4" fill="currentColor"/><circle cx="12" cy="12" r="9.8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-dasharray="1.88 1.2"/><path d="m8.3 12.2 2.6 2.6 4.9-5.2" fill="none" style="stroke:var(--seal-knock)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="s-declarado" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="3 2.6"/><path d="M8 12h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="s-pendente" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="2 1.7"/><path d="M12 7.5V12l3 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="s-expirado" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M6.6 17.4 17.4 6.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="s-retirado" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="m9 9 6 6M15 9l-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="s-aviso" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7.6" fill="currentColor"/><circle cx="11" cy="11" r="8.9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-dasharray="1.7 1.1"/><path d="m7.6 11.2 2.4 2.4 4.4-4.7" fill="none" style="stroke:var(--seal-knock)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M18.5 13.2 23.6 22h-10.2z" style="fill:var(--seal-warn);stroke:var(--color-surface)" stroke-width="1.2" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<div class="max-w-[1320px] mx-auto">
+
+<header class="page-head">
+  <div class="flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-3 min-w-0">
+      <svg class="w-7 h-7 text-primary" aria-hidden="true"><use href="#logo-a"/></svg>
+      <div class="min-w-0">
+        <div class="t-h3">Rasto · wireframes de interface</div>
+        <div class="t-caption subtle">v1.0 · 03/11/2026 · nome provisório · dados fictícios</div>
+      </div>
+    </div>
+    <button id="theme" class="btn btn-secondary" type="button"><svg class="ic" aria-hidden="true"><use href="#i-sun"/></svg><span>Tema: sistema</span></button>
+  </div>
+  <nav class="toc flex gap-1 overflow-x-auto mt-2" aria-label="Secções">
+    <a href="#fundacoes">Fundações</a><a href="#componentes">Componentes</a><a href="#sprint1">Sprint 1 · Entrada</a><a href="#aceleradora">Aceleradora</a><a href="#admin">Administração</a><a href="#startup">Startup</a><a href="#investidor">Investidor</a><a href="#indicadores">Indicadores</a>
+  </nav>
+</header>
+
+<main>
+<section class="sec" id="fundacoes" style="padding-top:32px">
+  <div class="flex flex-col gap-2">
+    <p class="eyebrow subtle">Como ler</p>
+    <h1 class="t-h1">Cada quadro está desenhado no tamanho alvo</h1>
+    <p class="note">Telemóvel a 360 px e computador a 1280 px (o quadro de computador rola na horizontal em ecrãs estreitos). O código final aplica <code>md:</code> (768) e <code>lg:</code> (1280) sobre a mesma marcação. As cores vêm só de <code>rasto.css</code>; mude o tema no botão acima para ver o modo escuro. O código de cada quadro na especificação (ex.: E-07) é o mesmo da lista de ecrãs.</p>
+  </div>
+  <div class="grid gap-4 md:grid-cols-3">
+    <div class="card p-4 flex flex-col gap-3">
+      <div class="flex items-baseline justify-between"><span class="t-h3">Telemóvel</span><span class="t-caption muted num">360–767 px</span></div>
+      <div class="grid grid-cols-4 gap-2 h-16 px-4 border border-dashed border-line-strong rounded-md py-2">
+        <i class="bg-primary-subtle rounded-sm"></i><i class="bg-primary-subtle rounded-sm"></i><i class="bg-primary-subtle rounded-sm"></i><i class="bg-primary-subtle rounded-sm"></i>
+      </div>
+      <p class="t-sm muted">4 colunas · margem 16 · espaço 16. Navegação inferior (5 destinos). Startups [H-I01].</p>
+    </div>
+    <div class="card p-4 flex flex-col gap-3">
+      <div class="flex items-baseline justify-between"><span class="t-h3">Tablet</span><span class="t-caption muted num">768–1279 px</span></div>
+      <div class="flex gap-2 h-16 border border-dashed border-line-strong rounded-md p-2">
+        <i class="w-6 bg-sunken rounded-sm"></i>
+        <div class="grid grid-cols-8 gap-1 flex-1"><i class="bg-primary-subtle rounded-sm"></i><i class="bg-primary-subtle rounded-sm"></i><i class="bg-primary-subtle rounded-sm"></i><i class="bg-primary-subtle rounded-sm"></i><i class="bg-primary-subtle rounded-sm"></i><i class="bg-primary-subtle rounded-sm"></i><i class="bg-primary-subtle rounded-sm"></i><i class="bg-primary-subtle rounded-sm"></i></div>
+      </div>
+      <p class="t-sm muted">8 colunas · margem 24 · espaço 16. Calha lateral de 80 px com ícone e rótulo.</p>
+    </div>
+    <div class="card p-4 flex flex-col gap-3">
+      <div class="flex items-baseline justify-between"><span class="t-h3">Computador</span><span class="t-caption muted num">≥ 1280 px</span></div>
+      <div class="flex gap-2 h-16 border border-dashed border-line-strong rounded-md p-2">
+        <i class="w-12 bg-sunken rounded-sm"></i>
+        <div class="grid grid-cols-12 gap-1 flex-1"><i class="bg-primary-subtle rounded-sm"></i><i class="bg-primary-subtle rounded-sm"></i><i class="bg-primary-subtle rounded-sm"></i><i class="bg-primary-subtle rounded-sm"></i><i class="bg-primary-subtle rounded-sm"></i><i class="bg-primary-subtle rounded-sm"></i><i class="bg-primary-subtle rounded-sm"></i><i class="bg-primary-subtle rounded-sm"></i><i class="bg-primary-subtle rounded-sm"></i><i class="bg-primary-subtle rounded-sm"></i><i class="bg-primary-subtle rounded-sm"></i><i class="bg-primary-subtle rounded-sm"></i></div>
+      </div>
+      <p class="t-sm muted">12 colunas · margem 32 · espaço 24 · conteúdo até 1200 px. Barra lateral de 232 px. Aceleradoras, investidores, administração [H-I01].</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= COMPONENTES ======================= -->
+<section class="sec" id="componentes">
+  <div class="flex flex-col gap-2">
+    <p class="eyebrow subtle">Design system</p>
+    <h2 class="t-h1">Componentes e estados</h2>
+    <p class="note">Folha de referência. A tabela completa (variantes, estados, tokens e regras de acessibilidade) está na secção 2.4 da especificação.</p>
+  </div>
+
+  <div class="grid gap-6 lg:grid-cols-2">
+    <div class="card p-5 flex flex-col gap-4">
+      <h3 class="t-h3">Botões</h3>
+      <div class="flex flex-wrap gap-3 items-center">
+        <span class="btn btn-primary">Confirmar participação</span>
+        <span class="btn btn-primary is-hover">Pressionado</span>
+        <span class="btn btn-primary is-focus">Com foco</span>
+        <span class="btn btn-primary" aria-disabled="true">Enviar convites</span>
+      </div>
+      <div class="flex flex-wrap gap-3 items-center">
+        <span class="btn btn-secondary">Pré-visualizar</span>
+        <span class="btn btn-ghost">Cancelar</span>
+        <span class="btn btn-danger">Retirar acesso</span>
+        <span class="btn btn-secondary btn-icon" aria-label="Mais acções"><svg class="ic" aria-hidden="true"><use href="#i-more"/></svg></span>
+        <span class="btn btn-primary" aria-busy="true">A enviar…</span>
+      </div>
+      <p class="t-sm muted">Altura 44 (48 na acção principal de um ecrã). Um único botão primário por ecrã. A carregar: texto muda e o botão fica bloqueado; sem rodas a girar.</p>
+    </div>
+
+    <div class="card p-5 flex flex-col gap-4">
+      <h3 class="t-h3">Campos</h3>
+      <div class="grid gap-4 md:grid-cols-2">
+        <div class="field"><label class="label" for="c1">NIF da entidade</label><input id="c1" class="input num" value="5417 832 019"><span class="help">9 a 10 dígitos, como na certidão.</span></div>
+        <div class="field"><label class="label" for="c2">E-mail institucional</label><input id="c2" class="input is-error" value="teresa@mutamba"><span class="err"><svg class="ic ic-16 mt-0.5" aria-hidden="true"><use href="#i-alert"/></svg>Erro: falta o domínio (ex.: mutamba.ao).</span></div>
+        <div class="field"><label class="label" for="c3">Valor alvo da ronda</label>
+          <div class="flex gap-2"><span class="seg" role="group" aria-label="Moeda"><span aria-pressed="false">Kz</span><span aria-pressed="true">USD</span></span>
+          <div class="affix flex-1 min-w-0"><span class="pre">USD</span><input id="c3" class="input num" value="80 000" inputmode="numeric"></div></div>
+          <span class="help num">≈ Kz 73 600 000 · taxa de referência de 01/11/2026</span></div>
+        <div class="field"><label class="label" for="c4">Data de início</label><input id="c4" class="input num is-focus" value="02/03/2026" inputmode="numeric" placeholder="dd/mm/aaaa"><span class="help">dd/mm/aaaa</span></div>
+      </div>
+    </div>
+
+    <div class="card p-5 flex flex-col gap-4">
+      <h3 class="t-h3">Selo de verificação · estados</h3>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div class="flex items-center gap-2"><svg class="seal" aria-hidden="true"><use href="#s-alto"/></svg><span class="t-caption">Validado · nível alto</span></div>
+        <div class="flex items-center gap-2"><svg class="seal seal-neutral" aria-hidden="true"><use href="#s-declarado"/></svg><span class="t-caption muted">Declarado</span></div>
+        <div class="flex items-center gap-2"><svg class="seal seal-neutral" aria-hidden="true"><use href="#s-pendente"/></svg><span class="t-caption muted">Pendente (só startup)</span></div>
+        <div class="flex items-center gap-2"><svg class="seal seal-neutral" aria-hidden="true"><use href="#s-expirado"/></svg><span class="t-caption muted">Expirado</span></div>
+        <div class="flex items-center gap-2"><svg class="seal seal-neutral" aria-hidden="true"><use href="#s-retirado"/></svg><span class="t-caption muted">Retirado</span></div>
+        <div class="flex items-center gap-2"><svg class="seal" aria-hidden="true"><use href="#s-aviso"/></svg><span class="t-caption">Validado com aviso</span></div>
+      </div>
+      <div class="flex items-center gap-4 flex-wrap"><span class="t-caption muted">Tamanhos</span>
+        <svg class="seal seal-16" aria-hidden="true"><use href="#s-alto"/></svg><svg class="seal seal-20" aria-hidden="true"><use href="#s-alto"/></svg><svg class="seal" aria-hidden="true"><use href="#s-alto"/></svg>
+        <span class="t-sm muted">16 só com texto ao lado.</span></div>
+    </div>
+
+    <div class="card p-5 flex flex-col gap-4">
+      <h3 class="t-h3">Cartão de sinal</h3>
+      <div class="sig sig-val">
+        <svg class="seal" aria-hidden="true"><use href="#s-alto"/></svg>
+        <div class="flex flex-col gap-1 min-w-0">
+          <span class="eyebrow text-primary">Validado · nível alto</span>
+          <span class="t-label" style="font-weight:600;font-size:15px">Participou no Programa de Aceleração 2026 · Turma 3 (Mar.–Jun. 2026)</span>
+          <span class="t-sm muted">Validado por <b class="text-ink">Mutamba Lab</b> · <span class="num">12/07/2026</span><br>Entidade verificada pela plataforma</span>
+        </div>
+      </div>
+      <div class="sig sig-dec">
+        <svg class="seal seal-neutral" aria-hidden="true"><use href="#s-declarado"/></svg>
+        <div class="flex flex-col gap-1 min-w-0">
+          <span class="eyebrow muted">Declarado pela startup</span>
+          <span class="t-label" style="font-weight:600;font-size:15px">Primeiro cliente pagante (Ago. 2026)</span>
+          <span class="t-sm muted">Ainda sem validação</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-5 flex flex-col gap-4">
+      <h3 class="t-h3">Chip de etapa e chip de estado</h3>
+      <div class="flex flex-wrap gap-2">
+        <span class="stage"><span class="pips" aria-hidden="true"><i class="f"></i><i></i><i></i><i></i><i></i><i></i></span>Identificado</span>
+        <span class="stage"><span class="pips" aria-hidden="true"><i class="f"></i><i class="f"></i><i></i><i></i><i></i><i></i></span>Contactado</span>
+        <span class="stage"><span class="pips" aria-hidden="true"><i class="f"></i><i class="f"></i><i class="f"></i><i></i><i></i><i></i></span>Reunião</span>
+        <span class="stage"><span class="pips" aria-hidden="true"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i></i><i></i></span>Análise</span>
+        <span class="stage"><span class="pips" aria-hidden="true"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="l"></i><i></i></span>Soft commit</span>
+        <span class="stage"><span class="pips" aria-hidden="true"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="l"></i><i class="l"></i></span>Term sheet</span>
+        <span class="stage"><span class="pips" aria-hidden="true"><i class="l"></i><i class="l"></i><i class="l"></i><i class="l"></i><i class="l"></i><i class="l"></i></span>Fechado</span>
+        <span class="stage lost"><svg class="ic ic-16" aria-hidden="true"><use href="#i-x"/></svg>Perdido</span>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <span class="chip chip-neutral"><svg class="ic ic-16" aria-hidden="true"><use href="#i-clock"/></svg><span>Pendente · startup responde até <span class="num">17/11/2026</span></span></span>
+        <span class="chip chip-warn"><svg class="ic ic-16" aria-hidden="true"><use href="#i-clock"/></svg>Parada há 23 dias</span>
+        <span class="chip chip-ok"><svg class="ic ic-16" aria-hidden="true"><use href="#i-done"/></svg>Aceite</span>
+        <span class="chip chip-neutral">Expirado a <span class="num">01/11/2026</span></span>
+        <span class="chip chip-err"><svg class="ic ic-16" aria-hidden="true"><use href="#i-alert"/></svg>Erro de envio</span>
+        <span class="chip chip-info">Fora da plataforma</span>
+      </div>
+      <p class="t-sm muted">A etapa nunca muda de cor: posição em pontos + nome. A laterite marca progresso a partir de Soft commit (dinheiro indicativo, não estado).</p>
+    </div>
+
+    <div class="card p-5 flex flex-col gap-4">
+      <h3 class="t-h3">Notificações, avisos e esqueleto</h3>
+      <div class="flex gap-3 items-start p-3 rounded-md bg-warning-subtle text-warning" role="status">
+        <svg class="ic mt-0.5" aria-hidden="true"><use href="#i-offline"/></svg>
+        <div class="t-sm"><b>Sem ligação.</b> O que escreveu está guardado neste aparelho e será enviado quando houver rede.</div>
+      </div>
+      <div class="flex gap-3 items-center p-3 rounded-md bg-ink text-bg" role="status">
+        <svg class="ic" aria-hidden="true"><use href="#i-done"/></svg>
+        <div class="t-sm flex-1">Pedido recusado. Edson Lopes foi avisado.</div>
+        <span class="t-label underline" style="color:inherit">Desfazer</span>
+      </div>
+      <div class="flex gap-3 items-start p-3 rounded-md bg-error-subtle text-error" role="alert">
+        <svg class="ic mt-0.5" aria-hidden="true"><use href="#i-alert"/></svg>
+        <div class="t-sm"><b>Erro:</b> não foi possível carregar as sugestões. O mandato está guardado. <span class="underline font-semibold">Tentar de novo</span> · ref. <span class="num">7F3A-21</span></div>
+      </div>
+      <div class="card p-4 flex gap-3" aria-hidden="true">
+        <div class="sk w-10 h-10 rounded-md"></div>
+        <div class="flex-1 flex flex-col gap-2"><div class="sk h-4 w-2/3"></div><div class="sk h-3 w-1/2"></div><div class="sk h-3 w-5/6"></div></div>
+      </div>
+      <p class="t-sm muted">Esqueleto estático (sem brilho animado) só a partir de 300 ms de espera; anunciado por <code>aria-busy</code> no contentor.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= SPRINT 1 · ENTRADA ======================= -->
+<section class="sec" id="sprint1">
+  <div class="flex flex-col gap-2">
+    <p class="eyebrow subtle">Sprint 1 · autenticação com papéis</p>
+    <h2 class="t-h1">Entrar, aceitar convite, registar entidade</h2>
+  </div>
+  <div class="row">
+    <!-- C-01 -->
+    <figure class="frame">
+      <figcaption class="cap"><span class="id">C-01</span>Entrar<span class="tag">360</span><span class="tag p0">P0 · Sprint 1</span></figcaption>
+      <div class="phone">
+        <div class="ph-body" style="gap:20px;padding-top:28px">
+          <div class="flex items-center gap-2 text-primary"><svg class="w-7 h-7" aria-hidden="true"><use href="#logo-a"/></svg><span class="t-h2 text-ink" style="font-weight:600">rasto</span></div>
+          <h1 class="t-display" style="font-size:2rem">Confiança que se verifica.</h1>
+          <div class="field"><label class="label" for="l1">E-mail</label><input id="l1" class="input" type="email" autocomplete="username" placeholder="nome@empresa.ao"></div>
+          <div class="field"><label class="label" for="l2">Palavra-passe</label>
+            <div class="relative"><input id="l2" class="input pr-20" type="password" autocomplete="current-password" value="••••••••••"><span class="absolute right-1 top-1 btn btn-ghost" style="min-height:40px">Mostrar</span></div>
+            <span class="link t-sm self-start">Esqueceu-se da palavra-passe?</span></div>
+          <span class="btn btn-primary btn-lg btn-block">Entrar</span>
+          <div class="flex flex-col gap-3 pt-3 border-t">
+            <p class="t-sm muted">As startups entram por convite da sua aceleradora ou universidade.</p>
+            <span class="link t-sm">Sou investidor · criar conta</span>
+            <span class="link t-sm">Represento uma aceleradora ou universidade</span>
+          </div>
+          <p class="t-caption subtle">Ao entrar, aceita a <span class="link">política de privacidade</span> (Lei n.º 22/11).</p>
+        </div>
+      </div>
+    </figure>
+    <div class="states">
+      <p class="eyebrow subtle">Estados de C-01</p>
+      <div class="state"><span class="chip chip-err self-start">Erro de credenciais</span>
+        <div class="flex gap-2 p-3 rounded-md bg-error-subtle text-error t-sm" role="alert"><svg class="ic ic-16 mt-0.5" aria-hidden="true"><use href="#i-alert"/></svg><span><b>Erro:</b> e-mail ou palavra-passe incorrectos. Verifique e tente de novo.</span></div>
+        <p class="t-caption muted">Não diz qual dos dois falhou (segurança). Foco volta ao e-mail. Após 5 tentativas: espera de 15 min [S].</p></div>
+      <div class="state"><span class="chip chip-neutral self-start">A entrar</span><span class="btn btn-primary btn-block" aria-busy="true">A entrar…</span></div>
+      <div class="state"><span class="chip chip-warn self-start">Sem rede</span><p class="t-sm">Sem ligação. Verifique os dados móveis ou o Wi-Fi e toque em Entrar outra vez.</p><p class="t-caption muted">Os campos mantêm-se preenchidos.</p></div>
+      <div class="state"><span class="chip chip-neutral self-start">Conta pendente</span><p class="t-sm">Entidade em verificação: entra no painel com acesso limitado (E-02, estado "Em análise").</p></div>
+    </div>
+
+    <!-- C-03 -->
+    <figure class="frame">
+      <figcaption class="cap"><span class="id">C-03</span>Aceitar convite<span class="tag">360</span><span class="tag p0">P0 · Sprint 1</span></figcaption>
+      <div class="phone">
+        <div class="ph-top"><div class="flex items-center gap-2 text-primary"><svg class="w-6 h-6" aria-hidden="true"><use href="#logo-a"/></svg><span class="t-label text-ink">rasto</span></div></div>
+        <div class="ph-body">
+          <div class="flex flex-col gap-1">
+            <p class="eyebrow muted">Convite</p>
+            <h1 class="t-h2">Mutamba Lab convidou a Kitanda Fresca</h1>
+            <p class="t-sm muted">Programa de Aceleração 2026 · Turma 3</p>
+            <span class="chip chip-primary self-start mt-1"><svg class="seal seal-16" aria-hidden="true"><use href="#s-alto"/></svg>Entidade verificada pela plataforma</span>
+          </div>
+          <div class="card p-3 t-sm flex flex-col gap-2 bg-sunken" style="background:var(--color-surface-sunken)">
+            <b>Depois de aceitar:</b>
+            <span>· a Mutamba Lab pode confirmar a participação da startup;</span>
+            <span>· o perfil fica em rascunho até decidir publicá-lo.</span>
+          </div>
+          <div class="field"><label class="label" for="a1">O seu nome</label><input id="a1" class="input" autocomplete="name" value="Nádia Kiala"></div>
+          <div class="field"><label class="label" for="a2">E-mail</label><input id="a2" class="input is-readonly" value="nadia@kitandafresca.ao" readonly><span class="help">É o e-mail a que o convite foi enviado.</span></div>
+          <div class="field"><label class="label" for="a3">Palavra-passe</label><input id="a3" class="input" type="password" autocomplete="new-password" placeholder="Pelo menos 10 caracteres"><span class="help">Pode colar uma palavra-passe do seu gestor de palavras-passe.</span></div>
+          <div class="check"><span class="box" aria-hidden="true"></span><span class="t-sm">Li a <span class="link">política de privacidade</span>: que dados são guardados, para quê e como os apagar (Lei n.º 22/11).</span></div>
+          <span class="btn btn-primary btn-lg btn-block">Aceitar e criar conta</span>
+          <span class="btn btn-ghost self-center">Recusar convite</span>
+          <p class="t-caption subtle text-center">Válido até <span class="num">17/11/2026</span> · enviado por Teresa Domingos, Mutamba Lab</p>
+        </div>
+      </div>
+    </figure>
+    <div class="states">
+      <p class="eyebrow subtle">Estados de C-03</p>
+      <div class="state"><span class="chip chip-neutral self-start">Expirado</span><p class="t-h3">Este convite expirou a <span class="num">01/11/2026</span>.</p><p class="t-sm muted">Peça um novo convite a Mutamba Lab.</p></div>
+      <div class="state"><span class="chip chip-neutral self-start">Já usado</span><p class="t-sm">Este convite já foi aceite.</p><span class="btn btn-secondary self-start">Entrar</span></div>
+      <div class="state"><span class="chip chip-neutral self-start">Já tem conta de startup</span><p class="t-sm">A Kitanda Fresca já está na plataforma. Entre para juntar a startup à Turma 3.</p><span class="btn btn-primary self-start">Entrar e juntar à turma</span></div>
+      <div class="state"><span class="chip chip-warn self-start">Sessão de outro papel</span><p class="t-sm">Tem sessão iniciada como investidor. Uma conta tem um só papel: termine a sessão para aceitar este convite de startup.</p><span class="btn btn-secondary self-start">Terminar sessão</span></div>
+      <div class="state"><span class="chip chip-neutral self-start">Recusar</span><p class="t-sm">Recusar o convite da Mutamba Lab? A Mutamba Lab é avisada. Pode pedir novo convite mais tarde.</p></div>
+    </div>
+
+    <!-- E-01 -->
+    <figure class="frame">
+      <figcaption class="cap"><span class="id">E-01</span>Registo da entidade · passo 2 de 3<span class="tag">360</span><span class="tag p0">P0 · Sprint 1</span></figcaption>
+      <div class="phone">
+        <div class="ph-top"><div class="flex items-center gap-1"><span class="btn btn-ghost btn-icon" aria-label="Voltar"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg></span><span class="t-h3">Registo da entidade</span></div></div>
+        <div class="ph-body">
+          <div class="flex flex-col gap-2">
+            <div class="flex justify-between t-caption muted"><span>Passo 2 de 3 · Comprovativos</span><span class="num">Rascunho guardado às 13:42</span></div>
+            <div class="bar bar-pri" role="progressbar" aria-valuenow="2" aria-valuemin="1" aria-valuemax="3" aria-label="Passo 2 de 3"><i style="width:66%"></i></div>
+          </div>
+          <p class="t-sm muted">A equipa da plataforma usa estes dados para confirmar que a entidade existe. Não são mostrados a startups nem investidores.</p>
+          <div class="field"><label class="label" for="r1">NIF</label><input id="r1" class="input num" inputmode="numeric" value="5417832019"><span class="help">Serve para confirmar a existência legal.</span></div>
+          <div class="field"><span class="label">Certidão de registo ou estatutos</span>
+            <div class="flex items-center gap-3 p-3 rounded-md border border-dashed border-line-strong">
+              <svg class="ic muted" aria-hidden="true"><use href="#i-file"/></svg>
+              <div class="flex-1 min-w-0 t-sm"><b>certidao-mutamba.pdf</b><br><span class="muted num">412 KB · enviado</span></div>
+              <span class="btn btn-ghost">Trocar</span>
+            </div><span class="help">PDF ou imagem, até 2 MB [S].</span></div>
+          <div class="field"><label class="label" for="r3">Site ou página pública</label><input id="r3" class="input" type="url" value="https://mutambalab.ao"></div>
+          <div class="field"><label class="label" for="r4">Prova de um programa realizado <span class="req">(ligação)</span></label><input id="r4" class="input" placeholder="Ex.: notícia do demo day ou lista da turma"></div>
+          <div class="flex gap-3 pt-2"><span class="btn btn-secondary flex-1">Voltar</span><span class="btn btn-primary flex-1">Continuar</span></div>
+        </div>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<!-- ======================= ACELERADORA ======================= -->
+<section class="sec" id="aceleradora">
+  <div class="flex flex-col gap-2">
+    <p class="eyebrow subtle">Sprint 1 · módulo da entidade validadora</p>
+    <h2 class="t-h1">Aceleradora: painel, turma, convites, validações</h2>
+    <p class="note">Hipótese [H-I01]: a gestora de programa trabalha sobretudo no computador; por isso o painel e a fila de validação são desenhados primeiro a 1280. Criar turma e convidar também se fazem no telemóvel (convite por WhatsApp).</p>
+  </div>
+
+  <!-- E-02 -->
+  <figure class="frame">
+    <figcaption class="cap"><span class="id">E-02</span>Início da entidade<span class="tag">1280</span><span class="tag p0">P0 · Sprint 1</span></figcaption>
+    <div class="desk-wrap"><div class="desk">
+      <nav class="side" aria-label="Entidade">
+        <div class="flex items-center gap-2 px-3 pb-4 text-primary"><svg class="w-6 h-6" aria-hidden="true"><use href="#logo-a"/></svg><span class="t-h3 text-ink">rasto</span></div>
+        <a aria-current="page"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg>Início</a>
+        <a><svg class="ic" aria-hidden="true"><use href="#i-layers"/></svg>Turmas</a>
+        <a><svg class="ic" aria-hidden="true"><use href="#i-inbox"/></svg>Validações<span class="ml-auto chip chip-primary num">3</span></a>
+        <a><svg class="ic" aria-hidden="true"><use href="#i-building"/></svg>Entidade</a>
+        <a><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg>Conta</a>
+        <div class="mt-auto px-3 pt-6 t-caption subtle">Mutamba Lab<br>Teresa Domingos</div>
+      </nav>
+      <div class="min-w-0">
+        <div class="d-top"><h1 class="t-h2">Início</h1><div class="flex items-center gap-2"><span class="btn btn-secondary"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Nova turma</span><span class="btn btn-ghost btn-icon" aria-label="Notificações, 2 novas"><svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg></span></div></div>
+        <div class="d-main">
+          <div class="card p-5 flex items-center gap-4">
+            <svg class="seal" aria-hidden="true"><use href="#s-alto"/></svg>
+            <div class="flex-1"><p class="t-label" style="font-weight:600">Entidade verificada pela plataforma a <span class="num">10/01/2026</span></p><p class="t-sm muted">Pode convidar startups e validar sinais. As validações mostram o nome da Mutamba Lab e a data.</p></div>
+            <span class="link t-sm">Ver critérios</span>
+          </div>
+
+          <div class="grid grid-cols-3 gap-4">
+            <div class="card p-5 flex flex-col gap-3">
+              <p class="eyebrow muted">Convites · Turma 3</p>
+              <p class="t-metric-lg">8 <span class="t-body muted">de 12 aceites</span></p>
+              <div class="bar" aria-hidden="true"><i style="width:66.7%;background:var(--color-success)"></i><i style="width:25%;background:var(--color-border-strong)"></i><i style="width:8.3%;background:var(--color-warning)"></i></div>
+              <p class="t-sm muted num">8 aceites · 3 pendentes · 1 expirado</p>
+            </div>
+            <div class="card p-5 flex flex-col gap-3">
+              <p class="eyebrow muted">Perfis publicados</p>
+              <p class="t-metric-lg">5 <span class="t-body muted">de 8 startups</span></p>
+              <p class="t-sm muted">3 ainda em rascunho. As startups decidem quando publicar.</p>
+            </div>
+            <div class="card p-5 flex flex-col gap-3">
+              <p class="eyebrow muted">Sinais desta entidade</p>
+              <p class="t-metric-lg">6 <span class="t-body muted">validados</span></p>
+              <p class="t-sm muted num">3 pedidos à espera de si · o mais antigo expira a 25/11/2026</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-5 gap-6">
+            <div class="col-span-3 card">
+              <div class="flex items-center justify-between px-5 py-4 border-b"><h2 class="t-h3">À espera de si</h2><span class="link t-sm">Ver todas as validações</span></div>
+              <ul class="divide-y" style="border-color:var(--color-border)">
+                <li class="flex items-center gap-4 px-5 py-4"><svg class="seal seal-neutral" aria-hidden="true"><use href="#s-pendente"/></svg><div class="flex-1 min-w-0"><p class="t-label">2 participações para confirmar</p><p class="t-sm muted">Kitanda Fresca e Dikanza Saúde · pedidas a 29/10/2026</p></div><span class="btn btn-primary">Rever</span></li>
+                <li class="flex items-center gap-4 px-5 py-4"><svg class="seal seal-neutral" aria-hidden="true"><use href="#s-pendente"/></svg><div class="flex-1 min-w-0"><p class="t-label">Marco da Pagaki: primeiro cliente pagante (Ago. 2026)</p><p class="t-sm muted num">Pedido a 26/10/2026 · expira a 25/11/2026</p></div><span class="btn btn-secondary">Rever</span></li>
+                <li class="flex items-center gap-4 px-5 py-4"><svg class="ic text-warning" aria-hidden="true"><use href="#i-clock"/></svg><div class="flex-1 min-w-0"><p class="t-label">1 convite expirou</p><p class="t-sm muted num">mwangole.agro@gmail.com · expirou a 01/11/2026</p></div><span class="btn btn-secondary"><svg class="ic" aria-hidden="true"><use href="#i-refresh"/></svg>Reenviar</span></li>
+              </ul>
+            </div>
+            <div class="col-span-2 card">
+              <div class="px-5 py-4 border-b"><h2 class="t-h3">Turmas</h2></div>
+              <table class="tbl"><thead><tr><th>Turma</th><th class="num">Startups</th><th>Estado</th></tr></thead>
+                <tbody>
+                  <tr><td><b>Programa de Aceleração 2026 · Turma 3</b><br><span class="muted num">02/03–26/06/2026</span></td><td class="num">8</td><td><span class="chip chip-ok">Activa</span></td></tr>
+                  <tr><td><b>Programa de Aceleração 2025 · Turma 2</b><br><span class="muted num">03/03–27/06/2025</span></td><td class="num">0</td><td><span class="chip chip-neutral">Sem convites</span></td></tr>
+                </tbody></table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div></div>
+  </figure>
+
+  <div class="row">
+    <div class="states" style="width:340px">
+      <p class="eyebrow subtle">Estados do cartão de verificação (E-02)</p>
+      <div class="state"><span class="chip chip-neutral self-start">Em análise</span><p class="t-sm"><b>Estamos a verificar a Mutamba Lab.</b> Prazo indicativo: <span class="num">04/11/2026</span> (3 dias úteis).</p><p class="t-sm muted">Enquanto isso, pode preparar a primeira turma em rascunho. Convites e validações ficam disponíveis depois da verificação.</p><span class="btn btn-secondary self-start">Preparar turma</span></div>
+      <div class="state"><span class="chip chip-warn self-start">Pedido de informação</span><p class="t-sm"><b>Falta um documento.</b> A certidão enviada está ilegível na página 2. Envie uma cópia nítida até <span class="num">14/11/2026</span>.</p><span class="btn btn-primary self-start">Responder</span></div>
+      <div class="state"><span class="chip chip-err self-start">Recusada</span><p class="t-sm">A verificação não foi aprovada: não foi possível confirmar nenhum programa realizado. Corrija e volte a submeter.</p></div>
+      <div class="state"><span class="chip chip-warn self-start">Suspensa</span><p class="t-sm">A entidade está suspensa desde <span class="num">20/10/2026</span>. Os sinais que validou mostram um aviso aos investidores. Contacte a equipa da plataforma.</p></div>
+      <div class="state"><span class="chip chip-neutral self-start">Sem turmas</span><p class="t-sm"><b>Ainda não há turmas.</b> Crie a turma do seu programa para convidar as startups.</p><span class="btn btn-primary self-start"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Nova turma</span></div>
+      <div class="state" aria-hidden="true"><span class="chip chip-neutral self-start">A carregar</span><div class="flex gap-3"><div class="sk h-20 flex-1"></div><div class="sk h-20 flex-1"></div><div class="sk h-20 flex-1"></div></div></div>
+    </div>
+
+    <!-- E-04 -->
+    <figure class="frame">
+      <figcaption class="cap"><span class="id">E-04</span>Nova turma<span class="tag">360</span><span class="tag p0">P0 · Sprint 1</span></figcaption>
+      <div class="phone">
+        <div class="ph-top"><div class="flex items-center gap-1"><span class="btn btn-ghost btn-icon" aria-label="Fechar"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></span><span class="t-h3">Nova turma</span></div></div>
+        <div class="ph-body">
+          <p class="t-sm muted">As datas aparecem na frase que os investidores lêem quando confirma a participação.</p>
+          <div class="field"><label class="label" for="t1">Programa</label><input id="t1" class="input" value="Programa de Aceleração"><span class="help">Ex.: Programa de Aceleração, Incubação, Bootcamp.</span></div>
+          <div class="field"><label class="label" for="t2">Edição</label><input id="t2" class="input" value="2026 · Turma 3"></div>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="field"><label class="label" for="t3">Início</label><input id="t3" class="input num" inputmode="numeric" value="02/03/2026"></div>
+            <div class="field"><label class="label" for="t4">Fim</label><input id="t4" class="input num is-error" inputmode="numeric" value="26/02/2026" aria-describedby="t4e"></div>
+          </div>
+          <span class="err" id="t4e"><svg class="ic ic-16 mt-0.5" aria-hidden="true"><use href="#i-alert"/></svg>Erro: o fim (26/02/2026) é antes do início (02/03/2026).</span>
+          <div class="card p-3 t-sm" style="background:var(--color-surface-sunken)"><p class="eyebrow muted mb-1">Pré-visualização</p>"Participou no Programa de Aceleração 2026 · Turma 3 (Mar.–Fev. 2026)."</div>
+          <span class="btn btn-primary btn-lg btn-block">Criar turma</span>
+        </div>
+      </div>
+    </figure>
+
+    <!-- E-06 -->
+    <figure class="frame">
+      <figcaption class="cap"><span class="id">E-06</span>Convidar startups<span class="tag">360</span><span class="tag p0">P0 · Sprint 1</span></figcaption>
+      <div class="phone">
+        <div class="ph-top"><div class="flex items-center gap-1"><span class="btn btn-ghost btn-icon" aria-label="Voltar"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg></span><span class="t-h3">Convidar · Turma 3</span></div></div>
+        <div class="ph-body">
+          <div class="seg self-start" role="tablist"><span aria-pressed="true" role="tab">Por e-mail</span><span aria-pressed="false" role="tab">Por ligação</span></div>
+          <div class="field"><label class="label" for="v1">E-mails dos fundadores, um por linha</label>
+            <textarea id="v1" class="input t-sm num" rows="4">nadia@kitandafresca.ao
+joao@pagaki
+ana.m@kubela.co.ao</textarea></div>
+          <ul class="flex flex-col gap-2 t-sm" aria-live="polite">
+            <li class="flex gap-2"><svg class="ic ic-16 mt-0.5 text-success" aria-hidden="true"><use href="#i-done"/></svg><span><b>nadia@kitandafresca.ao</b><br><span class="muted">Novo convite</span></span></li>
+            <li class="flex gap-2 text-error"><svg class="ic ic-16 mt-0.5" aria-hidden="true"><use href="#i-alert"/></svg><span><b>joao@pagaki</b><br>Erro: falta o domínio (ex.: pagaki.ao). Esta linha não é enviada.</span></li>
+            <li class="flex gap-2 text-info"><svg class="ic ic-16 mt-0.5" aria-hidden="true"><use href="#i-info"/></svg><span><b>ana.m@kubela.co.ao</b><br>Já tem conta de startup. Recebe convite para se juntar à turma.</span></li>
+          </ul>
+          <span class="btn btn-primary btn-lg btn-block">Enviar 2 convites</span>
+          <div class="flex flex-col gap-3 pt-3 border-t">
+            <h3 class="t-label" style="font-weight:600">Convites enviados</h3>
+            <div class="flex items-center gap-3"><div class="flex-1 min-w-0 t-sm"><b>Pagaki</b><br><span class="muted">joao@pagaki.ao</span></div><span class="chip chip-neutral num">Pendente · até 17/11</span></div>
+            <div class="flex items-center gap-3"><div class="flex-1 min-w-0 t-sm"><b>Kitanda Fresca</b><br><span class="muted">nadia@kitandafresca.ao</span></div><span class="chip chip-ok">Aceite</span></div>
+            <div class="flex items-center gap-3"><div class="flex-1 min-w-0 t-sm"><b>Mwangolé Agro</b><br><span class="muted num">Expirou a 01/11/2026</span></div><span class="btn btn-secondary">Reenviar</span></div>
+            <div class="flex items-center gap-3"><div class="flex-1 min-w-0 t-sm"><b>Dikanza Saúde</b><br><span class="text-error">E-mail devolvido</span></div><span class="btn btn-secondary">Corrigir</span></div>
+          </div>
+        </div>
+      </div>
+    </figure>
+
+    <div class="states">
+      <p class="eyebrow subtle">E-06 · separador "Por ligação"</p>
+      <div class="state">
+        <p class="t-sm">Copie a mensagem e envie por WhatsApp ou SMS. A ligação é pessoal: serve para uma startup.</p>
+        <div class="card p-3 t-sm" style="background:var(--color-surface-sunken)">Mutamba Lab: convidámos a {Startup} para a turma Programa de Aceleração 2026 · Turma 3 na Rasto. Aceite até 17/11/2026: rasto.ao/c/8KQ2-7M</div>
+        <span class="btn btn-secondary btn-block"><svg class="ic" aria-hidden="true"><use href="#i-copy"/></svg>Copiar mensagem</span>
+        <p class="t-caption muted">Depois de copiar: "Mensagem copiada. Cole-a na conversa com a startup." (anunciado por <code>aria-live</code>).</p>
+      </div>
+      <div class="state"><span class="chip chip-warn self-start">Entidade por verificar</span><p class="t-sm">Os convites ficam disponíveis depois de a Mutamba Lab ser verificada. Pode já preparar a lista de e-mails: fica guardada.</p></div>
+    </div>
+  </div>
+
+  <!-- E-07 -->
+  <figure class="frame">
+    <figcaption class="cap"><span class="id">E-07</span>Fila de validação<span class="tag">1280</span><span class="tag p0">P0 · Sprint 1</span></figcaption>
+    <div class="desk-wrap"><div class="desk">
+      <nav class="side" aria-label="Entidade">
+        <div class="flex items-center gap-2 px-3 pb-4 text-primary"><svg class="w-6 h-6" aria-hidden="true"><use href="#logo-a"/></svg><span class="t-h3 text-ink">rasto</span></div>
+        <a><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg>Início</a>
+        <a><svg class="ic" aria-hidden="true"><use href="#i-layers"/></svg>Turmas</a>
+        <a aria-current="page"><svg class="ic" aria-hidden="true"><use href="#i-inbox"/></svg>Validações<span class="ml-auto chip chip-primary num">3</span></a>
+        <a><svg class="ic" aria-hidden="true"><use href="#i-building"/></svg>Entidade</a>
+        <a><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg>Conta</a>
+      </nav>
+      <div class="min-w-0">
+        <div class="d-top"><h1 class="t-h2">Validações</h1><div class="seg" role="tablist"><span aria-pressed="true" role="tab">Pendentes (3)</span><span aria-pressed="false" role="tab">Histórico</span></div></div>
+        <div class="d-main">
+          <div class="flex items-center justify-between gap-4 p-3 rounded-md" style="background:var(--color-primary-subtle)">
+            <span class="t-label text-primary">2 participações seleccionadas</span>
+            <div class="flex gap-2"><span class="btn btn-ghost">Limpar</span><span class="btn btn-primary">Confirmar 2 participações</span></div>
+          </div>
+          <div class="grid gap-6" style="grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)">
+            <div class="card overflow-hidden">
+              <table class="tbl">
+                <thead><tr><th style="width:44px"><span class="sr-only">Seleccionar</span></th><th>Startup</th><th>O que vai confirmar</th><th>Pedido</th><th>Expira</th></tr></thead>
+                <tbody>
+                  <tr class="sel"><td><span class="box on"><svg class="ic ic-16" aria-hidden="true"><use href="#i-done"/></svg></span></td><td><b>Kitanda Fresca</b><br><span class="muted">Turma 3</span></td><td>Participação no programa</td><td class="num">29/10/2026</td><td class="num">28/11/2026</td></tr>
+                  <tr class="sel"><td><span class="box on"><svg class="ic ic-16" aria-hidden="true"><use href="#i-done"/></svg></span></td><td><b>Dikanza Saúde</b><br><span class="muted">Turma 3</span></td><td>Participação no programa</td><td class="num">29/10/2026</td><td class="num">28/11/2026</td></tr>
+                  <tr style="outline:2px solid var(--color-focus);outline-offset:-2px"><td><span class="box" style="opacity:.5" title="Os marcos validam-se um a um"></span></td><td><b>Pagaki</b><br><span class="muted">Turma 3</span></td><td>Marco: primeiro cliente pagante (Ago. 2026)</td><td class="num">26/10/2026</td><td><span class="chip chip-warn num">25/11/2026</span></td></tr>
+                </tbody>
+              </table>
+              <p class="t-caption muted px-3 py-3">Os marcos não entram na confirmação em lote: cada um precisa de leitura própria.</p>
+            </div>
+            <aside class="card p-5 flex flex-col gap-4" aria-label="Detalhe do pedido">
+              <p class="eyebrow muted">Marco · Pagaki</p>
+              <h2 class="t-h3">Primeiro cliente pagante</h2>
+              <dl class="t-sm grid grid-cols-[auto_1fr] gap-x-4 gap-y-2"><dt class="muted">Data do facto</dt><dd class="num">Agosto de 2026</dd><dt class="muted">Nota da startup</dt><dd>Contrato com a cantina do Hospital Josina Machel (fictício). Factura n.º 2026/014.</dd></dl>
+              <div class="p-3 rounded-md t-sm" style="background:var(--color-surface-sunken)"><p class="eyebrow muted mb-1">Os investidores vão ler</p>"Primeiro cliente pagante (Ago. 2026). Validado por <b>Mutamba Lab</b> a 03/11/2026."</div>
+              <p class="t-sm muted">Confirme só o que verificou. Pode retirar a validação mais tarde; fica registada.</p>
+              <div class="flex gap-2"><span class="btn btn-secondary flex-1">Recusar com motivo</span><span class="btn btn-primary flex-1">Validar marco</span></div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div></div>
+  </figure>
+
+  <div class="row">
+    <!-- E-08 -->
+    <figure class="frame">
+      <figcaption class="cap"><span class="id">E-08</span>Confirmar validação (folha)<span class="tag">360</span><span class="tag p0">P0 · Sprint 1</span></figcaption>
+      <div class="phone" style="height:560px">
+        <div class="flex-1 scrim"></div>
+        <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="cv1">
+          <div class="grabber" aria-hidden="true"></div>
+          <h2 id="cv1" class="t-h3">Vai confirmar</h2>
+          <div class="sig sig-val"><svg class="seal" aria-hidden="true"><use href="#s-alto"/></svg><p class="t-sm"><b>Kitanda Fresca participou no Programa de Aceleração 2026 · Turma 3 (Mar.–Jun. 2026).</b></p></div>
+          <p class="t-sm muted">Os investidores vão ver esta frase com o nome da Mutamba Lab e a data de hoje (<span class="num">03/11/2026</span>). Pode retirar a validação mais tarde.</p>
+          <span class="btn btn-primary btn-lg btn-block">Confirmar participação</span>
+          <span class="btn btn-ghost btn-block">Cancelar</span>
+        </div>
+      </div>
+    </figure>
+    <figure class="frame">
+      <figcaption class="cap"><span class="id">E-08b</span>Recusar validação<span class="tag">360</span><span class="tag p0">P0 · Sprint 1</span></figcaption>
+      <div class="phone" style="height:560px">
+        <div class="flex-1 scrim"></div>
+        <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="cv2">
+          <div class="grabber" aria-hidden="true"></div>
+          <h2 id="cv2" class="t-h3">Recusar "Primeiro cliente pagante"?</h2>
+          <p class="t-sm muted">O motivo vai para a Pagaki, não para investidores. O marco continua no perfil como declarado pela startup.</p>
+          <div class="field"><label class="label" for="rm">Motivo <span class="req">(obrigatório)</span></label><textarea id="rm" class="input t-sm" rows="3">Não recebemos comprovativo do pagamento. Enviem a factura e o recibo para voltarmos a analisar.</textarea><span class="counter num">96/300</span></div>
+          <span class="btn btn-primary btn-lg btn-block">Recusar validação</span>
+          <span class="btn btn-ghost btn-block">Voltar</span>
+        </div>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<!-- ======================= ADMIN ======================= -->
+<section class="sec" id="admin">
+  <div class="flex flex-col gap-2">
+    <p class="eyebrow subtle">Sprint 1 · administração</p>
+    <h2 class="t-h1">Verificação de entidades validadoras</h2>
+    <p class="note">Optimizado para computador (base de UX 4.1). A decisão "Verificar" só fica activa quando os quatro critérios estão marcados como cumpridos, e cada decisão fica na auditoria com autor e data.</p>
+  </div>
+  <figure class="frame">
+    <figcaption class="cap"><span class="id">D-02</span>Processo de verificação<span class="tag">1280</span><span class="tag p0">P0 · Sprint 1</span></figcaption>
+    <div class="desk-wrap"><div class="desk" style="grid-template-columns:232px 300px 1fr">
+      <nav class="side" aria-label="Administração">
+        <div class="flex items-center gap-2 px-3 pb-4 text-primary"><svg class="w-6 h-6" aria-hidden="true"><use href="#logo-a"/></svg><span class="t-h3 text-ink">rasto · admin</span></div>
+        <a aria-current="page"><svg class="ic" aria-hidden="true"><use href="#i-building"/></svg>Verificação<span class="ml-auto chip chip-primary num">3</span></a>
+        <a><svg class="ic" aria-hidden="true"><use href="#i-target"/></svg>Compatibilidade</a>
+        <a><svg class="ic" aria-hidden="true"><use href="#i-layers"/></svg>Campos do mandato</a>
+        <a><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg>Utilizadores</a>
+        <a><svg class="ic" aria-hidden="true"><use href="#i-file"/></svg>Pedidos de titulares</a>
+        <a><svg class="ic" aria-hidden="true"><use href="#i-eye"/></svg>Auditoria</a>
+      </nav>
+      <div class="border-r" style="background:var(--color-surface)">
+        <div class="p-4 border-b"><div class="relative"><svg class="ic absolute left-3 top-3.5 subtle" aria-hidden="true"><use href="#i-search"/></svg><input class="input pl-10" placeholder="Procurar entidade" aria-label="Procurar entidade"></div></div>
+        <ul>
+          <li class="p-4 border-b" style="background:var(--color-primary-subtle);box-shadow:inset 3px 0 0 var(--color-primary)"><p class="t-label">Hub Lueji</p><p class="t-caption muted">Aceleradora · Saurimo</p><span class="chip chip-neutral mt-2 num">Em análise · prazo 04/11</span></li>
+          <li class="p-4 border-b"><p class="t-label">Centro de Inovação Kassanje</p><p class="t-caption muted">Universidade · Malanje</p><span class="chip chip-warn mt-2 num">Pedido de informação · 6 dias</span></li>
+          <li class="p-4 border-b"><p class="t-label">Kubata Incubadora</p><p class="t-caption muted">Aceleradora · Luanda</p><span class="chip chip-neutral mt-2 num">Submetida · 02/11/2026</span></li>
+        </ul>
+      </div>
+      <div class="min-w-0">
+        <div class="d-top"><div><h1 class="t-h2">Hub Lueji</h1><p class="t-caption muted num">Submetida a 30/10/2026 por Rosa Muhongo · prazo indicativo 04/11/2026</p></div><span class="chip chip-neutral">Em análise</span></div>
+        <div class="d-main">
+          <dl class="card p-5 grid grid-cols-4 gap-4 t-sm">
+            <div><dt class="muted">Tipo</dt><dd>Aceleradora</dd></div><div><dt class="muted">NIF</dt><dd class="num">5002 118 467</dd></div><div><dt class="muted">Responsável</dt><dd>Rosa Muhongo<br>rosa@hublueji.ao</dd></div><div><dt class="muted">Site</dt><dd><span class="link">hublueji.ao</span></dd></div>
+          </dl>
+          <div class="card">
+            <div class="px-5 py-4 border-b flex justify-between"><h2 class="t-h3">Critérios</h2><span class="t-sm muted num">3 de 4 cumpridos</span></div>
+            <ul>
+              <li class="grid grid-cols-[1fr_auto] gap-4 px-5 py-4 border-b items-center"><div><p class="t-label">Existência legal</p><p class="t-sm muted">NIF confirmado no portal da AGT · certidão anexada <span class="link">certidao.pdf</span></p></div><div class="seg"><span aria-pressed="true">Cumpre</span><span>Falta</span><span>Não cumpre</span></div></li>
+              <li class="grid grid-cols-[1fr_auto] gap-4 px-5 py-4 border-b items-center"><div><p class="t-label">Presença pública</p><p class="t-sm muted">Site activo; página no LinkedIn com publicações desde 2024</p></div><div class="seg"><span aria-pressed="true">Cumpre</span><span>Falta</span><span>Não cumpre</span></div></li>
+              <li class="grid grid-cols-[1fr_auto] gap-4 px-5 py-4 border-b items-center"><div><p class="t-label">Responsável com e-mail institucional</p><p class="t-sm muted">rosa@hublueji.ao · confirmado por ligação de verificação</p></div><div class="seg"><span aria-pressed="true">Cumpre</span><span>Falta</span><span>Não cumpre</span></div></li>
+              <li class="grid grid-cols-[1fr_auto] gap-4 px-5 py-4 items-start"><div class="flex flex-col gap-2"><p class="t-label">Evidência de um programa realizado</p><p class="t-sm muted">Ligação enviada não abre (erro 404).</p><textarea class="input t-sm" rows="2" aria-label="Nota para a entidade">Envie uma ligação válida ou a lista da última turma (pode ser PDF).</textarea></div><div class="seg"><span>Cumpre</span><span aria-pressed="true">Falta</span><span>Não cumpre</span></div></li>
+            </ul>
+          </div>
+          <div class="flex items-center justify-between gap-4">
+            <p class="t-sm muted">"Verificar" fica activo com os 4 critérios cumpridos.</p>
+            <div class="flex gap-2"><span class="btn btn-danger">Recusar</span><span class="btn btn-secondary">Pedir informação</span><span class="btn btn-primary" aria-disabled="true">Verificar entidade</span></div>
+          </div>
+          <div class="card p-5"><h2 class="t-h3 mb-3">Registo</h2>
+            <ol class="t-sm flex flex-col gap-2 num"><li><span class="muted">03/11/2026 10:14</span> · Kima abriu o processo</li><li><span class="muted">30/10/2026 16:02</span> · Rosa Muhongo submeteu a entidade</li></ol></div>
+        </div>
+      </div>
+    </div></div>
+  </figure>
+</section>
+
+<!-- ======================= STARTUP ======================= -->
+<section class="sec" id="startup">
+  <div class="flex flex-col gap-2">
+    <p class="eyebrow subtle">Sprints seguintes · P1 e P2</p>
+    <h2 class="t-h1">Startup: onboarding, perfil, pedidos, pipeline, actualização</h2>
+    <p class="note">Hipótese [H-I01]: a fundadora usa sobretudo o telemóvel. Todos os ecrãs da startup são desenhados primeiro a 360; o pipeline tem uma vista Kanban própria a partir de 1280.</p>
+  </div>
+  <div class="row">
+    <!-- S-01 -->
+    <figure class="frame">
+      <figcaption class="cap"><span class="id">S-01</span>Início no arranque (lista de passos)<span class="tag">360</span><span class="tag">P1</span></figcaption>
+      <div class="phone">
+        <div class="ph-top"><span class="t-h3">Kitanda Fresca</span><span class="btn btn-ghost btn-icon" aria-label="Notificações"><svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg></span></div>
+        <div class="ph-body">
+          <div class="card p-4 flex flex-col gap-3">
+            <div class="flex justify-between items-baseline"><h1 class="t-h3">Perfil 60% completo</h1><span class="chip chip-neutral">Rascunho</span></div>
+            <div class="bar bar-pri" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" aria-label="Completude do perfil"><i style="width:60%"></i></div>
+            <p class="t-sm muted">Faltam 2 campos obrigatórios para publicar.</p>
+          </div>
+          <ol class="card divide-y" style="border-color:var(--color-border)">
+            <li class="flex gap-3 p-4 items-start"><svg class="ic muted mt-0.5" aria-hidden="true"><use href="#i-done"/></svg><div class="flex-1 t-sm"><b>Dados básicos</b><br><span class="muted">Agritech · Pré-seed · Luanda</span></div></li>
+            <li class="flex gap-3 p-4 items-start"><svg class="seal seal-20" aria-hidden="true"><use href="#s-alto"/></svg><div class="flex-1 t-sm"><b>Participação no programa</b><br><span class="muted">Validado por Mutamba Lab a 12/07/2026</span></div></li>
+            <li class="flex gap-3 p-4 items-start"><span class="radio mt-0.5" aria-hidden="true"></span><div class="flex-1 t-sm"><b>Ronda: valor alvo e moeda</b> <span class="muted">· obrigatório</span><br><span class="muted">Sem isto não há % comprometida.</span></div><svg class="ic muted" aria-hidden="true"><use href="#i-chev"/></svg></li>
+            <li class="flex gap-3 p-4 items-start"><span class="radio mt-0.5" aria-hidden="true"></span><div class="flex-1 t-sm"><b>Resumo em 280 caracteres</b> <span class="muted">· obrigatório</span></div><svg class="ic muted" aria-hidden="true"><use href="#i-chev"/></svg></li>
+            <li class="flex gap-3 p-4 items-start"><span class="radio mt-0.5" aria-hidden="true"></span><div class="flex-1 t-sm"><b>Métricas da fase</b> <span class="muted num">· 0 de 3</span></div><svg class="ic muted" aria-hidden="true"><use href="#i-chev"/></svg></li>
+            <li class="flex gap-3 p-4 items-start"><span class="radio mt-0.5" aria-hidden="true"></span><div class="flex-1 t-sm"><b>Ligações para documentos</b> <span class="muted">· opcional</span></div><svg class="ic muted" aria-hidden="true"><use href="#i-chev"/></svg></li>
+          </ol>
+          <div class="card p-4 flex flex-col gap-3">
+            <p class="eyebrow muted">Métricas sugeridas · Pré-seed</p>
+            <p class="t-sm muted">Os investidores de pré-seed costumam olhar para isto. Escolha pelo menos 3.</p>
+            <ul class="flex flex-col gap-1 t-sm">
+              <li class="check" style="padding-top:8px;min-height:40px"><span class="box on" aria-hidden="true"><svg class="ic ic-16" aria-hidden="true"><use href="#i-done"/></svg></span>Clientes activos</li>
+              <li class="check" style="padding-top:8px;min-height:40px"><span class="box on" aria-hidden="true"><svg class="ic ic-16" aria-hidden="true"><use href="#i-done"/></svg></span>Receita mensal (Kz)</li>
+              <li class="check" style="padding-top:8px;min-height:40px"><span class="box" aria-hidden="true"></span>Meses de tesouraria</li>
+              <li class="check" style="padding-top:8px;min-height:40px"><span class="box" aria-hidden="true"></span>Utilizadores em piloto ou lista de espera</li>
+              <li class="check" style="padding-top:8px;min-height:40px"><span class="box" aria-hidden="true"></span>Custo mensal da operação (Kz)</li>
+            </ul>
+          </div>
+          <span class="btn btn-primary btn-lg btn-block">Continuar o perfil</span>
+        </div>
+        <div class="bnav" aria-label="Navegação principal"><span aria-current="page"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg>Início</span><span><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg>Investidores</span><span><svg class="ic" aria-hidden="true"><use href="#i-file"/></svg>Actualiz.</span><span><svg class="ic" aria-hidden="true"><use href="#i-building"/></svg>Perfil</span><span><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg>Conta</span></div>
+      </div>
+    </figure>
+
+    <!-- S-04 -->
+    <figure class="frame">
+      <figcaption class="cap"><span class="id">S-04</span>Ver como investidor (camada 1)<span class="tag">360</span><span class="tag">P1</span></figcaption>
+      <div class="phone">
+        <div class="ph-top"><div class="flex items-center gap-1"><span class="btn btn-ghost btn-icon" aria-label="Voltar"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg></span><span class="t-h3">Ver como investidor</span></div></div>
+        <div class="flex items-center gap-2 px-4 py-3 t-sm bg-info-subtle text-info"><svg class="ic ic-16" aria-hidden="true"><use href="#i-eye"/></svg><span class="flex-1">É isto que qualquer investidor autenticado vê.</span><span class="seg" style="background:var(--color-surface)"><span aria-pressed="true">Camada 1</span><span>2</span></span></div>
+        <div class="ph-body">
+          <div class="flex gap-3 items-center">
+            <div class="w-12 h-12 rounded-md grid place-items-center t-label" style="background:var(--color-surface-sunken);font-weight:600" aria-hidden="true">KF</div>
+            <div><h1 class="t-h2">Kitanda Fresca</h1><p class="t-sm muted">Agritech · Pré-seed · Luanda</p></div>
+          </div>
+          <p class="t-body">Liga pequenos produtores do Bengo a cantinas e restaurantes de Luanda, com recolha refrigerada em 24 horas.</p>
+          <div class="card p-4 flex justify-between items-baseline"><span class="t-sm muted">Ronda</span><span class="t-metric">USD 80 000 <span class="t-sm muted" style="font-weight:400">≈ Kz 73 600 000</span></span></div>
+          <h2 class="eyebrow text-primary">Verificado</h2>
+          <div class="sig sig-val"><svg class="seal" aria-hidden="true"><use href="#s-alto"/></svg><div class="flex flex-col gap-1 min-w-0"><span class="eyebrow text-primary">Validado · nível alto</span><span class="t-label" style="font-weight:600">Participou no Programa de Aceleração 2026 · Turma 3 (Mar.–Jun. 2026)</span><span class="t-sm muted">Validado por <b class="text-ink">Mutamba Lab</b> · <span class="num">12/07/2026</span> · entidade verificada</span></div></div>
+          <h2 class="eyebrow muted">Declarado pela startup</h2>
+          <div class="sig sig-dec"><svg class="seal seal-neutral" aria-hidden="true"><use href="#s-declarado"/></svg><div class="flex flex-col gap-1 min-w-0"><span class="t-label" style="font-weight:600">MVP lançado (Mar. 2026)</span><span class="t-sm muted">Ainda sem validação</span></div></div>
+          <p class="t-caption subtle num">Perfil actualizado há 6 dias</p>
+          <div class="state"><p class="t-sm muted">O investidor vê também a compatibilidade com o mandato dele e o botão "Pedir acesso". Pedidos de validação pendentes não aparecem aqui.</p></div>
+        </div>
+      </div>
+    </figure>
+
+    <!-- S-06 -->
+    <figure class="frame">
+      <figcaption class="cap"><span class="id">S-06</span>Decidir pedido de acesso<span class="tag">360</span><span class="tag">P1</span></figcaption>
+      <div class="phone">
+        <div class="ph-top"><div class="flex items-center gap-1"><span class="btn btn-ghost btn-icon" aria-label="Voltar"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg></span><span class="t-h3">Pedido de acesso</span></div></div>
+        <div class="ph-body">
+          <div class="flex flex-col gap-1">
+            <h1 class="t-h2">Edson Lopes</h1>
+            <p class="t-sm muted">Investidor anjo · co-investe com 2 colegas · dados declarados pelo investidor</p>
+            <span class="chip chip-neutral self-start mt-1"><svg class="ic ic-16" aria-hidden="true"><use href="#i-clock"/></svg><span>Responda até <span class="num">17/11/2026</span></span></span>
+          </div>
+          <div class="card p-4 flex flex-col gap-3">
+            <div class="flex justify-between items-baseline"><h2 class="t-label" style="font-weight:600">Porque este investidor encaixa</h2><span class="t-metric num">87<span class="t-sm muted" style="font-weight:400"> de 100</span></span></div>
+            <div class="flex flex-col gap-1"><div class="flex justify-between t-sm"><span>Sector</span><span class="num muted">40 de 40</span></div><div class="crit"><i style="width:100%"></i></div><p class="t-caption muted">Agritech está no mandato.</p></div>
+            <div class="flex flex-col gap-1"><div class="flex justify-between t-sm"><span>Fase</span><span class="num muted">25 de 25</span></div><div class="crit"><i style="width:100%"></i></div><p class="t-caption muted">Investe em pré-seed.</p></div>
+            <div class="flex flex-col gap-1"><div class="flex justify-between t-sm"><span>Valor do cheque</span><span class="num muted">12 de 25</span></div><div class="crit"><i style="width:48%"></i></div><p class="t-caption muted">Cheque até USD 50 000; a ronda pede USD 80 000. Pode entrar em parte.</p></div>
+            <div class="flex flex-col gap-1"><div class="flex justify-between t-sm"><span>Geografia</span><span class="num muted">10 de 10</span></div><div class="crit"><i style="width:100%"></i></div><p class="t-caption muted">Luanda está no mandato.</p></div>
+          </div>
+          <div class="flex flex-col gap-1"><h2 class="t-label" style="font-weight:600">Nota</h2><p class="t-sm">"Invisto em agritech pré-seed e quero perceber a vossa tracção com cantinas em Luanda."</p></div>
+          <div class="card p-4 t-sm flex flex-col gap-2" style="background:var(--color-surface-sunken)"><b>Se aceitar, Edson passa a ver:</b><span>· o contacto do fundador;</span><span>· as ligações para os documentos;</span><span>· os indicadores e as actualizações.</span><span class="muted">Pode retirar o acesso quando quiser.</span></div>
+          <div class="flex gap-3"><span class="btn btn-secondary btn-lg flex-1">Recusar</span><span class="btn btn-primary btn-lg flex-1">Aceitar</span></div>
+          <p class="t-caption subtle text-center num">Sem resposta até 17/11/2026, o pedido expira e Edson é avisado.</p>
+        </div>
+      </div>
+    </figure>
+
+    <div class="states">
+      <p class="eyebrow subtle">Estados de S-05 / S-06</p>
+      <div class="state"><span class="chip chip-neutral self-start">Lista vazia (S-05)</span><p class="t-sm"><b>Ainda sem pedidos de acesso.</b> Enquanto espera, organize no pipeline os investidores que já contactou fora da plataforma.</p><span class="btn btn-secondary self-start"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Adicionar investidor</span></div>
+      <div class="state"><span class="chip chip-ok self-start">Aceite</span><p class="t-sm"><b>Acesso concedido a Edson Lopes.</b> Adicionado ao pipeline em Contactado.</p><p class="t-sm muted">Confirme que as ligações dos documentos só abrem para quem tem a ligação.</p></div>
+      <div class="state"><span class="chip chip-neutral self-start">Recusar (folha)</span>
+        <p class="t-label" style="font-weight:600">Partilhar um motivo com Edson? (opcional)</p>
+        <ul class="t-sm flex flex-col">
+          <li class="check" style="min-height:40px;padding-top:8px"><span class="radio" aria-hidden="true"></span>Não estamos a captar neste momento</li>
+          <li class="check" style="min-height:40px;padding-top:8px"><span class="radio on" aria-hidden="true"></span>O valor do cheque não encaixa na ronda</li>
+          <li class="check" style="min-height:40px;padding-top:8px"><span class="radio" aria-hidden="true"></span>A fase ou o sector não encaixam</li>
+          <li class="check" style="min-height:40px;padding-top:8px"><span class="radio" aria-hidden="true"></span>Prefiro não indicar motivo</li>
+        </ul><span class="btn btn-primary">Recusar pedido</span></div>
+      <div class="state"><span class="chip chip-neutral self-start">Expirado</span><p class="t-sm">O pedido de Edson Lopes expirou a <span class="num">17/11/2026</span> sem resposta. Fica no histórico.</p></div>
+      <div class="state"><span class="chip chip-neutral self-start">Retirado pelo investidor</span><p class="t-sm">Edson Lopes retirou o pedido a <span class="num">05/11/2026</span>.</p></div>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- S-08 mobile -->
+    <figure class="frame">
+      <figcaption class="cap"><span class="id">S-08</span>Pipeline · lista por etapa<span class="tag">360</span><span class="tag">P2</span></figcaption>
+      <div class="phone">
+        <div class="ph-top"><span class="t-h3">Investidores</span><span class="btn btn-ghost btn-icon" aria-label="Adicionar investidor de fora"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg></span></div>
+        <div class="ph-body" style="gap:12px">
+          <div class="seg self-start"><span aria-pressed="true">Pipeline</span><span>Pedidos (1)</span></div>
+          <p class="t-sm muted num">6 relações activas · 37,5% da ronda comprometido · 1 parada</p>
+          <div class="flex items-center justify-between pt-2"><h2 class="t-label" style="font-weight:600">Soft commit <span class="muted num">2</span></h2><svg class="ic muted" aria-hidden="true"><use href="#i-down"/></svg></div>
+          <div class="card p-3 flex gap-3 items-start">
+            <div class="flex-1 min-w-0 flex flex-col gap-1"><p class="t-label" style="font-weight:600">Paulo Mendes</p><p class="t-caption muted">Anjo · na plataforma · há 5 dias</p><p class="t-sm num">USD 20 000 <span class="muted">· indicativo</span></p></div>
+            <span class="btn btn-secondary" style="min-height:40px"><svg class="ic ic-16" aria-hidden="true"><use href="#i-move"/></svg>Mover</span>
+          </div>
+          <div class="card p-3 flex gap-3 items-start">
+            <div class="flex-1 min-w-0 flex flex-col gap-1"><p class="t-label" style="font-weight:600">Fundo Imbondeiro</p><p class="t-caption muted">Fundo · na plataforma · há 12 dias</p><p class="t-sm num">Kz 9 200 000 <span class="muted">≈ USD 10 000</span></p></div>
+            <span class="btn btn-secondary" style="min-height:40px"><svg class="ic ic-16" aria-hidden="true"><use href="#i-move"/></svg>Mover</span>
+          </div>
+          <div class="flex items-center justify-between pt-2"><h2 class="t-label" style="font-weight:600">Análise <span class="muted num">1</span></h2><svg class="ic muted" aria-hidden="true"><use href="#i-down"/></svg></div>
+          <div class="card p-3 flex gap-3 items-start"><div class="flex-1 min-w-0 flex flex-col gap-1"><p class="t-label" style="font-weight:600">Grupo Kalandula</p><p class="t-caption muted">Corporate · <span class="chip chip-info" style="min-height:18px;padding:0 6px">Fora da plataforma</span> · há 9 dias</p></div><span class="btn btn-secondary" style="min-height:40px"><svg class="ic ic-16" aria-hidden="true"><use href="#i-move"/></svg>Mover</span></div>
+          <div class="flex items-center justify-between pt-2"><h2 class="t-label" style="font-weight:600">Reunião <span class="muted num">1</span></h2><svg class="ic muted" aria-hidden="true"><use href="#i-down"/></svg></div>
+          <div class="card p-3 flex flex-col gap-2" style="border-color:var(--color-warning)"><div class="flex gap-3 items-start"><div class="flex-1 min-w-0 flex flex-col gap-1"><p class="t-label" style="font-weight:600">Sílvia Cardoso</p><p class="t-caption muted">Anjo · fora da plataforma</p></div><span class="chip chip-warn"><svg class="ic ic-16" aria-hidden="true"><use href="#i-clock"/></svg>Parada há 23 dias</span></div>
+            <div class="flex gap-2"><span class="btn btn-secondary flex-1" style="min-height:40px">Registar contacto</span><span class="btn btn-ghost" style="min-height:40px">Adiar lembrete</span></div></div>
+          <div class="flex items-center justify-between pt-2"><h2 class="t-label" style="font-weight:600">Contactado <span class="muted num">2</span></h2><svg class="ic muted" aria-hidden="true"><use href="#i-down"/></svg></div>
+          <div class="card p-3 flex gap-3 items-start"><div class="flex-1 min-w-0 flex flex-col gap-1"><p class="t-label" style="font-weight:600">Rui Tavares</p><p class="t-caption muted">Anjo · na plataforma · há 1 dia</p><p class="t-caption text-warning flex items-center gap-1"><svg class="ic ic-16" aria-hidden="true"><use href="#i-refresh"/></svg>A sincronizar quando houver rede</p></div><span class="btn btn-secondary" style="min-height:40px"><svg class="ic ic-16" aria-hidden="true"><use href="#i-move"/></svg>Mover</span></div>
+          <p class="t-sm muted pt-2">Identificado 0 · Term sheet 0 · Fechado 0 · <span class="link">Perdidos (1)</span></p>
+        </div>
+        <div class="bnav"><span><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg>Início</span><span aria-current="page"><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg>Investidores<i class="dot num" style="font-style:normal">1</i></span><span><svg class="ic" aria-hidden="true"><use href="#i-file"/></svg>Actualiz.</span><span><svg class="ic" aria-hidden="true"><use href="#i-building"/></svg>Perfil</span><span><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg>Conta</span></div>
+      </div>
+    </figure>
+
+    <div class="states">
+      <p class="eyebrow subtle">S-08 · mover e perder</p>
+      <div class="state"><span class="chip chip-neutral self-start">Mover para… (folha)</span>
+        <ul class="t-sm flex flex-col">
+          <li class="check" style="min-height:40px;padding-top:8px"><span class="radio" aria-hidden="true"></span>Reunião</li>
+          <li class="check" style="min-height:40px;padding-top:8px"><span class="radio on" aria-hidden="true"></span>Soft commit · pede valor</li>
+          <li class="check" style="min-height:40px;padding-top:8px"><span class="radio" aria-hidden="true"></span>Term sheet</li>
+          <li class="check" style="min-height:40px;padding-top:8px"><span class="radio" aria-hidden="true"></span>Fechado · pede valor final</li>
+          <li class="check" style="min-height:40px;padding-top:8px"><span class="radio" aria-hidden="true"></span>Perdido · pede motivo</li>
+        </ul>
+        <div class="field"><label class="label" for="sc">Valor do soft commit</label><div class="flex gap-2"><span class="seg"><span aria-pressed="true">Kz</span><span>USD</span></span><input id="sc" class="input num flex-1 min-w-0" value="15 000 000"></div><span class="help">Compromisso indicativo, não vinculativo.</span></div>
+        <span class="btn btn-primary">Mover para Soft commit</span></div>
+      <div class="state"><span class="chip chip-neutral self-start">Depois de perder</span><p class="t-sm"><b>Registado.</b> A ronda continua: 5 relações activas e 37,5% comprometido.</p><span class="link t-sm self-start">Desfazer</span></div>
+      <div class="state"><span class="chip chip-neutral self-start">Pipeline vazio</span><p class="t-sm"><b>Ainda sem investidores.</b> Adicione os que já contactou por e-mail ou WhatsApp: a plataforma lembra-o quando a relação parar.</p><span class="btn btn-primary self-start"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Adicionar investidor de fora</span></div>
+    </div>
+
+    <!-- S-12 -->
+    <figure class="frame">
+      <figcaption class="cap"><span class="id">S-12</span>Publicar actualização<span class="tag">360</span><span class="tag">P2</span></figcaption>
+      <div class="phone">
+        <div class="ph-top"><div class="flex items-center gap-1"><span class="btn btn-ghost btn-icon" aria-label="Fechar"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></span><span class="t-h3">Actualização de Novembro</span></div></div>
+        <div class="flex gap-2 px-4 py-3 t-sm bg-warning-subtle text-warning" role="status"><svg class="ic ic-16 mt-0.5" aria-hidden="true"><use href="#i-offline"/></svg><span>Sem ligação. Rascunho guardado neste aparelho às <span class="num">13:51</span>.</span></div>
+        <div class="ph-body">
+          <p class="t-sm muted">Métricas sugeridas para pré-seed, com o valor do mês passado.</p>
+          <div class="field"><label class="label" for="u1">Receita mensal</label><div class="affix"><span class="pre">Kz</span><input id="u1" class="input num" value="1 850 000"></div><span class="help num">Outubro: Kz 1 420 000 · +30,3%</span></div>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="field"><label class="label" for="u2">Clientes activos</label><input id="u2" class="input num" value="14"><span class="help num">Outubro: 11</span></div>
+            <div class="field"><label class="label" for="u3">Meses de tesouraria</label><input id="u3" class="input num" value="7"><span class="help num">Outubro: 8</span></div>
+          </div>
+          <div class="field"><label class="label" for="u4">Destaques do mês</label><textarea id="u4" class="input t-sm" rows="3">Fechámos contrato com 3 cantinas escolares em Viana. Segunda carrinha refrigerada a funcionar.</textarea><span class="counter num">96/600</span></div>
+          <div class="field"><label class="label" for="u5">Onde precisamos de ajuda <span class="req">(opcional)</span></label><textarea id="u5" class="input t-sm" rows="2" placeholder="Ex.: contactos de distribuidores em Benguela"></textarea></div>
+          <div class="card p-3 t-sm flex gap-3 items-center"><svg class="ic muted" aria-hidden="true"><use href="#i-users"/></svg><span class="flex-1">3 investidores com acesso vão receber</span><span class="link">Ver</span></div>
+          <p class="t-caption muted">Depois de publicada não se edita. Para corrigir, publique uma correcção.</p>
+          <div class="flex gap-3"><span class="btn btn-secondary flex-1">Pré-visualizar</span><span class="btn btn-primary flex-1" aria-disabled="true">Publicar</span></div>
+          <p class="t-caption subtle">Publicar fica activo quando houver rede.</p>
+        </div>
+      </div>
+    </figure>
+  </div>
+
+  <!-- S-08 desktop -->
+  <figure class="frame">
+    <figcaption class="cap"><span class="id">S-08</span>Pipeline · Kanban<span class="tag">1280</span><span class="tag">P2</span></figcaption>
+    <div class="desk-wrap"><div class="desk">
+      <nav class="side" aria-label="Startup">
+        <div class="flex items-center gap-2 px-3 pb-4 text-primary"><svg class="w-6 h-6" aria-hidden="true"><use href="#logo-a"/></svg><span class="t-h3 text-ink">rasto</span></div>
+        <a><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg>Início</a>
+        <a aria-current="page"><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg>Investidores<span class="ml-auto chip chip-primary num">1</span></a>
+        <a><svg class="ic" aria-hidden="true"><use href="#i-file"/></svg>Actualizações</a>
+        <a><svg class="ic" aria-hidden="true"><use href="#i-building"/></svg>Perfil</a>
+        <a><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg>Conta</a>
+      </nav>
+      <div class="min-w-0">
+        <div class="d-top"><div class="flex items-center gap-4"><h1 class="t-h2">Investidores</h1><div class="seg"><span aria-pressed="true">Pipeline</span><span>Pedidos (1)</span></div></div><span class="btn btn-primary"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Adicionar investidor de fora</span></div>
+        <div class="d-main" style="gap:16px">
+          <p class="t-sm muted num">6 relações activas · USD 30 000 de USD 80 000 comprometidos (37,5%) · 1 parada · <span class="link">Perdidos (1)</span></p>
+          <div class="grid gap-3" style="grid-template-columns:repeat(7, minmax(0,1fr))">
+            <div class="flex flex-col gap-2 p-2 rounded-md" style="background:var(--color-surface-sunken)"><h2 class="t-caption px-1" style="font-weight:600">Identificado <span class="muted num">0</span></h2><p class="t-caption muted p-2">Sem relações.</p></div>
+            <div class="flex flex-col gap-2 p-2 rounded-md" style="background:var(--color-surface-sunken)"><h2 class="t-caption px-1" style="font-weight:600">Contactado <span class="muted num">2</span></h2>
+              <div class="card p-2"><p class="t-label">Rui Tavares</p><p class="t-caption muted">Anjo · há 1 dia</p></div>
+              <div class="card p-2"><p class="t-label">Ndalu Capital</p><p class="t-caption muted">Fora · há 2 dias</p></div></div>
+            <div class="flex flex-col gap-2 p-2 rounded-md" style="background:var(--color-surface-sunken)"><h2 class="t-caption px-1" style="font-weight:600">Reunião <span class="muted num">1</span></h2>
+              <div class="card p-2" style="border-color:var(--color-warning)"><p class="t-label">Sílvia Cardoso</p><p class="t-caption text-warning flex items-center gap-1"><svg class="ic ic-16" aria-hidden="true"><use href="#i-clock"/></svg>Parada · 23 dias</p></div></div>
+            <div class="flex flex-col gap-2 p-2 rounded-md" style="background:var(--color-surface-sunken)"><h2 class="t-caption px-1" style="font-weight:600">Análise <span class="muted num">1</span></h2>
+              <div class="card p-2" style="outline:2px solid var(--color-focus);outline-offset:2px"><p class="t-label">Grupo Kalandula</p><p class="t-caption muted">Fora · há 9 dias</p><p class="t-caption text-primary mt-1">Seleccionado · Espaço para mover</p></div></div>
+            <div class="flex flex-col gap-2 p-2 rounded-md" style="background:var(--color-surface-sunken)"><h2 class="t-caption px-1" style="font-weight:600">Soft commit <span class="muted num">2</span></h2>
+              <div class="card p-2"><p class="t-label">Paulo Mendes</p><p class="t-caption muted num">USD 20 000</p></div>
+              <div class="card p-2"><p class="t-label">Fundo Imbondeiro</p><p class="t-caption muted num">Kz 9 200 000</p></div></div>
+            <div class="flex flex-col gap-2 p-2 rounded-md" style="background:var(--color-surface-sunken)"><h2 class="t-caption px-1" style="font-weight:600">Term sheet <span class="muted num">0</span></h2></div>
+            <div class="flex flex-col gap-2 p-2 rounded-md" style="background:var(--color-surface-sunken)"><h2 class="t-caption px-1" style="font-weight:600">Fechado <span class="muted num">0</span></h2></div>
+          </div>
+          <p class="t-caption muted">Arrastar é opcional (WCAG 2.5.7): cada cartão tem "Mover para…" no menu e no teclado (Espaço selecciona, setas escolhem a coluna, Enter confirma).</p>
+        </div>
+      </div>
+    </div></div>
+  </figure>
+</section>
+
+<!-- ======================= INVESTIDOR ======================= -->
+<section class="sec" id="investidor">
+  <div class="flex flex-col gap-2">
+    <p class="eyebrow subtle">P1 e P2</p>
+    <h2 class="t-h1">Investidor: mandato, sugestões, pedido, relações</h2>
+    <p class="note">Hipótese [H-I01]: o investidor analisa no computador e responde a notificações no telemóvel. Mandato e sugestões desenhados a 1280; pedido de acesso a 360 (é a acção que mais vezes chega por notificação).</p>
+  </div>
+
+  <!-- I-02 + I-03 -->
+  <figure class="frame">
+    <figcaption class="cap"><span class="id">I-03</span>Sugestões com "porque esta startup"<span class="tag">1280</span><span class="tag">P1</span></figcaption>
+    <div class="desk-wrap"><div class="desk">
+      <nav class="side" aria-label="Investidor">
+        <div class="flex items-center gap-2 px-3 pb-4 text-primary"><svg class="w-6 h-6" aria-hidden="true"><use href="#logo-a"/></svg><span class="t-h3 text-ink">rasto</span></div>
+        <a><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg>Início</a>
+        <a aria-current="page"><svg class="ic" aria-hidden="true"><use href="#i-compass"/></svg>Sugestões</a>
+        <a><svg class="ic" aria-hidden="true"><use href="#i-columns"/></svg>Pipeline</a>
+        <a><svg class="ic" aria-hidden="true"><use href="#i-target"/></svg>Mandato</a>
+        <a><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg>Conta</a>
+      </nav>
+      <div class="min-w-0">
+        <div class="d-top"><div><h1 class="t-h2">Sugestões</h1><p class="t-caption muted num">2 compatíveis de 12 startups verificadas · mandato: Agritech, Educação, Fintech · Pré-seed · USD 10 000–50 000 · Luanda, Benguela</p></div><span class="btn btn-secondary">Editar mandato</span></div>
+        <div class="d-main">
+          <div class="grid gap-6" style="grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)">
+            <div class="flex flex-col gap-4">
+              <article class="card p-5 flex flex-col gap-3">
+                <div class="flex justify-between gap-4"><div><h2 class="t-h3">Kubela</h2><p class="t-sm muted">Educação · Pré-seed · Huambo · ronda USD 40 000</p></div><div class="text-right"><p class="t-metric num">90<span class="t-sm muted" style="font-weight:400"> de 100</span></p><p class="t-caption muted">compatibilidade</p></div></div>
+                <p class="t-sm muted num">Sector 40/40 · Fase 25/25 · Cheque 25/25 · Geografia 0/10</p>
+                <p class="t-sm flex items-center gap-2"><svg class="seal seal-16" aria-hidden="true"><use href="#s-alto"/></svg>Incubação 2025 · validado por Incubadora Universidade Ngola</p>
+              </article>
+              <article class="card p-5 flex flex-col gap-3" style="border-color:var(--color-primary);box-shadow:inset 0 0 0 1px var(--color-primary)">
+                <div class="flex justify-between gap-4"><div><h2 class="t-h3">Kitanda Fresca</h2><p class="t-sm muted">Agritech · Pré-seed · Luanda · ronda USD 80 000</p></div><div class="text-right"><p class="t-metric num">87<span class="t-sm muted" style="font-weight:400"> de 100</span></p><p class="t-caption muted">compatibilidade</p></div></div>
+                <p class="t-sm muted num">Sector 40/40 · Fase 25/25 · Cheque 12/25 · Geografia 10/10</p>
+                <p class="t-sm flex items-center gap-2"><svg class="seal seal-16" aria-hidden="true"><use href="#s-alto"/></svg>Programa de Aceleração 2026 · validado por Mutamba Lab <span class="muted">· +0 validados</span></p>
+              </article>
+              <div class="state"><p class="t-sm"><b>Só 2 startups encaixam totalmente.</b> Há 12 startups verificadas na plataforma.</p><div class="flex gap-2"><span class="btn btn-secondary">Ver compatibilidades parciais (3)</span><span class="btn btn-ghost">Avisar-me quando surgir uma</span></div></div>
+            </div>
+            <aside class="card p-5 flex flex-col gap-4" aria-label="Porque esta startup">
+              <p class="eyebrow muted">Porque esta startup · Kitanda Fresca</p>
+              <p class="t-h2 num">87 de 100</p>
+              <div class="flex flex-col gap-3">
+                <div class="flex flex-col gap-1"><div class="flex justify-between t-sm"><b>Sector</b><span class="num">40 de 40</span></div><div class="crit"><i style="width:100%"></i></div><p class="t-sm muted">Agritech está no seu mandato.</p></div>
+                <div class="flex flex-col gap-1"><div class="flex justify-between t-sm"><b>Fase</b><span class="num">25 de 25</span></div><div class="crit"><i style="width:100%"></i></div><p class="t-sm muted">Pré-seed está no seu mandato.</p></div>
+                <div class="flex flex-col gap-1"><div class="flex justify-between t-sm"><b>Valor do cheque</b><span class="num">12 de 25</span></div><div class="crit"><i style="width:48%"></i></div><p class="t-sm muted">A ronda pede USD 80 000; o seu cheque vai até USD 50 000. Pode participar em parte.</p></div>
+                <div class="flex flex-col gap-1"><div class="flex justify-between t-sm"><b>Geografia</b><span class="num">10 de 10</span></div><div class="crit"><i style="width:100%"></i></div><p class="t-sm muted">Luanda está no seu mandato.</p></div>
+                <div class="flex flex-col gap-1"><div class="flex justify-between t-sm muted"><span>Risco</span><span class="num">não conta (peso 0)</span></div></div>
+              </div>
+              <p class="t-sm p-3 rounded-md" style="background:var(--color-surface-sunken)">Esta pontuação mede o encaixe com o seu mandato, não a qualidade da startup. A credibilidade está nos sinais validados.</p>
+              <div class="flex gap-2 items-center"><span class="link t-sm">Como calculamos</span><span class="flex-1"></span><span class="btn btn-secondary">Ver perfil</span><span class="btn btn-primary">Pedir acesso</span></div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div></div>
+  </figure>
+
+  <div class="row">
+    <!-- I-02 -->
+    <figure class="frame">
+      <figcaption class="cap"><span class="id">I-02</span>Mandato<span class="tag">360</span><span class="tag">P1</span></figcaption>
+      <div class="phone">
+        <div class="ph-top"><span class="t-h3">Mandato</span><span class="t-caption muted num">Guardado às 11:20</span></div>
+        <div class="ph-body">
+          <div class="p-3 rounded-md t-sm bg-info-subtle text-info flex gap-2"><svg class="ic ic-16 mt-0.5" aria-hidden="true"><use href="#i-info"/></svg><span>Só as startups a quem pedir acesso vêem o seu mandato.</span></div>
+          <fieldset class="flex flex-col gap-2"><legend class="label mb-2">Sectores <span class="req">(obrigatório)</span></legend>
+            <div class="flex flex-wrap gap-2"><span class="pick" aria-pressed="true">Agritech</span><span class="pick" aria-pressed="true">Educação</span><span class="pick" aria-pressed="true">Fintech</span><span class="pick" aria-pressed="false">Saúde</span><span class="pick" aria-pressed="false">Logística</span><span class="pick" aria-pressed="false">Energia</span><span class="pick" aria-pressed="false">Comércio</span><span class="pick" aria-pressed="false">Outro</span></div></fieldset>
+          <fieldset class="flex flex-col gap-2"><legend class="label mb-2">Fase <span class="req">(obrigatório)</span></legend>
+            <div class="flex flex-wrap gap-2"><span class="pick" aria-pressed="false">Ideia</span><span class="pick" aria-pressed="true">Pré-seed</span><span class="pick" aria-pressed="false">Seed</span><span class="pick" aria-pressed="false">Série A ou mais</span></div>
+            <span class="help">Pré-seed: produto a funcionar, primeiros clientes, ainda sem receita estável.</span></fieldset>
+          <fieldset class="flex flex-col gap-2"><legend class="label mb-2">Valor do cheque</legend>
+            <span class="seg self-start"><span>Kz</span><span aria-pressed="true">USD</span></span>
+            <div class="grid grid-cols-2 gap-3"><div class="field"><label class="label t-caption" for="m1">Mínimo</label><input id="m1" class="input num" value="10 000"></div><div class="field"><label class="label t-caption" for="m2">Máximo</label><input id="m2" class="input num" value="50 000"></div></div>
+            <span class="help num">≈ Kz 9 200 000 a Kz 46 000 000</span></fieldset>
+          <fieldset class="flex flex-col gap-2"><legend class="label mb-2">Geografia</legend>
+            <div class="flex flex-wrap gap-2"><span class="pick" aria-pressed="false">Angola (todas)</span><span class="pick" aria-pressed="true">Luanda</span><span class="pick" aria-pressed="true">Benguela</span><span class="pick" aria-pressed="false">Huambo</span><span class="pick" aria-pressed="false">Huíla</span><span class="pick" aria-pressed="false">+ 14 províncias</span></div></fieldset>
+          <fieldset class="flex flex-col gap-2"><legend class="label mb-2">Tolerância ao risco <span class="req">(opcional)</span></legend>
+            <div class="seg self-start"><span>Baixa</span><span aria-pressed="true">Média</span><span>Alta</span></div>
+            <span class="help">Ainda não conta para a compatibilidade (peso 0) enquanto o validamos com investidores.</span></fieldset>
+          <div class="card p-3 t-sm"><b class="num">2 startups</b> encaixam totalmente neste mandato.</div>
+          <span class="btn btn-primary btn-lg btn-block">Guardar e ver sugestões</span>
+        </div>
+      </div>
+    </figure>
+
+    <!-- I-05 -->
+    <figure class="frame">
+      <figcaption class="cap"><span class="id">I-05</span>Pedir acesso com nota<span class="tag">360</span><span class="tag">P1</span></figcaption>
+      <div class="phone">
+        <div class="ph-top"><div class="flex items-center gap-1"><span class="btn btn-ghost btn-icon" aria-label="Fechar"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></span><span class="t-h3">Pedir acesso</span></div></div>
+        <div class="ph-body">
+          <h1 class="t-h2">Kitanda Fresca</h1>
+          <p class="t-sm muted">A Kitanda Fresca vai ver o seu nome, a sua organização, o seu mandato e esta nota.</p>
+          <div class="field"><label class="label" for="n1">Porque quer conhecer a Kitanda Fresca?</label>
+            <textarea id="n1" class="input t-sm" rows="5" aria-describedby="n1h n1c">Invisto em agritech pré-seed e quero perceber a vossa tracção com cantinas em Luanda. Posso entrar com até USD 20 000.</textarea>
+            <div class="flex justify-between gap-2"><span id="n1h" class="help">Uma nota concreta ajuda a startup a decidir.</span><span id="n1c" class="counter num">121/300</span></div></div>
+          <div class="card p-3 t-sm flex flex-col gap-1" style="background:var(--color-surface-sunken)"><b>Se a Kitanda Fresca aceitar, passa a ver:</b><span>o contacto da fundadora, os documentos e as actualizações.</span></div>
+          <span class="btn btn-primary btn-lg btn-block">Enviar pedido</span>
+          <div class="state"><span class="chip chip-ok self-start">Enviado</span><p class="t-sm"><b>Pedido enviado.</b> A Kitanda Fresca tem até <span class="num">17/11/2026</span> para responder. Avisamos por e-mail.</p></div>
+          <div class="state"><span class="chip chip-neutral self-start">Bloqueado</span><p class="t-sm">O último pedido não foi aceite. Pode voltar a pedir a partir de <span class="num">01/02/2027</span>.</p></div>
+          <div class="state"><span class="chip chip-neutral self-start">Conta por aprovar (Dec-1)</span><p class="t-sm">A sua conta está em aprovação. Pode preparar o mandato; os pedidos de acesso ficam disponíveis depois.</p></div>
+        </div>
+      </div>
+    </figure>
+  </div>
+
+  <!-- I-07 -->
+  <figure class="frame">
+    <figcaption class="cap"><span class="id">I-07</span>Acompanhamento das relações<span class="tag">1280</span><span class="tag">P2</span></figcaption>
+    <div class="desk-wrap"><div class="desk">
+      <nav class="side" aria-label="Investidor">
+        <div class="flex items-center gap-2 px-3 pb-4 text-primary"><svg class="w-6 h-6" aria-hidden="true"><use href="#logo-a"/></svg><span class="t-h3 text-ink">rasto</span></div>
+        <a><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg>Início</a>
+        <a><svg class="ic" aria-hidden="true"><use href="#i-compass"/></svg>Sugestões</a>
+        <a aria-current="page"><svg class="ic" aria-hidden="true"><use href="#i-columns"/></svg>Pipeline</a>
+        <a><svg class="ic" aria-hidden="true"><use href="#i-target"/></svg>Mandato</a>
+        <a><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg>Conta</a>
+      </nav>
+      <div class="min-w-0">
+        <div class="d-top"><h1 class="t-h2">Pipeline</h1><div class="seg"><span>Kanban</span><span aria-pressed="true">Lista</span></div></div>
+        <div class="d-main">
+          <div class="card overflow-hidden"><table class="tbl">
+            <thead><tr><th>Startup</th><th>Etapa</th><th>Último movimento</th><th>Actualizações</th><th>Estado</th><th><span class="sr-only">Acções</span></th></tr></thead>
+            <tbody>
+              <tr><td><b>Kitanda Fresca</b><br><span class="muted">Agritech · Pré-seed</span></td><td><span class="stage"><span class="pips" aria-hidden="true"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="l"></i><i></i></span>Soft commit</span><br><span class="t-caption muted num">USD 20 000</span></td><td class="num">29/10/2026</td><td><span class="chip chip-primary">Nova · Outubro</span></td><td><span class="chip chip-ok">Acesso concedido</span></td><td class="text-right"><span class="btn btn-ghost btn-icon" aria-label="Mais acções"><svg class="ic" aria-hidden="true"><use href="#i-more"/></svg></span></td></tr>
+              <tr><td><b>Pagaki</b><br><span class="muted">Fintech · Seed</span></td><td><span class="stage"><span class="pips" aria-hidden="true"><i class="f"></i><i class="f"></i><i></i><i></i><i></i><i></i></span>Contactado</span></td><td class="num">29/10/2026</td><td class="muted">—</td><td><span class="chip chip-neutral num">Pendente · até 12/11/2026</span></td><td class="text-right"><span class="btn btn-ghost">Retirar pedido</span></td></tr>
+              <tr><td><b>Kubela</b><br><span class="muted">Educação · Pré-seed</span></td><td><span class="stage"><span class="pips" aria-hidden="true"><i class="f"></i><i class="f"></i><i class="f"></i><i></i><i></i><i></i></span>Reunião</span></td><td class="num">12/10/2026</td><td class="muted num">Setembro</td><td><span class="chip chip-warn"><svg class="ic ic-16" aria-hidden="true"><use href="#i-clock"/></svg>Parada há 22 dias</span></td><td class="text-right"><span class="btn btn-secondary">Registar contacto</span></td></tr>
+              <tr><td><b>Dikanza Saúde</b><br><span class="muted">Saúde · Ideia</span></td><td><span class="stage lost"><svg class="ic ic-16" aria-hidden="true"><use href="#i-x"/></svg>Perdido</span></td><td class="num">03/10/2026</td><td class="muted">—</td><td class="muted t-sm">Fora do mandato</td><td></td></tr>
+            </tbody></table></div>
+          <div class="state" style="max-width:520px"><span class="chip chip-neutral self-start">Acesso revogado</span><p class="t-sm">A Pagaki retirou o seu acesso a <span class="num">20/10/2026</span>. O histórico fica consigo; contacto e documentos deixam de aparecer.</p></div>
+        </div>
+      </div>
+    </div></div>
+  </figure>
+</section>
+
+<!-- ======================= INDICADORES ======================= -->
+<section class="sec" id="indicadores">
+  <div class="flex flex-col gap-2">
+    <p class="eyebrow subtle">P2 · 71% pediram painéis de indicadores</p>
+    <h2 class="t-h1">Painel de indicadores da ronda</h2>
+    <p class="note">Calculado a partir do pipeline: nada é introduzido duas vezes. Cada gráfico tem a tabela equivalente ("Ver como tabela") para leitores de ecrã e para quem prefere números.</p>
+  </div>
+  <figure class="frame">
+    <figcaption class="cap"><span class="id">S-13</span>Indicadores da ronda<span class="tag">1280</span><span class="tag">P2</span></figcaption>
+    <div class="desk-wrap"><div class="desk">
+      <nav class="side" aria-label="Startup">
+        <div class="flex items-center gap-2 px-3 pb-4 text-primary"><svg class="w-6 h-6" aria-hidden="true"><use href="#logo-a"/></svg><span class="t-h3 text-ink">rasto</span></div>
+        <a aria-current="page"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg>Início</a>
+        <a><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg>Investidores<span class="ml-auto chip chip-primary num">1</span></a>
+        <a><svg class="ic" aria-hidden="true"><use href="#i-file"/></svg>Actualizações</a>
+        <a><svg class="ic" aria-hidden="true"><use href="#i-building"/></svg>Perfil</a>
+        <a><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg>Conta</a>
+      </nav>
+      <div class="min-w-0">
+        <div class="d-top"><div><h1 class="t-h2">Ronda pré-seed 2026</h1><p class="t-caption muted num">Iniciada a 01/09/2026 · calculado a partir do pipeline · actualizado agora</p></div><span class="seg"><span aria-pressed="true">USD</span><span>Kz</span></span></div>
+        <div class="d-main">
+          <div class="card p-5 flex flex-col gap-3">
+            <div class="flex items-baseline justify-between flex-wrap gap-2"><p class="eyebrow muted">Ronda comprometida</p><p class="t-sm muted num">Taxa de referência: 1 USD = 920 Kz (01/11/2026, fictícia)</p></div>
+            <div class="flex items-baseline gap-3"><span class="t-metric-lg">37,5%</span><span class="t-body muted num">≈ USD 30 000 de USD 80 000</span></div>
+            <div class="bar bar-lat" style="height:12px" role="img" aria-label="37,5% da ronda comprometida"><i style="width:37.5%"></i></div>
+            <p class="t-sm muted num">2 soft commits (USD 20 000 · Kz 9 200 000) · 0 fechados · soft commit é indicativo, não vinculativo</p>
+          </div>
+          <div class="grid grid-cols-3 gap-4">
+            <div class="card p-5 flex flex-col gap-1"><p class="eyebrow muted">Tempo até ao 1.º soft commit</p><p class="t-metric-lg">51 <span class="t-body muted">dias</span></p><p class="t-sm muted num">De 01/09 a 22/10/2026</p></div>
+            <div class="card p-5 flex flex-col gap-1"><p class="eyebrow muted">Relações activas</p><p class="t-metric-lg">6</p><p class="t-sm muted">1 perdida · motivo: fase não encaixa</p></div>
+            <div class="card p-5 flex flex-col gap-1" style="border-color:var(--color-warning)"><p class="eyebrow text-warning flex items-center gap-1"><svg class="ic ic-16" aria-hidden="true"><use href="#i-clock"/></svg>Relações paradas</p><p class="t-metric-lg">1</p><p class="t-sm muted">Sílvia Cardoso · 23 dias em Reunião · <span class="link">Registar contacto</span></p></div>
+          </div>
+          <div class="card p-5 flex flex-col gap-4">
+            <div class="flex justify-between items-baseline"><h2 class="t-h3">Conversão por etapa</h2><span class="link t-sm">Ver como tabela</span></div>
+            <div class="grid gap-2 t-sm num" style="grid-template-columns:120px minmax(0,1fr) 64px 120px" role="table" aria-label="Conversão por etapa">
+              <span role="cell">Identificado</span><div class="bar bar-pri" style="height:20px;border-radius:4px"><i style="width:100%"></i></div><span class="text-right">7</span><span class="muted"></span>
+              <span role="cell">Contactado</span><div class="bar bar-pri" style="height:20px;border-radius:4px"><i style="width:100%"></i></div><span class="text-right">7</span><span class="muted">100% passaram</span>
+              <span role="cell">Reunião</span><div class="bar bar-pri" style="height:20px;border-radius:4px"><i style="width:57.1%"></i></div><span class="text-right">4</span><span class="muted">57% passaram</span>
+              <span role="cell">Análise</span><div class="bar bar-pri" style="height:20px;border-radius:4px"><i style="width:42.9%"></i></div><span class="text-right">3</span><span class="muted">75% passaram</span>
+              <span role="cell">Soft commit</span><div class="bar bar-lat" style="height:20px;border-radius:4px"><i style="width:28.6%"></i></div><span class="text-right">2</span><span class="muted">67% passaram</span>
+              <span role="cell">Term sheet</span><div class="bar" style="height:20px;border-radius:4px"></div><span class="text-right">0</span><span class="muted">em curso</span>
+            </div>
+            <p class="t-caption muted">Barra = relações que chegaram à etapa (de 7). Percentagem = passaram da etapa anterior para esta. Com menos de 3 relações mostra-se "Ainda sem dados suficientes".</p>
+          </div>
+          <div class="grid grid-cols-3 gap-4">
+            <div class="state"><span class="chip chip-neutral self-start">Sem valor da ronda</span><p class="t-sm">Defina o valor da ronda no perfil para ver este indicador.</p><span class="link t-sm self-start">Definir valor</span></div>
+            <div class="state"><span class="chip chip-neutral self-start">Sem soft commits</span><p class="t-sm">Ainda sem soft commits. O tempo conta desde o início da ronda (01/09/2026).</p></div>
+            <div class="state"><span class="chip chip-neutral self-start">Poucos dados</span><p class="t-sm">Ainda sem dados suficientes: são precisas pelo menos 3 relações.</p></div>
+          </div>
+        </div>
+      </div>
+    </div></div>
+  </figure>
+</section>
+</main>
+<footer class="pt-16 t-caption subtle">Rasto é um nome provisório. Todas as pessoas, startups, entidades, valores e a taxa de câmbio são fictícios.</footer>
+</div>
+
+<script>
+(function () {
+  var b = document.getElementById('theme');
+  var label = b.querySelector('span');
+  var order = ['system', 'light', 'dark'];
+  var names = { system: 'sistema', light: 'claro', dark: 'escuro' };
+  b.addEventListener('click', function () {
+    var r = document.documentElement;
+    var cur = r.getAttribute('data-theme') || 'system';
+    var next = order[(order.indexOf(cur) + 1) % 3];
+    if (next === 'system') r.removeAttribute('data-theme'); else r.setAttribute('data-theme', next);
+    label.textContent = 'Tema: ' + names[next];
+  });
+})();
+</script>

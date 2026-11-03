@@ -1,0 +1,12 @@
+digraph G { rankdir=TB; bgcolor="white"; nodesep=0.2; ranksep=0.25;
+ node [shape=box, style="rounded,filled", fillcolor="#EEEBFA", color="#3A2D8F", fontname="Liberation Serif", fontsize=11.5, fontcolor="#1B1A22", width=2.4, margin="0.12,0.06"];
+ edge [color="#55515F", arrowsize=0.7];
+ n1 [label="1. Identificar o problema\ne a motivação"]; n2 [label="2. Definir os objectivos\nda solução"]; n3 [label="3. Conceber e\ndesenvolver o artefacto"];
+ n4 [label="4. Demonstrar"]; n5 [label="5. Avaliar"]; n6 [label="6. Comunicar"];
+ node [shape=box, style="rounded", fillcolor="white", color="#8A8494", fontsize=11, width=3.6];
+ m1 [label="Literatura, dados do ecossistema\ne inquérito (Cap. I e II)"]; m2 [label="Requisitos e escopo do MVP\n(Cap. III)"]; m3 [label="Desenvolvimento por sprints\n(Cap. II e III)"];
+ m4 [label="Protótipo com dados fictícios\n(Cap. III e VI)"]; m5 [label="Testes de usabilidade (SUS) e\nentrevistas de validação (Cap. IV)"]; m6 [label="Relatório e defesa"];
+ n1->n2->n3->n4->n5->n6;
+ n1->m1 [arrowhead=none, style=dotted]; n2->m2 [arrowhead=none, style=dotted]; n3->m3 [arrowhead=none, style=dotted]; n4->m4 [arrowhead=none, style=dotted]; n5->m5 [arrowhead=none, style=dotted]; n6->m6 [arrowhead=none, style=dotted];
+ {rank=same;n1;m1} {rank=same;n2;m2} {rank=same;n3;m3} {rank=same;n4;m4} {rank=same;n5;m5} {rank=same;n6;m6}
+}

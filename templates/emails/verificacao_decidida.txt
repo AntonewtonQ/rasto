@@ -1,0 +1,22 @@
+{% autoescape off %}Olá.
+
+{% if v.decisao == "verificar" %}A {{ org.nome }} foi verificada pela plataforma. Já pode convidar as startups das suas turmas e confirmar a participação delas.
+{% elif v.decisao == "pedir_info" %}Para concluir a verificação da {{ org.nome }}, precisamos de mais informação até {{ org.prazo_resposta|date:"d/m/Y" }}:
+
+{{ v.motivo }}
+
+Pode responder sem recomeçar o registo.
+{% elif v.decisao == "recusar" %}A verificação da {{ org.nome }} não foi aprovada.
+
+Motivo: {{ v.motivo }}
+
+Pode corrigir e submeter de novo.
+{% elif v.decisao == "suspender" %}A {{ org.nome }} foi suspensa.
+
+Motivo: {{ v.motivo }}
+
+Enquanto estiver suspensa, não pode validar sinais e as validações já feitas mostram um aviso aos investidores.
+{% elif v.decisao == "reactivar" %}A {{ org.nome }} foi reactivada.
+{% endif %}
+Entrar: {{ site }}/e/
+{% endautoescape %}
