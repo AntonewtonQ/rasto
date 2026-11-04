@@ -1,6 +1,7 @@
 """Definições do Rasto. Tudo o que muda entre ambientes vem de variáveis de ambiente (ficheiro .env)."""
 
 import os
+import re
 from pathlib import Path
 
 from csp.constants import NONE, SELF
@@ -17,6 +18,7 @@ def _carregar_env(caminho: Path) -> None:
         if not linha or linha.startswith("#") or "=" not in linha:
             continue
         chave, valor = linha.split("=", 1)
+        valor = re.split(r"\s+#", valor, maxsplit=1)[0]  # comentário no fim da linha
         os.environ.setdefault(chave.strip(), valor.strip())
 
 
@@ -32,6 +34,8 @@ SECRET_KEY = env("DJANGO_SECRET_KEY") or ("dev-inseguro" if DEBUG else "")
 if not SECRET_KEY:
     raise RuntimeError("DJANGO_SECRET_KEY em falta.")
 ALLOWED_HOSTS = [h for h in env("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1").split(",") if h]
+# Nomes internos da rede Docker (o Next.js chama o Django por http://web:8000), definidos no compose.yml.
+ALLOWED_HOSTS += [h for h in env("DJANGO_HOSTS_INTERNOS").split(",") if h]
 # URL público (o do Next.js, mesma origem que a API através do Caddy ou das rewrites do Next em desenvolvimento).
 SITE_URL = env("SITE_URL", "http://localhost:3000").rstrip("/")
 # Os pedidos chegam encaminhados pelo Next.js (desenvolvimento) ou pelo Caddy (produção): a origem do navegador é
@@ -140,6 +144,9 @@ ACCOUNT_SESSION_REMEMBER = None
 ACCOUNT_LOGIN_ON_PASSWORD_RESET = False
 ACCOUNT_PASSWORD_RESET_BY_CODE_ENABLED = False
 ACCOUNT_PREVENT_ENUMERATION = True
+ACCOUNT_EMAIL_UNKNOWN_ACCOUNTS = False  # não enviar e-mails a endereços sem conta (evita abuso do formulário)
+ACCOUNT_EMAIL_NOTIFICATIONS = True  # avisar quando a palavra-passe muda
+ACCOUNT_EMAIL_SUBJECT_PREFIX = ""  # o assunto já diz «Rasto: …»
 ACCOUNT_RATE_LIMITS = {"login_failed": "5/15m/ip,5/15m/key", "reset_password": "5/h/ip,3/h/key"}
 MFA_SUPPORTED_TYPES = ["totp", "recovery_codes"]
 
@@ -240,13 +247,19 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 3 * 1024 * 1024
 
 # --- E-mail ----------------------------------------------------------------------
 DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", "Rasto <nao-responder@localhost>")
-if env("EMAIL_HOST"):
-    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# Ordem: ficheiros (testes ponta a ponta) > SMTP (com servidor e credenciais) > consola (desenvolvimento).
+# O SMTP nunca envia para domínios reservados (.test, .demo, .example…), usados nos dados fictícios.
+if env("EMAIL_FICHEIROS"):
+    EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+    EMAIL_FILE_PATH = env("EMAIL_FICHEIROS")
+elif env("EMAIL_HOST") and env("EMAIL_HOST_PASSWORD"):
+    EMAIL_BACKEND = "rasto.nucleo.email_backend.SmtpSemDominiosReservados"
     EMAIL_HOST = env("EMAIL_HOST")
     EMAIL_PORT = int(env("EMAIL_PORT", "587"))
     EMAIL_HOST_USER = env("EMAIL_HOST_USER")
     EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
     EMAIL_USE_TLS = True
+    EMAIL_TIMEOUT = 20
 else:
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 

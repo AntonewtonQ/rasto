@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { connection } from "next/server";
+import { AvisoRede } from "@/componentes/AvisoRede";
 import "@/estilos/rasto.css";
 import "@/estilos/app.css";
 
@@ -17,6 +18,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
     <html lang="pt-PT">
       <body>
         <a className="saltar link" href="#conteudo">Saltar para o conteúdo</a>
+        <AvisoRede />
         {children}
       </body>
     </html>

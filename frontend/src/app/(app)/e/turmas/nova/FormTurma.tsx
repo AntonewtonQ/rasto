@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Campo, ErroTopo } from "@/componentes/Campo";
 import { ErroPedido, post } from "@/lib/api-cliente";
+import { fmtHora } from "@/lib/formatos";
+import { useRascunho } from "@/lib/rascunho";
 import type { Turma } from "@/lib/tipos";
 
 const MESES = ["Jan.", "Fev.", "Mar.", "Abr.", "Maio", "Jun.", "Jul.", "Ago.", "Set.", "Out.", "Nov.", "Dez."];
@@ -20,16 +22,17 @@ function periodo(inicio: string, fim: string): string {
 /** E-04: 3 campos e a frase que a entidade vai assinar, actualizada ao escrever. */
 export function FormTurma({ entidade }: { entidade: string }) {
   const router = useRouter();
-  const [d, setD] = useState({ programa: "", edicao: "", inicio: "", fim: "" });
+  const { dados: d, mudar: m, guardadoAs, limpar } = useRascunho("nova-turma", { programa: "", edicao: "", inicio: "", fim: "" });
   const [campos, setCampos] = useState<Record<string, string[]>>({});
   const [erro, setErro] = useState<string | null>(null);
-  const mudar = (k: keyof typeof d) => (e: React.ChangeEvent<HTMLInputElement>) => setD({ ...d, [k]: e.target.value });
+  const mudar = (k: keyof typeof d) => (e: React.ChangeEvent<HTMLInputElement>) => m({ [k]: e.target.value });
 
   async function criar(ev: React.FormEvent) {
     ev.preventDefault();
     setErro(null); setCampos({});
     try {
       const t = await post<Turma>("/api/v1/turmas", d);
+      limpar();
       router.push(`/e/turmas/${t.id}`);
       router.refresh();
     } catch (e) { setErro((e as ErroPedido).message); setCampos((e as ErroPedido).campos); }
@@ -47,6 +50,7 @@ export function FormTurma({ entidade }: { entidade: string }) {
         <p className="copiavel" aria-live="polite">«{"{Startup}"} participou no {d.programa || "{Programa}"} {d.edicao || "{Edição}"} ({periodo(d.inicio, d.fim)}).»</p>
         <p className="help">Os investidores vão ler esta frase com o nome da {entidade} e a data da validação.</p>
       </div>
+      {guardadoAs && <p className="help">Rascunho guardado neste aparelho às {fmtHora(guardadoAs)}.</p>}
       <div className="linha"><button className="btn btn-primary btn-lg btn-movel-cheio">Criar turma</button></div>
     </form>
   );

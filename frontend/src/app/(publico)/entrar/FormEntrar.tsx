@@ -11,7 +11,9 @@ type Passo = "credenciais" | "codigo";
 /** C-01: e-mail e palavra-passe pelo allauth headless; se a conta tiver 2FA, pede o código da aplicação. */
 export function FormEntrar() {
   const router = useRouter();
-  const seguinte = useSearchParams().get("seguinte");
+  const params = useSearchParams();
+  const seguinte = params.get("seguinte");
+  const expirada = params.get("sessao") === "expirada";
   const [passo, setPasso] = useState<Passo>("credenciais");
   const [email, setEmail] = useState("");
   const [palavra, setPalavra] = useState("");
@@ -48,6 +50,7 @@ export function FormEntrar() {
   return (
     <form className="card pad-lg pilha" onSubmit={entrar} noValidate>
       <ErroTopo mensagem={erro} />
+      {expirada && !erro && <p className="aviso aviso-info" role="status">A sessão terminou. Entre de novo: o que estava a escrever ficou guardado neste aparelho.</p>}
       {passo === "credenciais" ? (
         <>
           <Campo rotulo="E-mail" type="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} />

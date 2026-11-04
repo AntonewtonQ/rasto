@@ -10,6 +10,6 @@ COPY config ./config
 COPY rasto ./rasto
 COPY templates ./templates
 RUN DJANGO_SECRET_KEY=build-only python manage.py collectstatic --noinput
-RUN useradd -r -u 1000 app && mkdir -p /app/media && chown app /app/media
+RUN useradd -r -m -u 1000 app && mkdir -p /app/media && chown app /app/media
 USER app
 EXPOSE 8000

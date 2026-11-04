@@ -6,12 +6,15 @@ import { useState } from "react";
 import { Caixa, Campo, ErroTopo } from "@/componentes/Campo";
 import { Aviso } from "@/componentes/Ui";
 import { ErroPedido, pedidoBruto, post } from "@/lib/api-cliente";
+import { useRascunho } from "@/lib/rascunho";
 
 export function FormConvite({ token, email, contaExiste, sessao }:
   { token: string; email: string; contaExiste: boolean; sessao: { papel: string; email: string } | null }) {
   const router = useRouter();
-  const [nome, setNome] = useState("");
-  const [startup, setStartup] = useState("");
+  const { dados: r, mudar, limpar } = useRascunho(`convite-${token.slice(0, 12)}`, { nome: "", startup: "" });
+  const { nome, startup } = r;
+  const setNome = (v: string) => mudar({ nome: v });
+  const setStartup = (v: string) => mudar({ startup: v });
   const [palavra, setPalavra] = useState("");
   const [consentimento, setConsentimento] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
@@ -23,6 +26,7 @@ export function FormConvite({ token, email, contaExiste, sessao }:
     setErro(null); setCampos({});
     try {
       await post(`${base}/aceitar`, corpo ?? {});
+      limpar();
       router.push("/s");
       router.refresh();
     } catch (e) {

@@ -17,15 +17,15 @@ services:
   web:
     profiles: ["app"]
     build: ./backend
-    env_file: ./backend/.env
-    environment: { PGHOST: db, PGPORT: "5432" }
+    env_file: ${RASTO_ENV:-./backend/.env}
+    environment: { PGHOST: db, PGPORT: "5432", DJANGO_HOSTS_INTERNOS: web }
     depends_on: { db: { condition: service_healthy } }
     volumes: [media:/app/media]
     command: sh -c "python manage.py migrate --noinput && gunicorn config.wsgi:application -b 0.0.0.0:8000 -w 3 --access-logfile -"
   cron:
     profiles: ["app"]
     build: ./backend
-    env_file: ./backend/.env
+    env_file: ${RASTO_ENV:-./backend/.env}
     environment: { PGHOST: db, PGPORT: "5432" }
     depends_on: { db: { condition: service_healthy } }
     volumes: [media:/app/media]
@@ -38,7 +38,7 @@ services:
   caddy:
     profiles: ["app"]
     image: caddy:2
-    env_file: ./backend/.env
+    env_file: ${RASTO_ENV:-./backend/.env}
     ports: ["80:80", "443:443"]
     volumes: ["./infra/Caddyfile:/etc/caddy/Caddyfile:ro", "caddydata:/data"]
     depends_on: [web, frontend]

@@ -13,7 +13,7 @@ Trabalho de Conclusão de Curso de Engenharia Informática, Instituto Superior P
 | [`backend/`](backend/) | Django 5.2 + Django REST Framework: API JSON (`/api/v1/`), autenticação (`/_allauth/`), regras de negócio, permissões, auditoria, e-mail, testes |
 | [`frontend/`](frontend/) | Next.js 16: todos os ecrãs |
 | [`docs/`](docs/) | Documentação: [produto](docs/produto/), [marca](docs/marca/), [técnica](docs/tecnica/base-tecnica-rasto.md) e [relatório do TCC](docs/relatorio/) |
-| [`infra/`](infra/) | Configuração do Caddy (TLS e encaminhamento) |
+| [`infra/`](infra/) | Caddy (TLS e encaminhamento), [guia de implantação](infra/IMPLANTACAO.md) e [cópias de segurança](infra/copias/) |
 | `compose.yml` | Contentores: base de dados, backend, tarefas agendadas, frontend e Caddy |
 | `.github/workflows/` | Integração contínua |
 
@@ -65,16 +65,22 @@ Contas criadas pelo `semear_demo` (palavra-passe `demonstracao-rasto-2026`; todo
 ## Testes
 
 ```bash
-cd backend && .venv/bin/pytest        # serviços, auditoria, API e matriz de permissões
+cd backend && .venv/bin/pytest        # serviços, auditoria, API, matriz de permissões, lembretes, e-mail
 cd frontend && npm run lint && npm run build
+cd frontend && npm run e2e            # navegador real e acessibilidade (ver frontend/e2e/README.md)
 ```
+
+Materiais das sessões com utilizadores: [`docs/testes/`](docs/testes/).
 
 ## Implantação
 
-```bash
-cp backend/.env.exemplo backend/.env   # DJANGO_DEBUG=0, DJANGO_SECRET_KEY forte, DOMINIO, SITE_URL=https://DOMINIO, EMAIL_*
-docker compose --profile app up -d --build
-```
+Ver [infra/IMPLANTACAO.md](infra/IMPLANTACAO.md) (servidor recomendado, variáveis, cópias de segurança).
+
+## E-mail
+
+Com `EMAIL_HOST` e `EMAIL_HOST_PASSWORD` em `backend/.env`, os e-mails saem por SMTP (ex.: Gmail com palavra-passe
+de aplicação). Sem credenciais aparecem na consola. Os endereços em domínios reservados (`.test`, `.demo`,
+`.example`…), usados nos dados fictícios, nunca são enviados.
 
 ## Relatório do TCC
 

@@ -285,3 +285,5 @@ button[disabled].btn { background: var(--color-surface-sunken); color: var(--col
 
 dl, dd { margin: 0; }
 dt + dd { margin-top: 2px; }
+
+.aviso-rede { position: sticky; top: 0; z-index: 30; border-radius: 0; justify-content: center; }

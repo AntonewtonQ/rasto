@@ -16,7 +16,8 @@ export class ErroApi extends Error {
 export async function api<T>(caminho: string): Promise<T> {
   const jar = await cookies();
   const r = await fetch(`${DJANGO}${caminho}`, {
-    headers: { cookie: jar.toString(), accept: "application/json" },
+    // O pedido interno é HTTP; o utilizador chegou por HTTPS (Caddy). Sem isto, o Django redireccionaria para HTTPS.
+    headers: { cookie: jar.toString(), accept: "application/json", "x-forwarded-proto": "https" },
     cache: "no-store",
   });
   if (r.status === 401) redirect("/entrar");
@@ -30,7 +31,7 @@ export async function api<T>(caminho: string): Promise<T> {
 /** Utilizador da sessão, ou null. Não redirecciona. */
 export async function eu(): Promise<Eu> {
   const jar = await cookies();
-  const r = await fetch(`${DJANGO}/api/v1/eu`, { headers: { cookie: jar.toString() }, cache: "no-store" });
+  const r = await fetch(`${DJANGO}/api/v1/eu`, { headers: { cookie: jar.toString(), "x-forwarded-proto": "https" }, cache: "no-store" });
   return (await r.json()) as Eu;
 }
 

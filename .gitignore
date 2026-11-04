@@ -17,3 +17,8 @@ docs/relatorio/relatorio_tcc_rasto.zip
 
 *.sqlite3
 .DS_Store
+
+# Cópias de segurança: chave e arquivo nunca no Git
+infra/copias/.chave
+infra/copias/arquivo/
+/.env

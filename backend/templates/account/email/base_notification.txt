@@ -1,0 +1,4 @@
+{% extends "account/email/base_message.txt" %}
+{% block content %}{% autoescape off %}{% block notification_message %}{% endblock notification_message %}
+
+Se não foi você, recupere já a palavra-passe e avise a administração da plataforma.{% endautoescape %}{% endblock content %}

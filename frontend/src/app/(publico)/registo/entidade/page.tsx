@@ -2,49 +2,31 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Caixa, Campo, ErroTopo, Opcoes } from "@/componentes/Campo";
 import { ErroPedido, post } from "@/lib/api-cliente";
 import { fmtHora } from "@/lib/formatos";
+import { useRascunho } from "@/lib/rascunho";
 
-const CHAVE = "rasto:registo-entidade";
 const VAZIO = { tipo: "", nome_legal: "", nif: "", site: "", cidade: "Luanda", nome: "", email: "" };
 
 /** E-01, passo 1 de 3. Rascunho guardado neste aparelho (sem a palavra-passe). */
 export default function RegistoEntidade() {
   const router = useRouter();
-  const [d, setD] = useState(VAZIO);
+  const { dados: d, mudar: m, guardadoAs, limpar } = useRascunho("registo-entidade", VAZIO);
   const [palavra, setPalavra] = useState("");
   const [consentimento, setConsentimento] = useState(false);
   const [campos, setCampos] = useState<Record<string, string[]>>({});
   const [erro, setErro] = useState<string | null>(null);
-  const [guardadoAs, setGuardadoAs] = useState<string | null>(null);
   const [aEnviar, setAEnviar] = useState(false);
-
-  // Repõe o rascunho depois da primeira pintura (a página é pré-gerada; localStorage só existe no aparelho).
-  useEffect(() => {
-    const id = requestAnimationFrame(() => {
-      try {
-        const r = JSON.parse(localStorage.getItem(CHAVE) ?? "null");
-        if (r) { setD({ ...VAZIO, ...r.dados }); setGuardadoAs(r.hora); }
-      } catch { /* sem armazenamento: o formulário funciona na mesma */ }
-    });
-    return () => cancelAnimationFrame(id);
-  }, []);
-
-  function mudar(campo: keyof typeof VAZIO, valor: string) {
-    const novo = { ...d, [campo]: valor };
-    setD(novo);
-    const hora = new Date().toISOString();
-    try { localStorage.setItem(CHAVE, JSON.stringify({ hora, dados: novo })); setGuardadoAs(hora); } catch { /* idem */ }
-  }
+  const mudar = (campo: keyof typeof VAZIO, valor: string) => m({ [campo]: valor });
 
   async function enviar(ev: React.FormEvent) {
     ev.preventDefault();
     setErro(null); setCampos({}); setAEnviar(true);
     try {
       await post("/api/v1/registo/entidade", { ...d, site: d.site && !/^https?:\/\//.test(d.site) ? `https://${d.site}` : d.site, palavra_passe: palavra, consentimento });
-      try { localStorage.removeItem(CHAVE); } catch { /* idem */ }
+      limpar();
       router.push("/e/registo/comprovativos");
       router.refresh();
     } catch (e) {

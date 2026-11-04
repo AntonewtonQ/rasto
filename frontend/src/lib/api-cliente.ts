@@ -41,6 +41,14 @@ export async function pedido<T = unknown>(metodo: string, caminho: string, corpo
     throw new ErroPedido(0, "sem_rede", "Sem ligação. O que escreveu continua no formulário; tente de novo quando houver rede.");
   }
   if (r.status === 204) return undefined as T;
+  if (r.status === 401 && caminho.startsWith("/api/v1/")) {
+    // Sessão expirada a meio: o rascunho fica no aparelho; depois de entrar, volta-se a esta página.
+    const aqui = window.location.pathname + window.location.search;
+    // Recarga completa de propósito: limpa o estado do cliente associado à sessão que terminou.
+    // eslint-disable-next-line @next/next/no-location-assign-relative-destination
+    window.location.assign(`/entrar?seguinte=${encodeURIComponent(aqui)}&sessao=expirada`);
+    throw new ErroPedido(401, "sem_sessao", "A sessão terminou. Entre de novo; o que escreveu está guardado neste aparelho.");
+  }
   const dados = await r.json().catch(() => ({}));
   if (!r.ok) {
     // Formato da API (/api/v1) ou do allauth headless (/_allauth): {"errors": [{"message", "param"}]}

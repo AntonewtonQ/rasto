@@ -6,6 +6,7 @@ import { AreaTexto, Campo, ErroTopo } from "@/componentes/Campo";
 import { Icone } from "@/componentes/Icone";
 import { Aviso } from "@/componentes/Ui";
 import { ErroPedido, post } from "@/lib/api-cliente";
+import { useRascunho } from "@/lib/rascunho";
 
 type Linha = { numero: number; email: string; situacao: string; mensagem: string; enviavel: boolean };
 
@@ -13,7 +14,8 @@ type Linha = { numero: number; email: string; situacao: string; mensagem: string
 export function Convidar({ turmaId, podeConvidar }: { turmaId: string; podeConvidar: boolean }) {
   const router = useRouter();
   const [separador, setSeparador] = useState<"email" | "ligacao">("email");
-  const [texto, setTexto] = useState("");
+  const { dados: rascunho, mudar: mudarRascunho, limpar } = useRascunho(`convites-${turmaId}`, { texto: "" });
+  const texto = rascunho.texto;
   const [linhas, setLinhas] = useState<Linha[] | null>(null);
   const [email, setEmail] = useState("");
   const [mensagem, setMensagem] = useState<string | null>(null);
@@ -34,6 +36,7 @@ export function Convidar({ turmaId, podeConvidar }: { turmaId: string; podeConvi
     setErro(null);
     try {
       await post(`/api/v1/turmas/${turmaId}/convites`, { texto });
+      limpar();
       router.push(`/e/turmas/${turmaId}`);
       router.refresh();
     } catch (e) { setErro((e as ErroPedido).message); }
@@ -58,7 +61,7 @@ export function Convidar({ turmaId, podeConvidar }: { turmaId: string; podeConvi
       {separador === "email" ? (
         <form className="card pad-lg pilha" onSubmit={verificar} noValidate>
           <AreaTexto rotulo="E-mails das startups" rows={6} value={texto} spellCheck={false} ajuda="Um e-mail por linha."
-            onChange={(e) => { setTexto(e.target.value); setLinhas(null); }} />
+            onChange={(e) => { mudarRascunho({ texto: e.target.value }); setLinhas(null); }} />
           {linhas && (
             <div className="field" aria-live="polite">
               <p className="label">Verificação, linha a linha</p>

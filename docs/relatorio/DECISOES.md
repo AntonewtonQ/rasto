@@ -28,6 +28,11 @@ Formato: data · decisão · justificação (dado: inquérito, literatura, entre
 - 2026-11-03 · Repositório reorganizado em `backend/`, `frontend/`, `docs/` (produto, marca, técnica, relatório) e `infra/`, com `compose.yml` na raiz · pedido do autor; legibilidade do repositório · Cap. III (implementação), Cap. VI.
 - 2026-11-03 · Lembretes por e-mail ao 7.º dia para convites e pedidos de validação, idempotentes (`LembreteEnviado`); convite por e-mail recebe ligação nova (o token antigo só existe como *hash*), convite por ligação avisa a entidade · base de UX 5.0; HU06 · Cap. III, Cap. V.
 - 2026-11-03 · Equipa da entidade (E-09): só o responsável convida e retira membros; a entidade nunca fica sem responsável; o membro retirado fica com a conta desactivada e o nome mantém-se na auditoria · **suposição** (a base de UX não define quem gere a equipa) · Cap. III, Cap. V.
+- 2026-11-03 · E-mail por SMTP do Gmail (conta do autor, palavra-passe de aplicação fora do Git); domínios reservados (.test, .demo, .example) nunca são enviados · decisão do autor; custo zero; limite diário suficiente para o TCC · Cap. VI.
+- 2026-11-03 · Servidor recomendado para staging: VPS Hetzner CX22 com Docker Compose e domínio `<IP>.sslip.io` · custo e simplicidade (ADR-10); dados fictícios nos testes, por isso sem transferência internacional de dados reais · Cap. VI. **Pendente:** decisão do autor e Dec-T1 para produção.
+- 2026-11-03 · Cópias de segurança cifradas (GnuPG, AES-256) da base e dos comprovativos, retenção de 30 dias, teste de restauro mensal que verifica a cadeia da auditoria · base técnica 7.7, RNF11 · Cap. V, Cap. VI.
+- 2026-11-03 · Testes ponta a ponta (Playwright) e de acessibilidade (axe, WCAG 2.2 AA, sem violações graves) no repositório e na CI · RNF03, RNF05 · Cap. III (testes), Cap. IV.
+- 2026-11-03 · Rascunho no aparelho nos formulários do Sprint 1; aviso «Sem ligação»; sessão expirada leva à entrada e volta ao formulário · regra 5 da base de UX; RNF04 · Cap. III.
 
 ## Sincronizações
 - 2026-11-03 · Relatório gerado com pré-textuais, Introdução e Capítulos I e II · commit: {{ainda sem código}}
