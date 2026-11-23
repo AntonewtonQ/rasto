@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Icone, Selo } from "@/componentes/Icone";
 import { CartaoSinal, Cabecalho, Cartao } from "@/componentes/Ui";
 import { api, exigirPapel } from "@/lib/api-servidor";
@@ -9,7 +10,7 @@ export const metadata: Metadata = { title: "Início" };
 
 type InicioStartup = {
   startup: { id: string; nome: string; estado: string }; completude: number; sinais: Sinal[];
-  passos: { texto: string; feito: boolean; selo?: boolean }[];
+  passos: { texto: string; feito: boolean; selo?: boolean; href?: string }[];
 };
 
 export default async function InicioStartup() {
@@ -26,14 +27,18 @@ export default async function InicioStartup() {
         </Cartao>
         <section className="pilha" aria-labelledby="sinais-t">
           <h2 className="t-h3" id="sinais-t">Sinais</h2>
-          {d.sinais.length ? d.sinais.map((s) => <CartaoSinal key={s.id} s={s} />) : <p className="muted">Ainda sem sinais.</p>}
+          {d.sinais.length ? d.sinais.map((s) => <CartaoSinal key={s.id} s={s} />)
+            : <p className="muted">Ainda sem sinais. <Link className="link" href="/s/selos">Peça o selo à sua aceleradora</Link>.</p>}
           <p className="t-sm muted">Os sinais pendentes só aparecem para si. Os investidores só vêem os validados (com quem confirmou e quando) e, em secção separada, os declarados.</p>
         </section>
         <Cartao titulo="Próximos passos">
           <ul className="pilha limpa">{d.passos.map((p) => (
             <li key={p.texto} className={`passo${p.feito ? " feito" : ""}`}>
               {p.selo ? <Selo estado="validado" tamanho={20} /> : p.feito ? <span className="marca-passo"><Icone nome="visto" /></span> : <span className="marca-passo" aria-hidden="true" />}
-              <p className={p.feito ? "muted" : ""}>{p.texto}{p.feito && <span className="sr-only"> (feito)</span>}</p>
+              <p className={p.feito ? "muted" : ""}>
+                {p.href && !p.feito ? <Link className="link" href={p.href}>{p.texto}</Link> : p.texto}
+                {p.feito && <span className="sr-only"> (feito)</span>}
+              </p>
             </li>
           ))}</ul>
         </Cartao>

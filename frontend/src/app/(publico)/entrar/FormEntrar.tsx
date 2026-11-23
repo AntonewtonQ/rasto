@@ -68,7 +68,7 @@ export function FormEntrar() {
       <button className="btn btn-primary btn-lg btn-block" type="submit" aria-busy={aEnviar} disabled={aEnviar}>
         {aEnviar ? "A entrar…" : passo === "credenciais" ? "Entrar" : "Confirmar código"}
       </button>
-      <p className="t-body">É uma aceleradora ou universidade? <Link className="link" href="/registo/entidade">Registe a entidade</Link>.</p>
+      <p className="t-body">Ainda não tem conta? <Link className="link" href="/registo/startup">Criar conta da startup</Link> · <Link className="link" href="/registo/entidade">Registar aceleradora</Link></p>
     </form>
   );
 }

@@ -16,7 +16,9 @@ export function proxy(request: NextRequest) {
     "base-uri 'self'",
     "form-action 'self'",
     "frame-ancestors 'none'",
-    ...(dev ? [] : ["upgrade-insecure-requests"]),
+    // Só quando o utilizador chegou por HTTPS (produção, túnel). Na demonstração em rede local (HTTP), esta
+    // directiva faria o navegador pedir o CSS e o JavaScript por HTTPS, que não existe.
+    ...(request.headers.get("x-forwarded-proto") === "https" ? ["upgrade-insecure-requests"] : []),
   ].join("; ");
 
   const cabecalhos = new Headers(request.headers);

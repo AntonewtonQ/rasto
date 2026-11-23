@@ -41,7 +41,13 @@ urlpatterns = [
     path("convites/publico/<str:token>/aceitar", tur.AceitarConvite.as_view(), name="api_convite_aceitar"),
     path("convites/publico/<str:token>/recusar", tur.RecusarConvite.as_view(), name="api_convite_recusar"),
     # Startup
+    path("registo/startup", st.RegistoStartup.as_view(), name="api_registo_startup"),
     path("startup/inicio", st.InicioStartup.as_view(), name="api_startup_inicio"),
+    path("startup/selos", st.Selos.as_view(), name="api_startup_selos"),
+    path("startup/selos/<uuid:pk>", st.CancelarSelo.as_view(), name="api_startup_selo"),
+    path("startup/equipa", st.EquipaStartup.as_view(), name="api_startup_equipa"),
+    path("startup/equipa/convites/<uuid:pk>/cancelar", st.CancelarConviteEquipaStartup.as_view(), name="api_startup_equipa_cancelar"),
+    path("startup/equipa/membros/<int:pk>", st.MembroEquipaStartup.as_view(), name="api_startup_equipa_membro"),
     # Administração
     path("admin/verificacoes", adm.Verificacoes.as_view(), name="api_verificacoes"),
     path("admin/verificacoes/<uuid:pk>", adm.Verificacao.as_view(), name="api_verificacao"),

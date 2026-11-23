@@ -1,0 +1,8 @@
+{% autoescape off %}Olá.
+
+A {{ s.validador.nome }} não confirmou o pedido de selo da {{ s.startup.nome }} para a turma {{ s.turma }}.
+
+Motivo indicado: {{ s.motivo }}
+
+Se acha que é um engano, fale directamente com a {{ s.validador.nome }}.
+{% endautoescape %}

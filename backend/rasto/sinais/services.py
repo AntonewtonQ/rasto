@@ -7,6 +7,7 @@ from rasto.nucleo.email import enfileirar
 from rasto.nucleo.erros import ErroDominio, TransicaoInvalida
 from rasto.nucleo.formatos import fmt_data, fmt_data_extenso
 from rasto.organizacoes.services import organizacao_do_utilizador
+from rasto.turmas.models import StartupTurma
 from rasto.turmas.services import frase_validacao
 
 from .models import Sinal
@@ -32,9 +33,15 @@ def _exigir_validador(utilizador, sinal: Sinal):
         raise ErroDominio("Este sinal não está atribuído à sua entidade.")
     if not org.pode_convidar_e_validar:
         raise ErroDominio("A entidade não está verificada: as validações estão bloqueadas.")
-    if not sinal.startup.turmas.filter(turma__organizacao=org).exists():
+    turma_da_entidade = sinal.turma_id is not None and sinal.turma.organizacao_id == org.id
+    if not turma_da_entidade and not sinal.startup.turmas.filter(turma__organizacao=org).exists():
         raise ErroDominio("Só pode validar sinais de startups das suas turmas.")
     return org
+
+
+def _avisar_startup(sinal: Sinal, modelo: str, assunto: str):
+    for m in sinal.startup.membros.select_related("utilizador"):
+        enfileirar(para=m.utilizador.email, assunto=assunto, modelo=modelo, contexto={"s": sinal, "site": settings.SITE_URL})
 
 
 @transaction.atomic
@@ -50,7 +57,11 @@ def validar_sinal(*, utilizador, sinal: Sinal, request=None) -> Sinal:
     sinal.validado_por = utilizador
     sinal.motivo = ""
     sinal.save()
+    if sinal.tipo == Sinal.Tipo.PARTICIPACAO and sinal.turma_id:
+        # Pedido feito pela startup: ao confirmar, a startup passa a fazer parte da turma.
+        StartupTurma.objects.get_or_create(startup=sinal.startup, turma=sinal.turma)
     registar(actor=utilizador, accao="sinal_validado", objecto=sinal, antes=antes, depois=_foto(sinal), request=request)
+    _avisar_startup(sinal, "emails/selo_validado.txt", f"{sinal.validador.nome} confirmou o selo da {sinal.startup.nome}")
     return sinal
 
 
@@ -75,6 +86,7 @@ def recusar_sinal(*, utilizador, sinal: Sinal, motivo: str, request=None) -> Sin
     sinal.motivo = motivo.strip()
     sinal.save()
     registar(actor=utilizador, accao="sinal_recusado", objecto=sinal, antes=antes, depois=_foto(sinal), request=request)
+    _avisar_startup(sinal, "emails/selo_recusado.txt", f"{sinal.validador.nome} não confirmou o pedido da {sinal.startup.nome}")
     return sinal
 
 

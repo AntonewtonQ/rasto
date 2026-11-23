@@ -1,0 +1,73 @@
+/* Página de entrada (pública), versão mínima. Só tokens de rasto.css; telemóvel primeiro. */
+
+.entrada { min-height: 100vh; display: flex; flex-direction: column; }
+.entrada main { flex: 1; }
+.entrada-largura { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 max(16px, env(safe-area-inset-left, 0px)); }
+
+.entrada-topo .entrada-largura { min-height: 64px; }
+
+/* Topo */
+.entrada-heroi { position: relative; overflow: hidden; padding: 24px 0 64px; }
+/* No telemóvel a ilustração é uma faixa acima do conteúdo, nunca por trás do texto (guia de marca 7.2). */
+.heroi-fundo { width: 100%; height: 64px; margin: -16px 0 24px; opacity: .4; pointer-events: none; }
+.heroi-grelha { position: relative; display: grid; gap: 40px; }
+.heroi-titulo { font-size: 2.5rem; line-height: 1.1; }
+.heroi-texto { max-width: 34ch; }
+.heroi-accoes { display: flex; flex-wrap: wrap; gap: 8px; }
+.heroi-exemplo { margin: 0; box-shadow: var(--shadow-1); }
+
+/* Ilustração pontos e trilho */
+.trilho-svg { display: block; }
+.trilho-pontos circle { fill: var(--color-primary); }
+.trilho-linha { stroke: var(--color-secondary); }
+
+/* Secções */
+.entrada-seccao { padding: 56px 0; }
+.seccao-rebaixada { background: var(--color-surface-sunken); }
+
+/* Como funciona: passos ligados por uma linha (a cadeia de confiança) */
+.passos-cadeia { display: grid; position: relative; }
+.passo-cadeia { display: grid; grid-template-columns: 32px 1fr; gap: 16px; position: relative; padding-bottom: 24px; }
+.passo-cadeia:last-child { padding-bottom: 0; }
+.passo-cadeia::before { content: ""; position: absolute; left: 15px; top: 32px; bottom: 0; width: 2px; background: var(--color-secondary); opacity: .5; }
+.passo-cadeia:last-child::before { display: none; }
+.passo-numero { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: var(--color-primary);
+  color: var(--color-on-primary); font: var(--text-label); font-weight: 600; font-variant-numeric: tabular-nums; }
+.passo-titulo { font-size: 1rem; font-weight: 600; margin-top: 5px; }
+
+/* Para quem: três colunas simples, sem cartões */
+.publicos { display: grid; gap: 28px; }
+.publico { display: flex; flex-direction: column; gap: 6px; padding-top: 16px; border-top: 2px solid var(--color-primary); }
+
+/* Fecho em tinta */
+.entrada-fecho { padding: 56px 0; background: var(--color-primary); color: var(--color-on-primary); }
+.fecho-conteudo { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; }
+.fecho-titulo { font-size: 2rem; line-height: 1.15; }
+.btn-claro { background: var(--color-on-primary); color: var(--color-primary); }
+.btn-claro:hover { background: color-mix(in srgb, var(--color-on-primary) 88%, var(--color-primary)); }
+.entrada-fecho :focus-visible { outline-color: var(--color-on-primary); }
+
+/* Rodapé */
+.entrada-rodape { padding: 24px 0 32px; }
+.entrada-rodape .entre { gap: 8px 24px; }
+
+@media (min-width: 768px) {
+  .entrada-largura { padding: 0 24px; }
+  .publicos { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+  .fecho-conteudo { flex-direction: row; align-items: center; justify-content: space-between; }
+}
+
+@media (min-width: 1024px) {
+  .entrada-largura { padding: 0 32px; }
+  .entrada-heroi { padding: 96px 0 112px; }
+  /* Computador: só na coluna da direita, por trás do cartão de exemplo (opaco); o texto fica limpo. */
+  .heroi-fundo { position: absolute; inset: 0 0 0 auto; width: 44%; height: 100%; margin: 0; opacity: .2; }
+  .heroi-grelha { grid-template-columns: 1.15fr 1fr; gap: 80px; align-items: center; }
+  .heroi-titulo { font-size: 3.75rem; }
+  .entrada-seccao { padding: 80px 0; }
+  .passos-cadeia { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+  .passo-cadeia { grid-template-columns: 1fr; padding-bottom: 0; gap: 12px; }
+  .passo-cadeia::before { left: 40px; right: -32px; top: 15px; bottom: auto; width: auto; height: 2px; }
+  .fecho-titulo { font-size: 2.5rem; }
+  .entrada-fecho { padding: 72px 0; }
+}

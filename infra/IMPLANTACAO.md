@@ -1,5 +1,9 @@
 # Implantação do Rasto (staging e produção)
 
+> **Antes de haver servidor:** `infra/demo.sh` põe a pilha de produção a correr neste computador para as sessões de
+> teste, em rede local (`infra/demo.sh rede`) ou com um túnel público da Cloudflare (`infra/demo.sh tunel`).
+> Ver os comentários no início do *script*.
+
 ## Servidor recomendado
 
 | | Recomendação para o TCC |

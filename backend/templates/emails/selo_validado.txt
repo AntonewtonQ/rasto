@@ -1,0 +1,8 @@
+{% autoescape off %}Olá.
+
+A {{ s.validador.nome }} confirmou: «{{ s.frase_validada }}»
+
+O selo aparece no perfil da {{ s.startup.nome }}, com o nome da entidade e a data.
+
+Ver: {{ site }}/s
+{% endautoescape %}

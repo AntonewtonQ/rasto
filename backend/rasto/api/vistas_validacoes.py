@@ -15,6 +15,8 @@ def _com_frase(s) -> dict:
     d = rep.sinal(s)
     d["frase"] = s.frase_validada or services.frase_do_sinal(s)
     d["validavel_em_lote"] = s.tipo == "participacao"
+    d["nota"] = s.evidencia
+    d["pedido_pela_startup"] = not s.startup.turmas.filter(turma_id=s.turma_id).exists() if s.turma_id else False
     if s.expira_em:
         d["dias_restantes"] = (timezone.localtime(s.expira_em).date() - timezone.localdate()).days
     return d

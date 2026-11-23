@@ -1,3 +1,12 @@
+{
+	servers {
+		# Confia no X-Forwarded-Proto vindo de endereços privados (ex.: túnel da Cloudflare em infra/demo.sh).
+		# Os clientes da Internet chegam com IP público e não são confiados.
+		trusted_proxies static private_ranges
+	}
+}
+
+# DOMINIO: o domínio (TLS automático) ou ":80" no modo de demonstração (infra/demo.sh), sem TLS.
 {$DOMINIO:localhost} {
 	encode zstd gzip
 	# A API e a autenticação vão directamente para o Django; os ecrãs para o Next.js (mesma origem).

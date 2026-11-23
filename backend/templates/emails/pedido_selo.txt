@@ -1,0 +1,12 @@
+{% autoescape off %}Olá.
+
+A startup {{ startup.nome }} pede que a {{ t.organizacao.nome }} confirme que participou na turma {{ t.programa }} {{ t.edicao }} ({{ t.periodo }}).
+{% if nota %}
+Nota da startup: «{{ nota }}»
+{% endif %}
+Se confirmar, os investidores vão ver: «{{ startup.nome }} participou no {{ t.programa }} {{ t.edicao }} ({{ t.periodo }}).», com o nome da {{ t.organizacao.nome }} e a data.
+
+Confirmar ou recusar até {{ validade }}: {{ site }}/e/validacoes/{{ s.pk }}
+
+Se não reconhece esta startup, recuse o pedido. A startup vê o motivo; os investidores não.
+{% endautoescape %}

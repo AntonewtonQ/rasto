@@ -197,11 +197,15 @@ SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SAMESITE = "Lax"
 CSRF_COOKIE_SAMESITE = "Lax"
 CSRF_COOKIE_HTTPONLY = False  # o frontend lê-o para enviar X-CSRFToken (padrão do Django para pedidos JS)
-if not DEBUG:
+# DJANGO_SEM_HTTPS=1 só no modo de demonstração em rede local (infra/demo.sh rede): os navegadores não guardam
+# cookies «Secure» sem HTTPS. Nunca em staging nem em produção.
+SEM_HTTPS = env("DJANGO_SEM_HTTPS", "0") == "1"
+if not DEBUG and not SEM_HTTPS:
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_NAME = "__Host-sessao"
-    SECURE_SSL_REDIRECT = env("DJANGO_SSL_REDIRECT", "1") == "1"
+if not DEBUG:
+    SECURE_SSL_REDIRECT = env("DJANGO_SSL_REDIRECT", "1") == "1" and not SEM_HTTPS
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
     SECURE_HSTS_SECONDS = 31536000
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True

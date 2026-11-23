@@ -14,7 +14,12 @@ function destinos(papel: string, contadores: Record<string, number>): Destino[] 
         { rotulo: "Conta", href: "/conta", icone: "pessoa" },
       ];
     case "startup":
-      return [{ rotulo: "Início", href: "/s", icone: "casa" }, { rotulo: "Conta", href: "/conta", icone: "pessoa" }];
+      return [
+        { rotulo: "Início", href: "/s", icone: "casa" },
+        { rotulo: "Selos", href: "/s/selos", icone: "selo" },
+        { rotulo: "Equipa", href: "/s/equipa", icone: "turmas" },
+        { rotulo: "Conta", href: "/conta", icone: "pessoa" },
+      ];
     case "investidor":
       return [{ rotulo: "Início", href: "/i", icone: "casa" }, { rotulo: "Conta", href: "/conta", icone: "pessoa" }];
     default:

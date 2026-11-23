@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { connection } from "next/server";
 import { AvisoRede } from "@/componentes/AvisoRede";
+// Fontes alojadas no próprio servidor (guia de marca 5.1; CSP font-src 'self'). Só o subconjunto usado é descarregado.
+import "@fontsource-variable/inter";
 import "@/estilos/rasto.css";
 import "@/estilos/app.css";
 

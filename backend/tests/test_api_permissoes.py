@@ -18,7 +18,7 @@ from .conftest import TODOS_CUMPREM, criar_utilizador, membro, nova_entidade, su
 pytestmark = pytest.mark.django_db
 PAPEIS = ["startup", "investidor", "entidade", "admin"]
 PUBLICAS = {"api_csrf", "api_eu", "api_registo_entidade", "api_convite_publico", "api_convite_aceitar",
-            "api_convite_recusar", "api_equipa_convite_publico", "api_equipa_convite_aceitar"}
+            "api_convite_recusar", "api_equipa_convite_publico", "api_equipa_convite_aceitar", "api_registo_startup"}
 AUTENTICADAS_SEM_PAPEL = {"api_esquema"}
 
 

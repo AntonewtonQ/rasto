@@ -29,6 +29,7 @@ export function Decidir({ s, entidade, verificada }: { s: Sinal; entidade: strin
       {s.estado === "pendente" ? (<>
         <p className="t-label">Vai confirmar:</p>
         <p className="t-body-lg">«{s.frase}»</p>
+        {s.pedido_pela_startup && <p className="aviso aviso-info">A startup pediu este selo{s.nota ? `: «${s.nota}»` : "."} Confirme só se a startup participou nesta turma.</p>}
         <p className="muted">Os investidores vão ver esta frase com o nome da {entidade} e a data de hoje. Pode retirar a validação mais tarde; a retirada fica registada.</p>
         <div className="linha">
           <button className="btn btn-primary btn-lg btn-movel-cheio" disabled={!verificada} onClick={() => decidir("validar")}>

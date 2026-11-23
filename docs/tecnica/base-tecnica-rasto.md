@@ -54,6 +54,10 @@ Nomes de código (tabelas, classes, rotas) em português sem acentos (`Organizac
 
 **Verificação feita nesta versão** (PostgreSQL 16.15 e Python 3.12, numa instância temporária): as 6 consultas da secção 6.2 que não dependem das tabelas das turmas correram sobre um caso de teste com o exemplo da HU19. Deram 37,5% comprometido, 17 dias até ao primeiro soft commit, a conversão esperada por etapa, a relação parada certa, mediana de resposta de 2 dias, aceitação de 50% e 75% no top-3. Sem taxa de câmbio, `sem_conversao = 1`. As restrições da 4.2 (validado completo, pesos a somar 100, uma só configuração activa, um só pedido pendente) recusam as linhas proibidas. Os 12 testes da 5.5 passam contra o código da 5.4, incluindo a propriedade com Hypothesis. A consulta do estado da turma e os *triggers* da auditoria não foram executados: só serão testados com as migrações reais.
 
+### 0.4 Alteração de fluxo (decisão do autor, 4 de Novembro de 2026)
+
+A startup passa a **criar a conta sozinha**, a **convidar a equipa** e a **pedir à aceleradora o selo** de participação numa turma (com nota opcional). A aceleradora confirma ou recusa na fila de validações (E-07/E-08), com a frase exacta à vista; ao confirmar, a startup fica ligada à turma. O convite pela aceleradora (E-06, C-03) mantém-se como alternativa. Substitui a decisão Dec-2 da base de UX («startups só por convite»). Novos ecrãs: registo da startup, Selos (`/s/selos`) e Equipa (`/s/equipa`).
+
 ### 0.3 Alterações face à v1.2 (decisão do autor, 3 de Novembro de 2026)
 
 | Secção | Alteração | Porquê |

@@ -1,3 +1,4 @@
+import "@fontsource/lora/latin-600.css"; // Lora só nas páginas públicas (guia de marca 5.1)
 import Link from "next/link";
 import { Simbolo } from "@/componentes/Icone";
 

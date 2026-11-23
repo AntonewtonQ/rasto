@@ -96,12 +96,21 @@ class ConviteEquipaPublico(VistaPublica):
     """Estado do convite de equipa (para a página /equipa/<token>)."""
 
     def get(self, request, token):
+        from rasto.startups import services as st_services
+
+        de = None
         c = org_services.obter_convite_equipa(token)
-        if c is None:
-            return Response({"estado": "inexistente"}, status=404)
-        return Response({"estado": c.estado, "email": c.email, "expira_em": c.expira_em,
-                         "organizacao": rep.organizacao(c.organizacao),
-                         "enviado_por": (c.enviado_por.nome or c.enviado_por.email) if c.enviado_por else None})
+        if c is not None:
+            tipo, nome = "entidade", c.organizacao.nome
+        else:
+            c = st_services.obter_convite_membro(token)
+            if c is None:
+                return Response({"estado": "inexistente"}, status=404)
+            tipo, nome = "startup", c.startup.nome
+        if c.enviado_por:
+            de = c.enviado_por.nome or c.enviado_por.email
+        return Response({"tipo": tipo, "nome": nome, "estado": c.estado, "email": c.email,
+                         "expira_em": c.expira_em, "enviado_por": de})
 
 
 class AceitarEquipaIn(serializers.Serializer):
@@ -119,7 +128,13 @@ class AceitarConviteEquipa(VistaPublica):
         s = AceitarEquipaIn(data=request.data)
         s.is_valid(raise_exception=True)
         d = s.validated_data
-        u = org_services.aceitar_convite_equipa(token=token, nome=d["nome"], palavra_passe=d["palavra_passe"],
-                                                consentiu=d["consentimento"])
+        from rasto.startups import services as st_services
+
+        if org_services.obter_convite_equipa(token) is not None:
+            u = org_services.aceitar_convite_equipa(token=token, nome=d["nome"], palavra_passe=d["palavra_passe"],
+                                                    consentiu=d["consentimento"])
+        else:
+            u = st_services.aceitar_convite_membro(token=token, nome=d["nome"], palavra_passe=d["palavra_passe"],
+                                                   consentiu=d["consentimento"])
         login(request, u, backend=BACKEND)
         return Response({"utilizador": rep.utilizador(u)}, status=201)

@@ -33,6 +33,8 @@ Formato: data · decisão · justificação (dado: inquérito, literatura, entre
 - 2026-11-03 · Cópias de segurança cifradas (GnuPG, AES-256) da base e dos comprovativos, retenção de 30 dias, teste de restauro mensal que verifica a cadeia da auditoria · base técnica 7.7, RNF11 · Cap. V, Cap. VI.
 - 2026-11-03 · Testes ponta a ponta (Playwright) e de acessibilidade (axe, WCAG 2.2 AA, sem violações graves) no repositório e na CI · RNF03, RNF05 · Cap. III (testes), Cap. IV.
 - 2026-11-03 · Rascunho no aparelho nos formulários do Sprint 1; aviso «Sem ligação»; sessão expirada leva à entrada e volta ao formulário · regra 5 da base de UX; RNF04 · Cap. III.
+- 2026-11-04 · Até haver servidor, as sessões de teste correm neste computador com `infra/demo.sh`: pilha de produção (`DEBUG=0`), base `rasto_demo` separada, em rede local (HTTP, cookies sem `Secure` só neste modo, `DJANGO_SEM_HTTPS=1`) ou por túnel da Cloudflare (HTTPS) · decisão do autor; dados fictícios · Cap. II (procedimento dos testes), Cap. VI.
+- 2026-11-04 · **Entrada das startups (substitui a Dec-2 da base de UX, «só por convite»):** a startup cria a conta sozinha, convida a equipa (só os fundadores gerem; há sempre um fundador) e pede à aceleradora o selo de participação numa das turmas dela, com uma nota opcional. A aceleradora confirma (a startup passa a fazer parte da turma) ou recusa com motivo; a startup é avisada por e-mail. O convite pela aceleradora continua disponível · decisão do autor · Cap. III (requisitos, casos de uso, fluxos), Introdução (delimitação), Cap. V (abuso: só turmas de entidades verificadas; um pedido por turma; recusa impede novo pedido).
 
 ## Sincronizações
 - 2026-11-03 · Relatório gerado com pré-textuais, Introdução e Capítulos I e II · commit: {{ainda sem código}}

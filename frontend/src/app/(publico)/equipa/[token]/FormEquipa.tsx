@@ -6,7 +6,7 @@ import { useState } from "react";
 import { Caixa, Campo, ErroTopo } from "@/componentes/Campo";
 import { ErroPedido, post } from "@/lib/api-cliente";
 
-export function FormEquipa({ token, email }: { token: string; email: string }) {
+export function FormEquipa({ token, email, destino }: { token: string; email: string; destino: string }) {
   const router = useRouter();
   const [nome, setNome] = useState("");
   const [palavra, setPalavra] = useState("");
@@ -19,7 +19,7 @@ export function FormEquipa({ token, email }: { token: string; email: string }) {
     setErro(null); setCampos({});
     try {
       await post(`/api/v1/equipa/convites/${encodeURIComponent(token)}/aceitar`, { nome, palavra_passe: palavra, consentimento });
-      router.push("/e");
+      router.push(destino);
       router.refresh();
     } catch (e) { setErro((e as ErroPedido).message); setCampos((e as ErroPedido).campos); }
   }

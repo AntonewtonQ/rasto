@@ -22,3 +22,6 @@ docs/relatorio/relatorio_tcc_rasto.zip
 infra/copias/.chave
 infra/copias/arquivo/
 /.env
+
+# Modo de demonstração (gerado por infra/demo.sh)
+infra/demo/

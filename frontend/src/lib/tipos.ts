@@ -41,7 +41,7 @@ export type Sinal = {
   validador: { id: string; nome: string; verificada_em: string | null } | null;
   startup: { id: string; nome: string }; turma: Turma | null; pedido_em: string | null; expira_em: string | null;
   actualizado_em: string; motivo?: string; validado_por?: string;
-  frase?: string; validavel_em_lote?: boolean; dias_restantes?: number;
+  frase?: string; validavel_em_lote?: boolean; dias_restantes?: number; nota?: string; pedido_pela_startup?: boolean;
 };
 
 export type Comprovativo = { id: string; descricao: string; nome_original: string; tipo_mime: string; tamanho_bytes: number; criado_em: string };

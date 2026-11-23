@@ -50,6 +50,7 @@ export function FilaLote({ sinais, podeValidar }: { sinais: Sinal[]; podeValidar
                   Expira a {fmtData(s.expira_em)}{urgente ? ` · faltam ${s.dias_restantes} dia${s.dias_restantes === 1 ? "" : "s"}` : ""}</span>
               </div>
               <p className="t-sm"><span className="muted">Vai confirmar:</span> «{s.frase}»</p>
+              {s.pedido_pela_startup && <p className="t-sm"><span className="chip chip-info">Pedido pela startup</span>{s.nota && <span className="muted"> · Nota: «{s.nota}»</span>}</p>}
               <p className="t-sm muted">{s.tipo_rotulo} · pedido a {fmtData(s.pedido_em)}{!s.validavel_em_lote && <span id={`um-${s.id}`}> · Marcos validam-se um a um.</span>}</p>
               <div className="linha"><Link className="btn btn-ghost" href={`/e/validacoes/${s.id}`}>Ver e decidir</Link></div>
             </li>
