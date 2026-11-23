@@ -45,3 +45,36 @@ export type Sinal = {
 };
 
 export type Comprovativo = { id: string; descricao: string; nome_original: string; tipo_mime: string; tamanho_bytes: number; criado_em: string };
+
+// --- Sprint 2: perfil, mandato, compatibilidade e pedidos de acesso ---------------------------------------------
+
+export type Item = { id: string; codigo: string; nome: string; descricao?: string };
+export type Catalogo = { sector: Item[]; fase: Item[]; geografia: Item[]; risco: Item[]; taxa: { data: string; aoa_por_usd: string } | null };
+export type Ronda = { valor_alvo: number; moeda: string; data_inicio: string };
+
+export type PerfilStartup = {
+  id: string; nome: string; estado: string; camada: 1 | 2;
+  sector: Item | null; fase: Item | null; provincia: Item | null; cidade: string; resumo: string;
+  ronda: Ronda | null; actualizado_em: string; verificados: Sinal[]; declarados: Sinal[];
+  contacto_fundador?: string; documentos?: { id: string; titulo: string; url?: string }[];
+};
+
+export type Criterio = { chave: string; rotulo: string; pontos: number; peso: number; estado: string; frase: string };
+export type Compatibilidade = { total: number; classificacao: "compativel" | "parcial" | "incompativel"; versao: number; criterios: Criterio[]; aviso: string };
+
+export type PedidoAcesso = {
+  id: string; estado: string; estado_rotulo: string; nota: string; expira_em: string; criado_em: string;
+  decidido_em: string | null; motivo?: string | null; novo_pedido_a_partir_de?: string | null;
+};
+
+export type PedidoRecebido = PedidoAcesso & {
+  revogado_em: string | null;
+  investidor: { nome: string; tipo: string; organizacao: string;
+    mandato: { sectores: string[]; fases: string[]; geografias: string[]; cheque_min: number | null; cheque_max: number | null; moeda: string } };
+  encaixe: Compatibilidade | null;
+};
+
+export type Mandato = {
+  sectores: string[]; fases: string[]; geografias: string[]; risco: string | null;
+  cheque_min: number | null; cheque_max: number | null; moeda_cheque: string; minimo_completo: boolean;
+};

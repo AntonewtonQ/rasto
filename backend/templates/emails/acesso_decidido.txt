@@ -1,0 +1,11 @@
+{% autoescape off %}Olá.
+
+{% if p.estado == "aceite" %}A {{ p.startup.nome }} aceitou o seu pedido de acesso. Já pode ver o contacto, as ligações para os documentos e as actualizações.
+
+Ver: {{ site }}/i/startups/{{ p.startup_id }}
+{% else %}A {{ p.startup.nome }} não aceitou o pedido desta vez.{% if p.motivo_partilhado %}
+Motivo indicado: {{ p.get_motivo_recusa_display }}.{% endif %}
+Pode voltar a pedir a partir de {{ novo }}.
+
+Ver outras startups compatíveis: {{ site }}/i/sugestoes
+{% endif %}{% endautoescape %}

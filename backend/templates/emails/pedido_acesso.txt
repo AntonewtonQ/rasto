@@ -1,0 +1,12 @@
+{% autoescape off %}Olá.{% if lembrete %}
+
+Este pedido continua à espera de resposta. Se não responder, expira sozinho e nada é partilhado.{% endif %}
+
+{{ inv.utilizador.nome|default:inv.utilizador.email }}{% if inv.organizacao %} ({{ inv.organizacao }}){% endif %} quer conhecer a {{ startup.nome }}.
+
+Nota: «{{ p.nota }}»
+
+Nada é partilhado até aceitar. Se aceitar, passa a ver o contacto do fundador, as ligações para os documentos e as actualizações. Pode retirar o acesso quando quiser.
+
+Responder até {{ validade }}: {{ site }}/s/investidores
+{% endautoescape %}

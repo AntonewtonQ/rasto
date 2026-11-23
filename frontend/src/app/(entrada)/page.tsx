@@ -47,6 +47,7 @@ export default async function Entrada() {
                 <div className="heroi-accoes">
                   <Link className="btn btn-primary btn-lg" href="/registo/startup">Criar conta da startup</Link>
                   <Link className="btn btn-secondary btn-lg" href="/registo/entidade">Sou uma aceleradora</Link>
+                  <Link className="btn btn-ghost btn-lg" href="/registo/investidor">Sou investidor</Link>
                 </div>
               )}
             </div>

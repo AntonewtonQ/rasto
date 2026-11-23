@@ -65,6 +65,10 @@ INSTALLED_APPS = [
     "rasto.startups",
     "rasto.turmas",
     "rasto.sinais",
+    "rasto.catalogo",
+    "rasto.investidores",
+    "rasto.compatibilidade",
+    "rasto.acessos",
     "rasto.api",
 ]
 
@@ -281,6 +285,8 @@ PRAZOS_DEFEITO = {
     "validacao_sinal_dias": 30,
     "lembrete_convite_dias": 7,
     "lembrete_validacao_dias": 7,
+    "pedido_acesso_dias": 14,
+    "novo_pedido_dias": 90,
 }
 
 LOGGING = {

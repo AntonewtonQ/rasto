@@ -4,6 +4,7 @@ from drf_spectacular.views import SpectacularAPIView
 from . import vistas_admin as adm
 from . import vistas_conta as conta
 from . import vistas_entidade as ent
+from . import vistas_investidor as inv
 from . import vistas_startup as st
 from . import vistas_turmas as tur
 from . import vistas_validacoes as val
@@ -43,11 +44,28 @@ urlpatterns = [
     # Startup
     path("registo/startup", st.RegistoStartup.as_view(), name="api_registo_startup"),
     path("startup/inicio", st.InicioStartup.as_view(), name="api_startup_inicio"),
+    path("startup/perfil", st.Perfil.as_view(), name="api_startup_perfil"),
+    path("startup/ronda", st.RondaVista.as_view(), name="api_startup_ronda"),
+    path("startup/documentos", st.Documentos.as_view(), name="api_startup_documentos"),
+    path("startup/documentos/<uuid:pk>", st.Documento_.as_view(), name="api_startup_documento"),
+    path("startup/perfil/<str:accao>", st.Publicacao.as_view(), name="api_startup_publicacao"),
+    path("startup/pedidos-acesso", st.PedidosRecebidos.as_view(), name="api_startup_pedidos"),
+    path("startup/pedidos-acesso/<uuid:pk>/<str:accao>", st.DecidirPedido.as_view(), name="api_startup_decidir_pedido"),
     path("startup/selos", st.Selos.as_view(), name="api_startup_selos"),
     path("startup/selos/<uuid:pk>", st.CancelarSelo.as_view(), name="api_startup_selo"),
     path("startup/equipa", st.EquipaStartup.as_view(), name="api_startup_equipa"),
     path("startup/equipa/convites/<uuid:pk>/cancelar", st.CancelarConviteEquipaStartup.as_view(), name="api_startup_equipa_cancelar"),
     path("startup/equipa/membros/<int:pk>", st.MembroEquipaStartup.as_view(), name="api_startup_equipa_membro"),
+    # Investidor
+    path("catalogo", inv.Catalogo.as_view(), name="api_catalogo"),
+    path("registo/investidor", inv.RegistoInvestidor.as_view(), name="api_registo_investidor"),
+    path("investidor/mandato", inv.Mandato.as_view(), name="api_mandato"),
+    path("investidor/sugestoes", inv.Sugestoes.as_view(), name="api_sugestoes"),
+    path("investidor/pedidos-acesso", inv.MeusPedidos.as_view(), name="api_meus_pedidos"),
+    path("investidor/pedidos-acesso/<uuid:pk>/retirar", inv.RetirarPedido.as_view(), name="api_retirar_pedido"),
+    path("startups/<uuid:pk>", inv.PerfilParaInvestidor.as_view(), name="api_perfil_startup"),
+    path("startups/<uuid:pk>/pedir-acesso", inv.PedirAcesso.as_view(), name="api_pedir_acesso"),
+    path("startups/<uuid:pk>/documentos/<uuid:doc>/abrir", inv.AbrirDocumento.as_view(), name="api_abrir_documento"),
     # Administração
     path("admin/verificacoes", adm.Verificacoes.as_view(), name="api_verificacoes"),
     path("admin/verificacoes/<uuid:pk>", adm.Verificacao.as_view(), name="api_verificacao"),

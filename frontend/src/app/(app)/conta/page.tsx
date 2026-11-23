@@ -22,6 +22,12 @@ export default async function Conta() {
             <div><dt className="t-caption muted">Papel</dt><dd>{PAPEIS[u.papel]}</dd></div>
           </dl>
         </Cartao>
+        {u.papel === "startup" && (
+          <Cartao titulo="Equipa da startup">
+            <p className="muted">Convide quem trabalha consigo. Todos gerem o perfil e respondem aos investidores.</p>
+            <div><Link className="btn btn-secondary" href="/s/equipa">Gerir a equipa</Link></div>
+          </Cartao>
+        )}
         <Cartao titulo="Segurança">
           {e.mfa_activa
             ? <Aviso tipo="ok"><p>Autenticação em dois passos activa.</p></Aviso>

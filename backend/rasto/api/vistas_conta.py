@@ -25,6 +25,10 @@ def contadores(u) -> dict:
         from rasto.sinais.selectors import pendentes_da_entidade
 
         return {"validacoes_pendentes": pendentes_da_entidade(u).count()}
+    if u.papel_id == "startup":
+        from rasto.acessos.models import PedidoAcesso
+
+        return {"pedidos_pendentes": PedidoAcesso.objects.filter(startup__membros__utilizador=u, estado="pendente").count()}
     return {}
 
 

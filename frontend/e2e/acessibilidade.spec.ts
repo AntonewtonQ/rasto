@@ -1,6 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
-import { entrar } from "./ajudas";
+import { PALAVRA, django, entrar } from "./ajudas";
 
 // WCAG 2.2 AA (RNF03): nenhuma violação grave ou crítica nos ecrãs do Sprint 1, a 390 e a 1280 px.
 async function semViolacoes(page: import("@playwright/test").Page, ecra: string) {
@@ -10,7 +10,7 @@ async function semViolacoes(page: import("@playwright/test").Page, ecra: string)
 }
 
 test("ecrãs públicos", async ({ page }) => {
-  for (const url of ["/", "/entrar", "/recuperar", "/registo/entidade", "/privacidade"]) {
+  for (const url of ["/", "/entrar", "/recuperar", "/registo/entidade", "/registo/startup", "/registo/investidor", "/privacidade"]) {
     await page.goto(url);
     await semViolacoes(page, url);
   }
@@ -31,5 +31,30 @@ test("ecrãs da entidade", async ({ page }) => {
 test("ecrãs da startup", async ({ page }) => {
   await entrar(page, "ana@mbote.demo");
   await page.waitForURL(/\/s$/);
-  await semViolacoes(page, "/s");
+  for (const url of ["/s", "/s/perfil", "/s/investidores", "/s/selos"]) {
+    await page.goto(url);
+    await semViolacoes(page, url);
+  }
+});
+
+test("ecrãs do investidor", async ({ page }) => {
+  // Conta de investidor fictícia (a mesma do semear_demo), criada se a base de dados for anterior ao Sprint 2.
+  django(`from rasto.investidores import services as s
+from rasto.catalogo.models import ItemCatalogo as I
+from rasto.contas.models import Utilizador as U
+if not U.objects.filter(email='rui@imbondeiro.demo').exists():
+    u, _ = s.registar_investidor(email='rui@imbondeiro.demo', palavra_passe='${PALAVRA}', nome='Rui Gaspar', tipo='anjo')
+    s.guardar_mandato(utilizador=u, sectores=list(I.objects.filter(tipo='sector', codigo__in=['agritech', 'fintech']).values_list('id', flat=True)),
+                      fases=list(I.objects.filter(tipo='fase', codigo__in=['pre_seed', 'seed']).values_list('id', flat=True)), geografias=[])`);
+  await entrar(page, "rui@imbondeiro.demo");
+  await page.waitForURL(/\/i$/);
+  for (const url of ["/i", "/i/mandato", "/i/sugestoes", "/i/sugestoes?parciais=1"]) {
+    await page.goto(url);
+    await semViolacoes(page, url);
+  }
+  const primeira = page.getByRole("listitem").getByRole("link").first();
+  if (await primeira.count()) {
+    await primeira.click();
+    await semViolacoes(page, "perfil da startup (investidor)");
+  }
 });

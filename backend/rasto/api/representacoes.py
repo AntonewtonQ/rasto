@@ -52,3 +52,37 @@ def sinal(s, para_startup: bool = False) -> dict:
     if s.validado_por:
         d["validado_por"] = s.validado_por.nome or s.validado_por.email
     return d
+
+
+def item(i) -> dict | None:
+    return {"id": str(i.id), "codigo": i.codigo, "nome": i.nome} if i else None
+
+
+def ronda(r) -> dict | None:
+    return {"valor_alvo": r.valor_alvo, "moeda": r.moeda, "data_inicio": r.data_inicio} if r else None
+
+
+def perfil_startup(s, camada: int, para_startup: bool = False) -> dict:
+    """Camada 1: o que qualquer investidor autenticado vê. Camada 2: só com pedido de acesso aceite.
+    Os URLs dos documentos nunca saem aqui: o investidor abre-os por /api/v1/startups/<id>/documentos/<doc>/abrir."""
+    from rasto.startups.services import ronda_aberta
+
+    sinais_vis = [sinal(x) for x in s.sinais.select_related("validador", "turma", "validado_por", "startup")
+                  if x.estado_visivel in ("validado", "validado_com_aviso", "declarado")
+                  or (x.estado in ("retirado", "expirado", "recusado") and x.tipo == "marco")]
+    for x in sinais_vis:  # o que não está validado aparece como declarado ao investidor (base de UX 6.2)
+        if x["estado"] not in ("validado", "validado_com_aviso"):
+            x["estado"] = "declarado"
+            x.pop("motivo", None)
+    d = {
+        "id": str(s.id), "nome": s.nome, "estado": s.estado, "sector": item(s.sector), "fase": item(s.fase),
+        "provincia": item(s.provincia), "cidade": s.cidade, "resumo": s.resumo, "ronda": ronda(ronda_aberta(s)),
+        "actualizado_em": s.actualizado_em, "camada": camada,
+        "verificados": [x for x in sinais_vis if x["estado"] in ("validado", "validado_com_aviso")],
+        "declarados": [x for x in sinais_vis if x["estado"] == "declarado"],
+    }
+    if camada >= 2:
+        d["contacto_fundador"] = s.contacto_fundador
+        d["documentos"] = [{"id": str(doc.id), "titulo": doc.titulo} | ({"url": doc.url} if para_startup else {})
+                           for doc in s.documentos.all()]
+    return d

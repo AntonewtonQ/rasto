@@ -9,7 +9,7 @@ import type { Sinal } from "@/lib/tipos";
 export const metadata: Metadata = { title: "Início" };
 
 type InicioStartup = {
-  startup: { id: string; nome: string; estado: string }; completude: number; sinais: Sinal[];
+  startup: { id: string; nome: string; estado: string }; completude: number; sinais: Sinal[]; pedidos_pendentes: number;
   passos: { texto: string; feito: boolean; selo?: boolean; href?: string }[];
 };
 
@@ -20,7 +20,12 @@ export default async function InicioStartup() {
     <>
       <Cabecalho titulo={d.startup.nome} />
       <main id="conteudo" className="conteudo estreito">
-        <Cartao titulo="Perfil" accao={<span className="chip chip-neutral">{d.startup.estado === "publicado" ? "Publicado" : "Rascunho"}</span>}>
+        {d.pedidos_pendentes > 0 && (
+          <p className="aviso aviso-info" role="status">
+            <Link className="link" href="/s/investidores">{d.pedidos_pendentes === 1 ? "1 investidor pediu" : `${d.pedidos_pendentes} investidores pediram`} acesso</Link>. Nada é partilhado até aceitar.
+          </p>
+        )}
+        <Cartao titulo="Perfil" accao={<Link className="link" href="/s/perfil">{d.startup.estado === "publicado" ? "Publicado" : "Rascunho"} · Editar</Link>}>
           <p className="t-label">{d.completude}% completo</p>
           <div className="bar bar-pri" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={d.completude} aria-label="Completude do perfil"><i className={decil(d.completude)} /></div>
           <p className="t-sm muted">O perfil fica em rascunho até decidir publicá-lo. Nenhum investidor o vê enquanto estiver em rascunho.</p>

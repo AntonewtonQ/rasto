@@ -180,3 +180,125 @@ def cancelar_pedido_selo(*, utilizador, sinal: Sinal) -> None:
         raise TransicaoInvalida("Só é possível cancelar pedidos pendentes.")
     registar(actor=utilizador, accao="selo_pedido_cancelado", objecto=sinal, antes={"estado": sinal.estado})
     sinal.delete()
+
+
+# --- Perfil, ronda, documentos e publicação (S-01, S-02) ------------------------------------------------------------
+
+
+def _exigir_membro(utilizador, startup: Startup):
+    if not MembroStartup.objects.filter(utilizador=utilizador, startup=startup).exists():
+        raise ErroDominio("Só a equipa da startup pode alterar o perfil.")
+
+
+def ronda_aberta(startup: Startup):
+    from .models import Ronda
+
+    return Ronda.objects.filter(startup=startup, estado=Ronda.Estado.ABERTA).first()
+
+
+def em_falta_para_publicar(startup: Startup) -> list[str]:
+    """Os 6 obrigatórios da especificação (S-01): nome, sector, fase, cidade, resumo e ronda."""
+    falta = []
+    if not startup.nome.strip():
+        falta.append("nome")
+    if startup.sector_id is None:
+        falta.append("sector")
+    if startup.fase_id is None:
+        falta.append("fase")
+    if startup.provincia_id is None or not startup.cidade.strip():
+        falta.append("província e cidade")
+    if not startup.resumo.strip():
+        falta.append("resumo")
+    if ronda_aberta(startup) is None:
+        falta.append("ronda")
+    return falta
+
+
+def completude(startup: Startup) -> int:
+    """Especificação de interface S-01: 6 obrigatórios valem 60%; selo validado 10%; marco 10%; documentos 10%;
+    contacto 10% (as métricas da fase entram com as actualizações periódicas)."""
+    total = 10 * (6 - len(em_falta_para_publicar(startup)))
+    if startup.sinais.filter(estado="validado").exists():
+        total += 10
+    if startup.sinais.filter(tipo="marco").exists():
+        total += 10
+    if startup.documentos.exists():
+        total += 10
+    if startup.contacto_fundador.strip():
+        total += 10
+    return min(total, 100)
+
+
+CAMPOS_PERFIL = ("nome", "sector", "fase", "provincia", "cidade", "resumo", "contacto_fundador")
+
+
+@transaction.atomic
+def actualizar_perfil(*, utilizador, startup: Startup, dados: dict) -> Startup:
+    _exigir_membro(utilizador, startup)
+    antes = {c: str(getattr(startup, f"{c}_id", None) or getattr(startup, c, "")) for c in CAMPOS_PERFIL}
+    for campo in CAMPOS_PERFIL:
+        if campo in dados:
+            setattr(startup, campo, dados[campo])
+    if startup.estado == Startup.Estado.PUBLICADO and em_falta_para_publicar(startup):
+        raise ErroDominio("Um perfil publicado tem de manter os campos obrigatórios: " + ", ".join(em_falta_para_publicar(startup)) + ".")
+    startup.save()
+    registar(actor=utilizador, accao="perfil_actualizado", objecto=startup, antes=antes,
+             depois={c: str(getattr(startup, f"{c}_id", None) or getattr(startup, c, "")) for c in CAMPOS_PERFIL})
+    return startup
+
+
+@transaction.atomic
+def definir_ronda(*, utilizador, startup: Startup, valor_alvo: int, moeda: str, data_inicio) -> "object":
+    from .models import Ronda
+
+    _exigir_membro(utilizador, startup)
+    if valor_alvo <= 0:
+        raise ErroDominio("O valor da ronda tem de ser maior do que zero.")
+    r = ronda_aberta(startup) or Ronda(startup=startup)
+    r.valor_alvo, r.moeda, r.data_inicio = valor_alvo, moeda, data_inicio
+    r.save()
+    registar(actor=utilizador, accao="ronda_definida", objecto=startup, depois={"valor": valor_alvo, "moeda": moeda})
+    return r
+
+
+@transaction.atomic
+def adicionar_documento(*, utilizador, startup: Startup, titulo: str, url: str):
+    from .models import DocumentoLigacao
+
+    _exigir_membro(utilizador, startup)
+    if not url.lower().startswith("https://"):
+        raise ErroDominio("A ligação tem de começar por https://.")
+    d = DocumentoLigacao.objects.create(startup=startup, titulo=titulo.strip()[:120], url=url.strip())
+    registar(actor=utilizador, accao="documento_adicionado", objecto=startup, depois={"titulo": d.titulo})
+    return d
+
+
+@transaction.atomic
+def remover_documento(*, utilizador, documento) -> None:
+    _exigir_membro(utilizador, documento.startup)
+    registar(actor=utilizador, accao="documento_removido", objecto=documento.startup, antes={"titulo": documento.titulo})
+    documento.delete()
+
+
+@transaction.atomic
+def publicar(*, utilizador, startup: Startup) -> Startup:
+    _exigir_membro(utilizador, startup)
+    falta = em_falta_para_publicar(startup)
+    if falta:
+        raise ErroDominio("Para publicar, falta: " + ", ".join(falta) + ".")
+    startup.estado = Startup.Estado.PUBLICADO
+    startup.publicado_em = startup.publicado_em or timezone.now()
+    startup.save(update_fields=["estado", "publicado_em", "actualizado_em"])
+    registar(actor=utilizador, accao="perfil_publicado", objecto=startup)
+    return startup
+
+
+@transaction.atomic
+def despublicar(*, utilizador, startup: Startup) -> Startup:
+    """Ao despublicar, os pedidos pendentes expiram de imediato (base de UX 5.6)."""
+    _exigir_membro(utilizador, startup)
+    startup.estado = Startup.Estado.DESPUBLICADO
+    startup.save(update_fields=["estado", "actualizado_em"])
+    startup.pedidos_acesso.filter(estado="pendente").update(estado="expirado")
+    registar(actor=utilizador, accao="perfil_despublicado", objecto=startup)
+    return startup

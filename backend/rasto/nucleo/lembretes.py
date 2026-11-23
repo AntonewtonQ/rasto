@@ -73,9 +73,31 @@ def _enviar_validacao(s):
     lembrar_validacao(s)
 
 
+# --- Pedidos de acesso: lembrete à equipa da startup ao 3.º e ao 10.º dia (base de UX 5.6) ----------------------------
+
+
+def _pedidos_a_lembrar(dias: int):
+    def candidatos():
+        from rasto.acessos.models import PedidoAcesso
+
+        agora = timezone.now()
+        return list(PedidoAcesso.objects.select_related("investidor__utilizador", "startup")
+                    .filter(estado=PedidoAcesso.Estado.PENDENTE, expira_em__gt=agora,
+                            criado_em__lte=agora - timedelta(days=dias)))
+    return candidatos
+
+
+def _enviar_pedido(p):
+    from rasto.acessos.services import lembrar_pedido
+
+    lembrar_pedido(p)
+
+
 REGRAS = [
     Regra("convite_7_dias", _convites_a_lembrar, lambda c: c.expira_em.isoformat(), _enviar_convite),
     Regra("validacao_7_dias", _validacoes_a_lembrar, lambda s: s.expira_em.isoformat(), _enviar_validacao),
+    Regra("pedido_acesso_3_dias", _pedidos_a_lembrar(3), lambda p: "3", _enviar_pedido),
+    Regra("pedido_acesso_10_dias", _pedidos_a_lembrar(10), lambda p: "10", _enviar_pedido),
 ]
 
 

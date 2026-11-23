@@ -3,6 +3,10 @@ from django.http import Http404
 from rest_framework import serializers
 from rest_framework.response import Response
 
+from rasto.acessos import services as acessos
+from rasto.acessos.models import PedidoAcesso
+from rasto.catalogo.models import ItemCatalogo
+from rasto.compatibilidade.services import explicar
 from rasto.nucleo.erros import ErroDominio
 from rasto.nucleo.politicas import obter_no_ambito_ou_404
 from rasto.sinais.models import Sinal
@@ -29,14 +33,18 @@ class InicioStartup(VistaPapel):
         equipa = s.membros.count() > 1 or s.convites_equipa.filter(estado="pendente").exists()
         return Response({
             "startup": {"id": str(s.id), "nome": s.nome, "estado": s.estado},
-            "completude": 10 if tem_validado else 0,
+            "completude": st_services.completude(s),
+            "em_falta": st_services.em_falta_para_publicar(s),
+            "pedidos_pendentes": s.pedidos_acesso.filter(estado="pendente").count(),
             "sinais": [rep.sinal(x, para_startup=True) for x in sinais],
             "passos": [
                 {"texto": "Conta da startup criada", "feito": True},
                 {"texto": "Convidar a equipa", "feito": equipa, "href": "/s/equipa"},
                 {"texto": "Pedir o selo à sua aceleradora", "feito": pediu, "href": "/s/selos"},
                 {"texto": "Selo confirmado pela aceleradora", "feito": tem_validado, "selo": tem_validado},
-                {"texto": "Perfil mínimo: sector, fase, cidade, resumo e ronda", "feito": False},
+                {"texto": "Perfil mínimo: sector, fase, cidade, resumo e ronda", "feito": not st_services.em_falta_para_publicar(s),
+                 "href": "/s/perfil"},
+                {"texto": "Publicar o perfil para os investidores", "feito": s.estado == "publicado", "href": "/s/perfil"},
             ],
         })
 
@@ -154,3 +162,139 @@ class MembroEquipaStartup(VistaPapel):
         m = obter_no_ambito_ou_404(s.membros.select_related("utilizador"), pk=pk)
         st_services.retirar_membro(utilizador=request.user, startup=s, membro=m)
         return Response(status=204)
+
+
+# --- Perfil (S-02, S-04) e pedidos de acesso (S-05, S-06) --------------------------------------------------------------
+
+class PerfilIn(serializers.Serializer):
+    nome = serializers.CharField(max_length=120, required=False)
+    sector = serializers.UUIDField(required=False, allow_null=True)
+    fase = serializers.UUIDField(required=False, allow_null=True)
+    provincia = serializers.UUIDField(required=False, allow_null=True)
+    cidade = serializers.CharField(max_length=80, required=False, allow_blank=True)
+    resumo = serializers.CharField(max_length=280, required=False, allow_blank=True)
+    contacto_fundador = serializers.CharField(max_length=160, required=False, allow_blank=True)
+
+    def validate(self, d):
+        for campo, tipo in (("sector", "sector"), ("fase", "fase"), ("provincia", "geografia")):
+            if d.get(campo):
+                i = ItemCatalogo.objects.filter(pk=d[campo], tipo=tipo, activo=True).first()
+                if i is None:
+                    raise serializers.ValidationError({campo: "Opção inválida."})
+                d[campo] = i
+        return d
+
+
+class Perfil(VistaPapel):
+    """Edição do perfil, ronda e documentos; completude e o que falta para publicar."""
+
+    papeis = ("startup",)
+
+    def _dados(self, s):
+        return {"perfil": rep.perfil_startup(s, camada=2, para_startup=True), "completude": st_services.completude(s),
+                "em_falta": st_services.em_falta_para_publicar(s)}
+
+    def get(self, request):
+        return Response(self._dados(_startup(request)))
+
+    def patch(self, request):
+        p = PerfilIn(data=request.data, partial=True)
+        p.is_valid(raise_exception=True)
+        s = st_services.actualizar_perfil(utilizador=request.user, startup=_startup(request), dados=p.validated_data)
+        return Response(self._dados(s))
+
+
+class RondaIn(serializers.Serializer):
+    valor_alvo = serializers.IntegerField(min_value=1)
+    moeda = serializers.ChoiceField(choices=["AOA", "USD"])
+    data_inicio = serializers.DateField(input_formats=["%d/%m/%Y", "%Y-%m-%d"])
+
+
+class RondaVista(VistaPapel):
+    papeis = ("startup",)
+
+    def put(self, request):
+        d = RondaIn(data=request.data)
+        d.is_valid(raise_exception=True)
+        s = _startup(request)
+        st_services.definir_ronda(utilizador=request.user, startup=s, **d.validated_data)
+        return Response(Perfil()._dados(s))
+
+
+class Documentos(VistaPapel):
+    papeis = ("startup",)
+
+    def post(self, request):
+        s = _startup(request)
+        d = st_services.adicionar_documento(utilizador=request.user, startup=s, titulo=str(request.data.get("titulo", "")),
+                                            url=str(request.data.get("url", "")))
+        return Response({"id": str(d.id), "titulo": d.titulo, "url": d.url}, status=201)
+
+
+class Documento_(VistaPapel):
+    papeis = ("startup",)
+
+    def delete(self, request, pk):
+        d = obter_no_ambito_ou_404(_startup(request).documentos.all(), pk=pk)
+        st_services.remover_documento(utilizador=request.user, documento=d)
+        return Response(status=204)
+
+
+class Publicacao(VistaPapel):
+    papeis = ("startup",)
+
+    def post(self, request, accao):
+        s = _startup(request)
+        if accao == "publicar":
+            st_services.publicar(utilizador=request.user, startup=s)
+        elif accao == "despublicar":
+            st_services.despublicar(utilizador=request.user, startup=s)
+        else:
+            raise ErroDominio("Acção desconhecida.")
+        return Response(Perfil()._dados(s))
+
+
+def _pedido_para_startup(p: PedidoAcesso) -> dict:
+    inv = p.investidor
+    m = inv.mandato
+    return {"id": str(p.id), "estado": p.estado, "estado_rotulo": p.get_estado_display(), "nota": p.nota,
+            "expira_em": p.expira_em, "criado_em": p.criado_em, "decidido_em": p.decidido_em, "revogado_em": p.revogado_em,
+            "investidor": {"nome": inv.utilizador.nome or inv.utilizador.email, "tipo": inv.get_tipo_display(),
+                           "organizacao": inv.organizacao,
+                           "mandato": {"sectores": [i.nome for i in m.sectores.all()], "fases": [i.nome for i in m.fases.all()],
+                                       "geografias": [i.nome for i in m.geografias.all()], "cheque_min": m.cheque_min,
+                                       "cheque_max": m.cheque_max, "moeda": m.moeda_cheque}},
+            "encaixe": explicar(p.startup, m).como_dict() if m.minimo_completo else None}
+
+
+class PedidosRecebidos(VistaPapel):
+    """S-05: pendentes (prazo mais próximo primeiro) e histórico; investidores com acesso (S-07)."""
+
+    papeis = ("startup",)
+
+    def get(self, request):
+        s = _startup(request)
+        qs = s.pedidos_acesso.select_related("investidor__utilizador", "investidor__mandato", "startup")
+        return Response({"pendentes": [_pedido_para_startup(p) for p in qs.filter(estado="pendente").order_by("expira_em")],
+                         "com_acesso": [_pedido_para_startup(p) for p in qs.filter(estado="aceite")],
+                         "historico": [_pedido_para_startup(p) for p in qs.exclude(estado__in=["pendente", "aceite"])],
+                         "perfil_publicado": s.estado == "publicado"})
+
+
+class DecidirPedido(VistaPapel):
+    papeis = ("startup",)
+
+    def post(self, request, pk, accao):
+        s = _startup(request)
+        p = obter_no_ambito_ou_404(s.pedidos_acesso.select_related("investidor__utilizador", "startup"), pk=pk)
+        if accao == "aceitar":
+            acessos.aceitar(utilizador=request.user, pedido=p, request=request)
+        elif accao == "recusar":
+            acessos.recusar(utilizador=request.user, pedido=p, motivo=str(request.data.get("motivo", "")),
+                            partilhar=bool(request.data.get("partilhar")), request=request)
+        elif accao == "revogar":
+            acessos.revogar(utilizador=request.user, pedido=p, request=request)
+        else:
+            raise ErroDominio("Acção desconhecida.")
+        p.refresh_from_db()
+        return Response(_pedido_para_startup(p))

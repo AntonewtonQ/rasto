@@ -23,7 +23,8 @@ test("a startup cria conta, convida a equipa e pede o selo", async ({ page, cont
   });
 
   await test.step("convida um membro da equipa, que aceita", async () => {
-    await page.getByRole("link", { name: "Equipa", exact: true }).click();
+    await page.getByRole("link", { name: "Conta", exact: true }).click();
+    await page.getByRole("link", { name: "Gerir a equipa" }).click();
     await page.getByLabel("Convidar membro da equipa por e-mail").fill(colega);
     await page.getByRole("button", { name: "Enviar convite" }).click();
     await expect(page.getByText("Convite enviado.")).toBeVisible();
