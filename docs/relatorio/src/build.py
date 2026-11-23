@@ -14,7 +14,13 @@ from docx.oxml import OxmlElement
 import content_pre as PRE
 from content_intro import INTRO
 from content_cap1 import CAP1
-from content_cap2 import CAP2, CAP_PENDENTES
+from content_cap2 import CAP2
+from content_cap3 import CAP3
+from content_cap4 import CAP4
+from content_cap5 import CAP5
+from content_cap6 import CAP6
+from content_concl import CONCL
+from content_apendices import APPX
 from content_refs import REFS
 
 TEMPLATE, OUT = sys.argv[1], sys.argv[2]
@@ -66,12 +72,19 @@ cap.paragraph_format.space_before = Pt(6); cap.paragraph_format.space_after = Pt
 cap.paragraph_format.keep_with_next = True
 
 # ---------- utilitários ----------
-TOKEN = re.compile(r"(\*\*.+?\*\*|\{\{.+?\}\}|\*.+?\*)")
+TOKEN = re.compile(r"(`[^`]+`|\*\*.+?\*\*|\{\{.+?\}\}|\*.+?\*)")
 def add_runs(par, text, size=None, bold=None, italic=None):
     for part in TOKEN.split(text):
         if not part:
             continue
         b, i, hl = bold, italic, False
+        if part.startswith("`") and part.endswith("`") and len(part) > 2:
+            # código, comandos e caminhos: letra de largura fixa, sem outra marcação
+            r = par.add_run(part[1:-1]); r.font.name = "Courier New"
+            r._r.get_or_add_rPr().get_or_add_rFonts().set(qn("w:hAnsi"), "Courier New")
+            r.font.size = Pt((size or 12) - 2)
+            if b: r.bold = True
+            continue
         if part.startswith("**"):
             part, b = part[2:-2], True
         elif part.startswith("{{"):
@@ -137,7 +150,7 @@ def instr(par, text):
     r._r.append(it)
 
 def strip(text):
-    return re.sub(r"\*\*|\*|\{\{|\}\}", "", text)
+    return re.sub(r"\*\*|\*|\{\{|\}\}|`", "", text)
 
 # registos para o índice e as listas
 HEADINGS, CAPTIONS = [], {"Figura": [], "Tabela": [], "Quadro": []}
@@ -333,11 +346,8 @@ def dry(blocks, H, CAPS):
         # contagem acumulada entre blocos
     return cnt
 
-ALL = INTRO + CAP1 + CAP2 + CAP_PENDENTES
+ALL = INTRO + CAP1 + CAP2 + CAP3 + CAP4 + CAP5 + CAP6 + CONCL
 ALL_TAIL = [("h1", "REFERÊNCIAS")]
-APPX = [("h1", "APÊNDICE A — QUESTIONÁRIO DO INQUÉRITO"), ("p", "{{[A INSERIR: questionário completo, sem respostas individuais.]}}"),
-        ("h1", "APÊNDICE B — GUIÃO DAS ENTREVISTAS E DOS TESTES DE USABILIDADE"), ("p", "{{[A INSERIR]}}"),
-        ("h1", "APÊNDICE C — MANUAL DE UTILIZAÇÃO"), ("p", "{{[A INSERIR]}}")]
 DH, DC = [], {"Figura": [], "Tabela": [], "Quadro": []}
 dry(ALL + ALL_TAIL + APPX, DH, DC)
 

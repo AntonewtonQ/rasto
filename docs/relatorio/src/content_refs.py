@@ -13,10 +13,16 @@ REFS = [
  "ASSEMBLEIA Nacional aprova proposta de lei das startups. **Ver Angola**, Luanda, 19 mar. 2026. Disponível em: "
  "https://www.verangola.net/va/pt/032026/Politica/48130/Assembleia-Nacional-aprova-proposta-de-lei-das-startups.htm. "
  + AC,
+ "BANGOR, A.; KORTUM, P. T.; MILLER, J. T. An empirical evaluation of the System Usability Scale. "
+ "**International Journal of Human-Computer Interaction**, [*s. l.*], v. 24, n. 6, p. 574-594, 2008. "
+ "DOI: 10.1080/10447310802205776.",
  "BERGER, A. N.; UDELL, G. F. The economics of small business finance: the roles of private equity and debt "
  "markets in the financial growth cycle. **Journal of Banking & Finance**, [*s. l.*], v. 22, n. 6-8, p. 613-673, 1998.",
  "BMZ DIGITAL.GLOBAL. **VC4A**. [*S. l.*]: BMZ Digital.Global, [20--]. Disponível em: "
  "https://www.bmz-digital.global/en/partners/vc4a/. " + AC,
+ "BROOKE, J. SUS: a \"quick and dirty\" usability scale. *In*: JORDAN, P. W.; THOMAS, B.; WEERDMEESTER, B. A.; "
+ "MCCLELLAND, I. L. (ed.). **Usability evaluation in industry**. London: Taylor & Francis, 1996. p. 189-194. "
+ "{{[CONFIRMAR as iniciais dos editores no livro.]}}",
  "COHEN, S.; FEHDER, D. C.; HOCHBERG, Y. V.; MURRAY, F. The design of startup accelerators. **Research Policy**, "
  "[*s. l.*], v. 48, n. 7, p. 1781-1797, 2019. DOI: 10.1016/j.respol.2019.04.003.",
  "COHEN, S.; HOCHBERG, Y. V. **Accelerating startups**: the seed accelerator phenomenon. [*S. l.*]: SSRN, 2014. "
@@ -44,9 +50,16 @@ REFS = [
  + AC,
  "MANUEL, F. Fintechs continuam a dominar o ecossistema de startups em Angola. **PTI**, Luanda, 15 fev. 2023. "
  "Disponível em: https://pti.ao/fintechs-continuam-a-dominar-o-ecossistema-de-startups-em/. " + AC,
+ "MARTINS, A. I.; ROSA, A. F.; QUEIRÓS, A.; SILVA, A.; ROCHA, N. P. European Portuguese validation of the System "
+ "Usability Scale (SUS). **Procedia Computer Science**, [*s. l.*], v. 67, p. 293-300, 2015. "
+ "{{[CONFIRMAR DOI na página do editor.]}}",
  "MAYYA, R.; HUANG, P. Startup accelerators, information asymmetry, and corporate venture capital investments. "
  "**Management Science**, [*s. l.*], 2025. Publicação antecipada. DOI: 10.1287/mnsc.2020.03494. "
  "{{[CONFIRMAR volume, número e páginas.]}}",
+ "M'RAIHI, D.; MACHANI, S.; PEI, M.; RYDELL, J. **TOTP**: time-based one-time password algorithm. [*S. l.*]: "
+ "IETF, maio 2011. (RFC 6238). Disponível em: https://www.rfc-editor.org/rfc/rfc6238. Acesso em: 23 nov. 2026.",
+ "OWASP FOUNDATION. **OWASP Top 10:2025**. [*S. l.*]: OWASP Foundation, 2025. Disponível em: "
+ "https://owasp.org/Top10/2025/. Acesso em: 23 nov. 2026.",
  "PEFFERS, K.; TUUNANEN, T.; ROTHENBERGER, M. A.; CHATTERJEE, S. A design science research methodology for "
  "information systems research. **Journal of Management Information Systems**, [*s. l.*], v. 24, n. 3, p. 45-77, 2007.",
  "PITCHWISE. **Introducing Pitchwise**: an African-focused fundraising tool helping founders close rounds faster. "
@@ -65,6 +78,8 @@ REFS = [
  "VIGLIALORO, D.; SANSONE, G.; UGHETTO, E.; LANDONI, P. A new organisational model to promote entrepreneurial "
  "finance: business angel platforms. **Journal of Technology Transfer**, [*s. l.*], 2026. No prelo. Disponível em: "
  "https://ueaeprints.uea.ac.uk/id/eprint/102305. " + AC + " {{[CONFIRMAR volume, páginas e DOI.]}}",
+ "W3C. **Web Content Accessibility Guidelines (WCAG) 2.2**. [*S. l.*]: W3C, 5 out. 2023. W3C Recommendation. "
+ "Disponível em: https://www.w3.org/TR/2023/REC-WCAG22-20231005/. Acesso em: 23 nov. 2026.",
  "YANG, Y.; FANG, Y.; WANG, N.; SU, X. Mitigating information asymmetry to acquire venture capital financing for "
  "digital startups in China: the role of weak and strong signals. **Information Systems Journal**, [*s. l.*], 2023. "
  "DOI: 10.1111/isj.12452. {{[CONFIRMAR volume, número e páginas.]}}",

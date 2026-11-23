@@ -43,8 +43,11 @@ RESUMO = (
     "e em obter indicadores claros (58,3%); a segurança foi o requisito de confiança mais citado (83,3%). Com base "
     "nestes dados, definiu-se um produto mínimo viável com perfil verificado da startup, perfil de mandato do "
     "investidor, sugestões de compatibilidade calculadas por regras configuráveis, pedido de acesso consentido, "
-    "acompanhamento da relação e painel da aceleradora. {{[RESULTADO A INSERIR: síntese dos testes de usabilidade "
-    "(SUS) e da validação com investidores e aceleradoras.]}} Conclui-se que {{[RESULTADO A INSERIR]}}."
+    "acompanhamento da relação e painel da aceleradora. O protótipo foi implementado com Next.js, Django e "
+    "PostgreSQL, com as regras de confiança garantidas na base de dados e um registo de auditoria só de acréscimo; "
+    "passa em 109 testes automáticos do servidor, nos testes ponta a ponta e na verificação de acessibilidade sem "
+    "violações graves. {{[RESULTADO A INSERIR: síntese dos testes de usabilidade (SUS) e da validação com "
+    "investidores e aceleradoras.]}} Conclui-se que {{[RESULTADO A INSERIR]}}."
 )
 PALAVRAS_CHAVE = "startups; assimetria de informação; teoria da sinalização; plataforma web; Angola."
 
@@ -62,8 +65,10 @@ ABSTRACT = (
     "indicators (58.3%); security was the most cited trust requirement (83.3%). Based on these data, a minimum "
     "viable product was defined with a verified startup profile, an investor mandate profile, compatibility "
     "suggestions computed by configurable rules, consent-based access requests, relationship follow-up and an "
-    "accelerator dashboard. {{[RESULT TO INSERT: summary of usability tests (SUS) and validation with investors and "
-    "accelerators.]}} {{[CONCLUSION TO INSERT]}}."
+    "accelerator dashboard. The prototype was implemented with Next.js, Django and PostgreSQL, with the trust rules "
+    "enforced by the database and an append-only audit log; it passes 109 automated server tests, the end-to-end "
+    "tests and the accessibility check with no serious violations. {{[RESULTADO A INSERIR: summary of the usability "
+    "tests (SUS) and of the validation with investors and accelerators.]}} {{[RESULTADO A INSERIR: conclusion.]}}"
 )
 KEYWORDS = "startups; information asymmetry; signalling theory; web platform; Angola."
 

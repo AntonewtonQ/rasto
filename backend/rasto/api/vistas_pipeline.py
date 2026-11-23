@@ -25,7 +25,7 @@ def _relacao(r, detalhe: bool = False) -> dict:
             u = r.investidor.utilizador
             nome, sub = u.nome or u.email, " · ".join(x for x in (r.investidor.get_tipo_display(), r.investidor.organizacao) if x)
         else:
-            nome, sub = r.contacto_externo, "Fora da plataforma"
+            nome, sub = r.contacto_externo, ""  # o chip «Fora da plataforma» já o diz
     else:
         nome, sub = r.startup.nome, " · ".join(x for x in (r.startup.sector.nome if r.startup.sector else "",
                                                            r.startup.fase.nome if r.startup.fase else "") if x)

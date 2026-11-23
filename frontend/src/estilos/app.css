@@ -300,5 +300,6 @@ dt + dd { margin-top: 2px; }
 .metricas { display: grid; gap: 12px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 @media (min-width: 1280px) {
   .kanban { flex-direction: row; overflow-x: auto; align-items: flex-start; padding-bottom: 8px; }
-  .kanban-col { flex: 0 0 196px; }
+  .kanban-col { flex: 1 1 0; min-width: 148px; }
 }
+.cartao-rel .chip { white-space: normal; max-width: 100%; }

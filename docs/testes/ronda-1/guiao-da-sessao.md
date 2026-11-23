@@ -1,16 +1,20 @@
-# Ronda 1 de testes · Guião da sessão
+# Testes de usabilidade · Guião da sessão
 
-**Quando:** 9 e 10 de Novembro de 2026 · **Duração:** 45 a 60 minutos por participante
-**Quem:** 2 a 4 entidades validadoras (aceleradoras ou universidades) e 3 a 5 fundadores
-**O quê:** o fluxo da aceleradora (registo, turma, convites, validação) e a entrada da startup por convite
+**Quando:** 26 e 27 de Novembro de 2026 · **Duração:** 45 a 60 minutos por participante
+**Quem:** 2 a 4 entidades validadoras (aceleradoras ou universidades), 3 a 5 fundadores e 2 a 4 investidores
+**O quê:** as tarefas do Capítulo IV, Quadro 13 (`fichas-de-tarefas.md`): aceleradora (registo, turma, convites,
+validação), startup (conta, selo, perfil, pedido de acesso, pipeline, actualização) e investidor (mandato, sugestões,
+sinais, pedido de acesso)
 **Onde:** presencial (ISPTEC ou espaço da aceleradora) ou por videochamada com partilha de ecrã
 **Base:** base de UX, secções 9.3 a 9.7; especificação de interface, secção 8
 
 ## Antes da sessão
 
-- [ ] Ambiente de teste no ar, com dados fictícios (`manage.py semear_demo`); nunca dados reais.
-- [ ] Uma conta de entidade nova por participante de entidade (o participante regista-a na tarefa A1).
-- [ ] Para os fundadores: um convite por ligação criado na turma de demonstração, pronto a enviar por WhatsApp.
+- [ ] Ambiente de teste no ar com dados fictícios: `infra/demo.sh repor` antes de cada participante (repõe os
+      cenários das fichas); nunca dados reais.
+- [ ] Entidades: o participante regista uma entidade nova em A1 e usa `gestora@kalandula.demo` de A3 em diante.
+- [ ] Fundadores: registo novo em S1–S2; `ana@mbote.demo` de S4 em diante.
+- [ ] Investidores: registo novo em I1; a Mbote Pagamentos serve para I3 e I4.
 - [ ] Termo de consentimento impresso ou em formulário; folhas de registo (`registo-sessoes.csv`, `respostas-sus.csv`).
 - [ ] Preferir o telemóvel do próprio participante (rede e aparelho reais). Em computador, simular rede lenta.
 - [ ] Atribuir um código ao participante (ex.: E01, F01). **O nome nunca entra nas folhas de registo.**
@@ -56,12 +60,18 @@ Entregar `questionario-sus.md`. Registar as 10 respostas em `respostas-sus.csv`.
 
 **Fundadores**
 1. «Aceitaria um pedido de um investidor que não conhece? O que precisaria de ver?» (H-05)
-2. «Prefere que a plataforma o trate por "tu" ou "você"?» (H-15)
+2. «As métricas sugeridas na actualização são as que mostraria a um investidor? O que falta?» (H-10)
+
+**Investidores** (H-01, H-02)
+1. «Que campos faltam no mandato para descrever onde investe?»
+2. «Distribua 100 pontos pelos critérios: sector, fase, valor do cheque, geografia e risco.»
+3. Mostrar três cartões de startups: «Ordene-as do mais para o menos interessante para si.»
+4. «Usaria esta informação para decidir marcar uma reunião?» (1 a 7)
 
 ## 55–60 min · Fecho
 
 - «Há alguma coisa que não perguntei e devia ter perguntado?»
-- Agradecer. Explicar quando haverá a versão seguinte (ronda 2, 24 a 26 de Novembro).
+- Agradecer.
 
 ## Depois da sessão
 
@@ -69,3 +79,4 @@ Entregar `questionario-sus.md`. Registar as 10 respostas em `respostas-sus.csv`.
 - Corrigir os problemas de severidade 3 e 4 antes da ronda 2.
 - Calcular os resultados com `python3 calcular.py` (SUS por papel, sucesso e tempos por tarefa).
 - Gravações apagadas depois da defesa; transcrições sem nomes.
+- Resultados no Capítulo IV: SUS e tarefas com `calcular.py`; entrevistas resumidas por hipótese, sem nomes.

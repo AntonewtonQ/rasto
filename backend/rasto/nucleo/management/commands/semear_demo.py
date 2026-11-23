@@ -66,6 +66,11 @@ class Command(BaseCommand):
                                       nif="5000000002", cidade="Luanda")
         self._submeter(u2, b, "Centro de Empreendedorismo", "Incubação 2025, 8 projectos.")
 
+        # Startup registada sozinha que pediu o selo sem ter participado (tarefa A5: recusar com motivo)
+        uz, zola = startups.registar_startup(email="carlos@zola.demo", palavra_passe=PALAVRA, nome="Carlos Neto",
+                                             nome_startup="Zola Logística")
+        startups.pedir_selo(utilizador=uz, startup=zola, turma=t, nota="Participámos no demo day.")
+
         # Perfis publicados (Kitanda e Mbote); Dikanza fica por publicar para a tarefa da startup
         TaxaCambio.objects.get_or_create(data=date(2026, 11, 1), defaults={"aoa_por_usd": 912})  # valor fictício
         cat = lambda tipo, codigo: ItemCatalogo.objects.get(tipo=tipo, codigo=codigo)  # noqa: E731
@@ -134,6 +139,7 @@ class Command(BaseCommand):
             "  centro@universidade.demo (entidade à espera de verificação)\n"
             "  nadia@kitanda.demo (startup publicada, participação pendente)\n"
             "  joao@dikanza.demo (startup por publicar)\n"
+            "  carlos@zola.demo (startup com pedido de selo pendente, para recusar)\n"
             "  ana@mbote.demo (startup publicada, validada, com um pedido de acesso pendente)\n"
             "  rui@imbondeiro.demo (investidor com mandato e acesso à Kitanda, em Reunião)\n"
             "  marta@muxima.demo (investidora com pedido pendente à Mbote)"))

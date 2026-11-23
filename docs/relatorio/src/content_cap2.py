@@ -35,8 +35,8 @@ CAP2 = [
      "e notícias de lançamento"],
     ["d) Especificar e modelar a solução", "Levantamento de requisitos e modelação", "Requisitos, casos de uso, "
      "arquitectura e modelo de dados (Capítulo III)"],
-    ["e) Implementar o protótipo", "Desenvolvimento iterativo por *sprints*", "Ferramentas descritas no Capítulo III "
-     "{{[A INSERIR]}}"],
+    ["e) Implementar o protótipo", "Desenvolvimento iterativo por *sprints*", "Next.js, Django, PostgreSQL e as "
+     "ferramentas de teste do Capítulo III, Quadro 9"],
     ["f) Avaliar e validar", "Testes de usabilidade; entrevistas semiestruturadas", "Guião de tarefas, questionário "
      "SUS e guião de entrevista (Apêndice B)"]],
    "Autor (2026).", [4.6, 5.2, 6.2]),
@@ -65,25 +65,28 @@ CAP2 = [
       "é considerado concluído quando cumpre a definição de «pronto» (Schwaber; Sutherland, 2020)."),
 ("p", "Sendo um projecto individual, os papéis do Scrum foram adaptados: o autor acumula as funções de "
       "desenvolvimento e de gestão do *backlog*, e o orientador e os participantes da validação desempenham o papel "
-      "de partes interessadas nas revisões. A Tabela 2 apresenta o planeamento dos *sprints*, que começa pela "
+      "de partes interessadas nas revisões. A Tabela 2 apresenta os *sprints*, que começam pela "
       "autenticação com papéis e pelo módulo da aceleradora, porque são a base de todos os outros módulos e "
       "permitem trazer as primeiras startups para a plataforma."),
-("tab", "Tabela", "Planeamento dos sprints",
-   ["Sprint", "Objectivo", "Entregáveis principais", "Período"],
-   [["1", "Autenticação com papéis", "Registo, entrada, recuperação de acesso; papéis de startup, investidor, "
-     "entidade validadora e administração", "{{[A INSERIR]}}"],
+("tab", "Tabela", "Sprints e data de conclusão",
+   ["Sprint", "Objectivo", "Entregáveis principais", "Concluído"],
+   [["1", "Autenticação com papéis", "Registo, entrada, recuperação de acesso, 2FA; papéis de startup, investidor, "
+     "entidade validadora e administração", "03/11/2026"],
     ["2", "Módulo da aceleradora", "Registo e verificação da entidade; turmas; convites; validação da participação",
-     "{{[A INSERIR]}}"],
-    ["3", "Perfil da startup e sinais", "Perfil; marcos declarados; pedidos de validação; separação entre validado "
-     "e declarado", "{{[A INSERIR]}}"],
-    ["4", "Mandato e compatibilidade", "Perfil de mandato; cálculo da compatibilidade; pesos e campos configuráveis",
-     "{{[A INSERIR]}}"],
+     "03/11/2026"],
+    ["3", "Perfil da startup e sinais", "Registo próprio da startup e equipa; pedido do selo à aceleradora; perfil e "
+     "publicação; separação entre validado e declarado", "23/11/2026"],
+    ["4", "Mandato e compatibilidade", "Perfil de mandato; cálculo da compatibilidade; pesos e listas configuráveis",
+     "23/11/2026"],
     ["5", "Pedido de acesso consentido", "Pedido com nota; aceitar, recusar e revogar; camadas de visibilidade",
-     "{{[A INSERIR]}}"],
+     "23/11/2026"],
     ["6", "Acompanhamento", "*Pipeline*; histórico; actualizações periódicas; indicadores; lembretes",
-     "{{[A INSERIR]}}"],
+     "23/11/2026"],
     ["7", "Avaliação e implantação", "Testes de usabilidade; correcções; implantação", "{{[A INSERIR]}}"]],
-   "Autor (2026).", [1.4, 4.0, 7.6, 3.0]),
+   "Autor (2026); datas de integração no repositório.", [1.4, 4.0, 7.8, 2.8]),
+("p", "As datas correspondem à integração de cada incremento no repositório. Os marcos declarados pela startup, "
+      "previstos no *sprint* 3, não foram implementados, e a entrada da startup passou a fazer-se por registo próprio "
+      "e pedido do selo, em vez de apenas por convite da aceleradora (Capítulo III)."),
 
 ("h2", "2.3 Análise do inquérito como diagnóstico"),
 ("h3", "2.3.1 Instrumento e procedimento"),
@@ -329,19 +332,4 @@ CAP2 = [
 ("al", "g) as respostas abertas foram classificadas por um único codificador."),
 ("p", "Estas limitações são compensadas, em parte, pelas entrevistas de validação e pelos testes de usabilidade, "
       "que envolvem investidores e aceleradoras de forma directa."),
-]
-
-CAP_PENDENTES = [
-("h1", "CAPÍTULO III: SOLUÇÃO PROPOSTA"),
-("p", "{{[CAPÍTULO EM ELABORAÇÃO]}}"),
-("h1", "CAPÍTULO IV: DISCUSSÃO DOS RESULTADOS"),
-("p", "{{[CAPÍTULO EM ELABORAÇÃO]}}"),
-("h1", "CAPÍTULO V: SEGURANÇA E PROTECÇÃO DE DADOS"),
-("p", "{{[CAPÍTULO EM ELABORAÇÃO]}}"),
-("h1", "CAPÍTULO VI: IMPLANTAÇÃO"),
-("p", "{{[CAPÍTULO EM ELABORAÇÃO]}}"),
-("h1", "CONCLUSÕES"),
-("p", "{{[EM ELABORAÇÃO]}}"),
-("h2", "Trabalhos futuros"),
-("p", "{{[EM ELABORAÇÃO]}}"),
 ]

@@ -48,5 +48,10 @@ Formato: data · decisão · justificação (dado: inquérito, literatura, entre
 - 2026-11-23 · Actualizações mensais: métricas sugeridas por fase **[S]** (a validar com a H-10, tarefa S9), pré-preenchidas com a última publicada e com a variação; publicar envia por e-mail aos investidores com acesso e lista quem não recebeu; publicada não muda (*trigger* na base de dados), corrige-se com uma correcção; lembrete à startup a partir do dia 3 de cada mês se faltar a do mês anterior · RF31; HU21 · Cap. III, Cap. V.
 - 2026-11-23 · **Cortes face à especificação S-08** (prazo de 30/11): o movimento sem rede não fica guardado no aparelho (a interface mostra o erro e nada se perde no servidor); o arrastar por teclado (Espaço, setas) é substituído pela folha «Mover para…», que cumpre o WCAG 2.5.7; sem notificações dentro da aplicação (só e-mail) · RNF04 parcialmente cumprido · Cap. VI (limitações), Trabalhos futuros.
 
+- 2026-11-23 · Tabela 2 do Cap. II passa de planeamento a registo: coluna «Concluído» com as datas de integração no repositório; o *sprint* 3 deixa de prometer marcos declarados (não implementados) e passa a incluir o registo próprio da startup · o código manda sobre o texto (instruções do relatório, secção 3) · Cap. II, Tabela 2. **Aviso ao autor:** alteração a capítulo aprovado.
+- 2026-11-23 · Cap. V segue o OWASP Top 10 na edição de 2025 (publicada em Novembro de 2025), em vez da de 2021 da base técnica · edição em vigor · Cap. V, Quadro 16.
+- 2026-11-23 · Figuras de ecrãs geradas por `figuras/ecras/capturar.cjs` sobre uma base semeada só com `semear_demo`; diagramas do Cap. III em matplotlib (`figuras/diagramas.py`), porque o Graphviz não está instalado · instruções do relatório, secções 1 e 6 · Cap. III.
+
 ## Sincronizações
 - 2026-11-03 · Relatório gerado com pré-textuais, Introdução e Capítulos I e II · commit: {{ainda sem código}}
+- 2026-11-23 · Capítulos III a VI, Conclusões e Trabalhos futuros redigidos a partir do código; Resumo e Abstract actualizados · commit: c44f6e4 (mais as correcções do Kanban desta revisão, por integrar)

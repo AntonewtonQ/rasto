@@ -13,7 +13,8 @@ from collections import defaultdict
 from pathlib import Path
 
 PASTA = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(__file__).parent
-ALVO_S = {"A1": 360, "A2": 120, "A3": 120, "A4": 180, "A5": 180, "A6": 120, "S1": 240, "S1b": 60}
+ALVO_S = {"A1": 360, "A3": 120, "A4": 180, "A5": 180, "S1": 300, "S2": 480, "S4": 180, "S5": 180, "S7": 180,
+          "S9": 300, "S10": 60, "I1": 360, "I2": 180, "I3": 60, "I4": 180, "I7": 120}  # fichas-de-tarefas.md
 
 
 def sus(linha: dict) -> float:
