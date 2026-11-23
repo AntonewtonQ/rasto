@@ -1,0 +1,10 @@
+{% autoescape off %}{{ a.startup.nome }} · {{ titulo }}
+{% if metricas %}
+{% for m in metricas %}- {{ m.rotulo }}: {{ m.valor }}{% if m.unidade == "kz" %} Kz{% elif m.unidade == "pct" %}%{% elif m.unidade == "meses" %} meses{% endif %}
+{% endfor %}{% endif %}{% if a.destaques %}
+Destaques: {{ a.destaques }}
+{% endif %}{% if a.pedidos_ajuda %}
+Onde precisamos de ajuda: {{ a.pedidos_ajuda }}
+{% endif %}
+Recebe este e-mail porque a {{ a.startup.nome }} lhe deu acesso. Ver no Rasto: {{ ligacao }}
+{% endautoescape %}

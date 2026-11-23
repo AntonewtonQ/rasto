@@ -102,6 +102,9 @@ def aceitar(*, utilizador, pedido: PedidoAcesso, request=None) -> PedidoAcesso:
     antes = _foto(pedido)
     pedido.estado, pedido.decidido_em = P.ACEITE, timezone.now()
     pedido.save()
+    from rasto.pipeline.services import criar_de_pedido
+
+    criar_de_pedido(pedido, utilizador)
     registar(actor=utilizador, accao="acesso_aceite", objecto=pedido, antes=antes, depois=_foto(pedido), request=request)
     enfileirar(para=pedido.investidor.utilizador.email, assunto=f"A {pedido.startup.nome} aceitou o seu pedido",
                modelo="emails/acesso_decidido.txt", contexto={"p": pedido, "site": settings.SITE_URL})

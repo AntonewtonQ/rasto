@@ -85,4 +85,8 @@ def perfil_startup(s, camada: int, para_startup: bool = False) -> dict:
         d["contacto_fundador"] = s.contacto_fundador
         d["documentos"] = [{"id": str(doc.id), "titulo": doc.titulo} | ({"url": doc.url} if para_startup else {})
                            for doc in s.documentos.all()]
+        from rasto.actualizacoes.services import visiveis_para_investidor
+        from rasto.api.vistas_pipeline import actualizacao
+
+        d["actualizacoes"] = [actualizacao(a) for a in visiveis_para_investidor(s).select_related("corrige")[:12]]
     return d

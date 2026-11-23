@@ -4,6 +4,7 @@ import { Cabecalho, CartaoSinal, Cartao, Voltar } from "@/componentes/Ui";
 import { api, exigirPapel } from "@/lib/api-servidor";
 import { fmtData } from "@/lib/formatos";
 import type { Compatibilidade, PedidoAcesso, PerfilStartup } from "@/lib/tipos";
+import { ListaMetricas } from "@/componentes/Metricas";
 import { PedirAcesso, RetirarPedido } from "./PedirAcesso";
 
 export const metadata: Metadata = { title: "Startup" };
@@ -53,6 +54,18 @@ export default async function PerfilStartupInvestidor({ params, searchParams }:
             ) : <p className="muted">A startup ainda não juntou documentos.</p>}
             <p className="t-sm muted">Cada abertura de documento fica registada. A startup pode retirar o acesso quando quiser.</p>
           </Cartao>
+        ) : null}
+        {p.camada === 2 ? (
+          <section className="pilha" aria-labelledby="act-t">
+            <h2 className="t-h3" id="act-t">Actualizações</h2>
+            {p.actualizacoes?.length ? p.actualizacoes.map((a) => (
+              <Cartao key={a.id} titulo={a.corrige ? `Correcção à actualização de ${a.corrige.mes}` : a.mes}>
+                <ListaMetricas m={a.metricas} />
+                {a.destaques && <p>{a.destaques}</p>}
+                {a.pedidos_ajuda && <p className="t-sm"><strong>Onde precisam de ajuda:</strong> {a.pedidos_ajuda}</p>}
+              </Cartao>
+            )) : <p className="muted">A startup ainda não publicou actualizações.</p>}
+          </section>
         ) : (
           <Cartao titulo="Conhecer melhor">
             {pendente && d.pedido ? (<>

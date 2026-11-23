@@ -29,12 +29,24 @@ test("ecrãs da entidade", async ({ page }) => {
 });
 
 test("ecrãs da startup", async ({ page }) => {
+  // Garante cartões no pipeline (Kanban a 1280, grupos no telemóvel), mesmo numa base anterior ao Sprint 2.
+  django(`from rasto.pipeline import services as p
+from rasto.contas.models import Utilizador as U
+from rasto.startups.models import startup_do_utilizador as s
+u = U.objects.get(email='ana@mbote.demo')
+if not p.relacoes_do_utilizador(u).exists():
+    p.adicionar_externo(utilizador=u, startup=s(u), nome='Paulo Afonso', organizacao='Clube de Investidores')`);
   await entrar(page, "ana@mbote.demo");
   await page.waitForURL(/\/s$/);
-  for (const url of ["/s", "/s/perfil", "/s/investidores", "/s/selos"]) {
+  for (const url of ["/s", "/s/perfil", "/s/investidores", "/s/investidores?ver=pedidos", "/s/actualizacoes", "/s/selos"]) {
     await page.goto(url);
     await semViolacoes(page, url);
   }
+  await page.goto("/s/investidores");
+  await page.getByRole("button", { name: /^Mover / }).first().click();
+  await semViolacoes(page, "pipeline com a folha Mover aberta");
+  await page.getByRole("link", { name: "Paulo Afonso" }).first().click();
+  await semViolacoes(page, "detalhe da relação");
 });
 
 test("ecrãs do investidor", async ({ page }) => {
@@ -48,7 +60,7 @@ if not U.objects.filter(email='rui@imbondeiro.demo').exists():
                       fases=list(I.objects.filter(tipo='fase', codigo__in=['pre_seed', 'seed']).values_list('id', flat=True)), geografias=[])`);
   await entrar(page, "rui@imbondeiro.demo");
   await page.waitForURL(/\/i$/);
-  for (const url of ["/i", "/i/mandato", "/i/sugestoes", "/i/sugestoes?parciais=1"]) {
+  for (const url of ["/i", "/i/mandato", "/i/sugestoes", "/i/sugestoes?parciais=1", "/i/pipeline"]) {
     await page.goto(url);
     await semViolacoes(page, url);
   }

@@ -93,11 +93,52 @@ def _enviar_pedido(p):
     lembrar_pedido(p)
 
 
+# --- Pipeline: relação parada há 21 dias (RF30); actualização do mês anterior em falta (RF31) -------------------------
+
+
+def _relacoes_paradas():
+    from rasto.pipeline.services import candidatas_a_lembrete
+
+    return candidatas_a_lembrete()
+
+
+def _enviar_parada(r):
+    from rasto.pipeline.services import lembrar_parada
+
+    lembrar_parada(r)
+
+
+def _ref_parada(r):
+    from rasto.pipeline.services import ultima_actividade
+
+    return ultima_actividade(r).isoformat()  # nova paragem depois de actividade = novo lembrete
+
+
+def _por_actualizar():
+    from rasto.actualizacoes.services import startups_por_actualizar
+
+    return startups_por_actualizar()
+
+
+def _enviar_actualizacao(s):
+    from rasto.actualizacoes.services import lembrar_actualizacao
+
+    lembrar_actualizacao(s)
+
+
+def _ref_actualizacao(_s):
+    from rasto.actualizacoes.services import mes_anterior
+
+    return mes_anterior().isoformat()
+
+
 REGRAS = [
     Regra("convite_7_dias", _convites_a_lembrar, lambda c: c.expira_em.isoformat(), _enviar_convite),
     Regra("validacao_7_dias", _validacoes_a_lembrar, lambda s: s.expira_em.isoformat(), _enviar_validacao),
     Regra("pedido_acesso_3_dias", _pedidos_a_lembrar(3), lambda p: "3", _enviar_pedido),
     Regra("pedido_acesso_10_dias", _pedidos_a_lembrar(10), lambda p: "10", _enviar_pedido),
+    Regra("relacao_parada", _relacoes_paradas, _ref_parada, _enviar_parada),
+    Regra("actualizacao_mensal", _por_actualizar, _ref_actualizacao, _enviar_actualizacao),
 ]
 
 

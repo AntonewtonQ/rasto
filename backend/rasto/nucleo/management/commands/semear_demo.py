@@ -8,11 +8,14 @@ from django.db import transaction
 from django.utils import timezone
 
 from rasto.acessos import services as acessos
+from rasto.actualizacoes import services as actualizacoes
 from rasto.catalogo.models import ItemCatalogo, TaxaCambio
 from rasto.contas.models import Papel, Utilizador
 from rasto.investidores import services as investidores
 from rasto.organizacoes import services as org
 from rasto.organizacoes.models import CRITERIOS
+from rasto.pipeline import services as pipeline
+from rasto.pipeline.models import MovimentoEtapa, Relacao
 from rasto.sinais import services as sinais
 from rasto.startups import services as startups
 from rasto.turmas import services as turmas
@@ -96,6 +99,33 @@ class Command(BaseCommand):
         acessos.pedir_acesso(investidor=fundo, startup=aceites[2].startup,
                              nota="Investimos em pagamentos em Luanda; gostaríamos de ver a apresentação.")
 
+        # Pipeline: o Rui tem acesso à Kitanda; a Mbote tem investidores de fora em várias etapas, um parado
+        kitanda, mbote = aceites[0].startup, aceites[2].startup
+        nadia, ana = Utilizador.objects.get(email="nadia@kitanda.demo"), Utilizador.objects.get(email="ana@mbote.demo")
+        inv_rui = ui.investidor
+        p = acessos.pedir_acesso(investidor=inv_rui, startup=kitanda, nota="Invisto em agritech; o modelo de recolha interessa-me.")
+        acessos.aceitar(utilizador=nadia, pedido=p)
+        r = pipeline.relacoes_do_utilizador(nadia).get()
+        pipeline.mover(utilizador=nadia, relacao=r, etapa=3)
+        pipeline.registar_interaccao(utilizador=nadia, relacao=r, tipo="reuniao", texto="Visita à recolha em Benguela.")
+        for nome, organizacao, etapa, valor, moeda in [("Paulo Afonso", "Clube de Investidores de Luanda", 5, 20_000, "USD"),
+                                                ("Grupo Ngola", "", 4, None, None),
+                                                ("Fundo Kwanza", "", 5, 9_120_000, "AOA"),
+                                                ("Helena Cardoso", "Investidora anjo", 2, None, None)]:
+            e = pipeline.adicionar_externo(utilizador=ana, startup=mbote, nome=nome, organizacao=organizacao)
+            if etapa > 1:
+                pipeline.mover(utilizador=ana, relacao=e, etapa=etapa, valor=valor, moeda=moeda)
+        parada = Relacao.objects.get(contacto_externo="Helena Cardoso · Investidora anjo")
+        antigo = timezone.now() - timedelta(days=25)
+        Relacao.objects.filter(pk=parada.pk).update(criado_em=antigo)
+        MovimentoEtapa.objects.filter(relacao=parada).update(criado_em=antigo)
+        a = actualizacoes.guardar_rascunho(utilizador=nadia, startup=kitanda, periodo=actualizacoes.mes_anterior(),
+                                           metricas={"utilizadores_activos": 340, "clientes_pagantes": 18,
+                                                     "receita_mensal": 2_150_000, "equipa": 6},
+                                           destaques="Dois restaurantes novos em Benguela; recolha passou a 5 dias por semana.",
+                                           pedidos_ajuda="Contactos de distribuidores em Luanda.")
+        actualizacoes.publicar(utilizador=nadia, actualizacao=a)
+
         # Entidade em rascunho (para a tarefa A1 começar do zero, use o registo público)
         self.stdout.write(self.style.SUCCESS(
             f"Dados criados. Contas (palavra-passe «{PALAVRA}»):\n"
@@ -105,7 +135,7 @@ class Command(BaseCommand):
             "  nadia@kitanda.demo (startup publicada, participação pendente)\n"
             "  joao@dikanza.demo (startup por publicar)\n"
             "  ana@mbote.demo (startup publicada, validada, com um pedido de acesso pendente)\n"
-            "  rui@imbondeiro.demo (investidor com mandato definido)\n"
+            "  rui@imbondeiro.demo (investidor com mandato e acesso à Kitanda, em Reunião)\n"
             "  marta@muxima.demo (investidora com pedido pendente à Mbote)"))
 
     def _submeter(self, u, o, nome_publico, programa):

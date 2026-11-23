@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Icone, Selo } from "@/componentes/Icone";
+import { Indicadores } from "@/componentes/Indicadores";
 import { CartaoSinal, Cabecalho, Cartao } from "@/componentes/Ui";
 import { api, exigirPapel } from "@/lib/api-servidor";
 import { decil } from "@/lib/formatos";
-import type { Sinal } from "@/lib/tipos";
+import type { Indicadores as Ind, Sinal } from "@/lib/tipos";
 
 export const metadata: Metadata = { title: "Início" };
 
@@ -15,14 +16,14 @@ type InicioStartup = {
 
 export default async function InicioStartup() {
   await exigirPapel("startup");
-  const d = await api<InicioStartup>("/api/v1/startup/inicio");
+  const [d, q] = await Promise.all([api<InicioStartup>("/api/v1/startup/inicio"), api<{ indicadores: Ind }>("/api/v1/startup/pipeline")]);
   return (
     <>
       <Cabecalho titulo={d.startup.nome} />
       <main id="conteudo" className="conteudo estreito">
         {d.pedidos_pendentes > 0 && (
           <p className="aviso aviso-info" role="status">
-            <Link className="link" href="/s/investidores">{d.pedidos_pendentes === 1 ? "1 investidor pediu" : `${d.pedidos_pendentes} investidores pediram`} acesso</Link>. Nada é partilhado até aceitar.
+            <Link className="link" href="/s/investidores?ver=pedidos">{d.pedidos_pendentes === 1 ? "1 investidor pediu" : `${d.pedidos_pendentes} investidores pediram`} acesso</Link>. Nada é partilhado até aceitar.
           </p>
         )}
         <Cartao titulo="Perfil" accao={<Link className="link" href="/s/perfil">{d.startup.estado === "publicado" ? "Publicado" : "Rascunho"} · Editar</Link>}>
@@ -30,6 +31,7 @@ export default async function InicioStartup() {
           <div className="bar bar-pri" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={d.completude} aria-label="Completude do perfil"><i className={decil(d.completude)} /></div>
           <p className="t-sm muted">O perfil fica em rascunho até decidir publicá-lo. Nenhum investidor o vê enquanto estiver em rascunho.</p>
         </Cartao>
+        {d.startup.estado === "publicado" && <Indicadores d={q.indicadores} ligacao="/s/investidores" />}
         <section className="pilha" aria-labelledby="sinais-t">
           <h2 className="t-h3" id="sinais-t">Sinais</h2>
           {d.sinais.length ? d.sinais.map((s) => <CartaoSinal key={s.id} s={s} />)

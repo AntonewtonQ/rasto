@@ -79,6 +79,27 @@ test("investidor encontra a startup, pede acesso e a startup aceita", async ({ p
     await expect(page.getByText("«Invisto em agritech em fase seed.»")).toBeVisible();
     await page.getByRole("button", { name: "Aceitar" }).click();
     await expect(page.getByRole("button", { name: "Retirar acesso" })).toBeVisible();
+  });
+
+  await test.step("a startup move o investidor no pipeline e publica uma actualização", async () => {
+    await page.getByRole("link", { name: "Pipeline", exact: true }).click();
+    await page.getByRole("button", { name: "Mover Investidor Teste" }).click();
+    await page.getByLabel("Mover para").selectOption({ label: "Soft commit" });
+    await page.getByLabel("Valor indicativo").fill("30000");
+    await page.getByRole("button", { name: "Confirmar" }).click();
+    await expect(page.getByText("Investidor Teste movido para Soft commit.", { exact: true }).first()).toBeVisible();
+    await expect(page.getByText("20%", { exact: true })).toBeVisible(); // 30 000 de 150 000
+    await page.getByRole("button", { name: "Adicionar investidor de fora" }).click();
+    await page.getByLabel("Nome do investidor").fill("Anjo Externo");
+    await page.getByRole("button", { name: "Adicionar", exact: true }).click();
+    await expect(page.getByRole("link", { name: "Anjo Externo" })).toBeVisible();
+
+    await page.getByRole("link", { name: "Actualizações", exact: true }).click();
+    await page.getByLabel("Receita do mês (Kz)").fill("1500000");
+    await page.getByLabel("Destaques do mês").fill("Primeira escola com contrato anual.");
+    await page.getByRole("button", { name: "Publicar" }).click();
+    await expect(page.getByText("Publicada e enviada a 1 investidor.")).toBeVisible();
+    expect(ultimoEmail(investidor)).toContain("Primeira escola com contrato anual.");
     await context.clearCookies();
   });
 
@@ -90,6 +111,9 @@ test("investidor encontra a startup, pede acesso e a startup aceita", async ({ p
     await expect(page.getByText(fundadora)).toBeVisible();
     const doc = page.getByRole("link", { name: "Apresentação" });
     await expect(doc).toHaveAttribute("href", /\/api\/v1\/startups\/.+\/documentos\/.+\/abrir$/);
+    await expect(page.getByText("Primeira escola com contrato anual.")).toBeVisible();
+    await page.getByRole("link", { name: "Pipeline", exact: true }).click();
+    await expect(page.getByRole("link", { name: startup })).toBeVisible();
   });
 
   semErros();

@@ -56,7 +56,7 @@ export type PerfilStartup = {
   id: string; nome: string; estado: string; camada: 1 | 2;
   sector: Item | null; fase: Item | null; provincia: Item | null; cidade: string; resumo: string;
   ronda: Ronda | null; actualizado_em: string; verificados: Sinal[]; declarados: Sinal[];
-  contacto_fundador?: string; documentos?: { id: string; titulo: string; url?: string }[];
+  contacto_fundador?: string; documentos?: { id: string; titulo: string; url?: string }[]; actualizacoes?: Actualizacao[];
 };
 
 export type Criterio = { chave: string; rotulo: string; pontos: number; peso: number; estado: string; frase: string };
@@ -77,4 +77,29 @@ export type PedidoRecebido = PedidoAcesso & {
 export type Mandato = {
   sectores: string[]; fases: string[]; geografias: string[]; risco: string | null;
   cheque_min: number | null; cheque_max: number | null; moeda_cheque: string; minimo_completo: boolean;
+};
+
+// --- Sprint 2 (parte 2): pipeline e actualizações -----------------------------------------------------------------
+
+export type Etapa = { n: number; codigo: string; nome: string };
+export type RelacaoPipeline = {
+  id: string; lado: "startup" | "investidor"; nome: string; sub: string; externa: boolean; etapa: number; etapa_nome: string;
+  valor: number | null; moeda: string; valor_texto: string | null; perdida: boolean; perdida_em: string | null;
+  motivo_perda: string | null; nota_perda: string; ultima_actividade: string; parada: boolean; adiado_ate: string | null;
+  versao: number; startup_id: string;
+  movimentos?: { de: string | null; para: string; em: string; autor: string | null }[];
+  interaccoes?: { id: number; tipo: string; tipo_rotulo: string; texto: string; em: string; autor: string | null }[];
+};
+export type Indicadores = {
+  ronda: boolean; activas: number; paradas: number; perdidas: number; dias_ate_soft_commit: number | null;
+  conversao: { etapa: number; nome: string; chegaram: number; passaram: number; pct: number | null }[] | null;
+  comprometido: { valor: number; moeda: string; alvo: number; texto: string; pct: number | null; sem_conversao: number; taxa_data: string | null } | null;
+};
+export type Quadro = { etapas: Etapa[]; motivos: { valor: string; rotulo: string }[]; relacoes: RelacaoPipeline[]; indicadores?: Indicadores; pedidos_pendentes?: number };
+
+export type Metrica = { codigo: string; rotulo: string; unidade: string; valor?: number; anterior?: number | null };
+export type Actualizacao = {
+  id: string; periodo: string; mes: string; estado: string; metricas: Metrica[]; destaques: string; pedidos_ajuda: string;
+  corrige: { id: string; mes: string } | null; publicada_em: string | null; falhas_envio?: string[];
+  metricas_brutas?: Record<string, number>;
 };

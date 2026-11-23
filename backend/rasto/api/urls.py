@@ -5,6 +5,7 @@ from . import vistas_admin as adm
 from . import vistas_conta as conta
 from . import vistas_entidade as ent
 from . import vistas_investidor as inv
+from . import vistas_pipeline as pl
 from . import vistas_startup as st
 from . import vistas_turmas as tur
 from . import vistas_validacoes as val
@@ -52,6 +53,11 @@ urlpatterns = [
     path("startup/pedidos-acesso", st.PedidosRecebidos.as_view(), name="api_startup_pedidos"),
     path("startup/pedidos-acesso/<uuid:pk>/<str:accao>", st.DecidirPedido.as_view(), name="api_startup_decidir_pedido"),
     path("startup/selos", st.Selos.as_view(), name="api_startup_selos"),
+    path("startup/pipeline", pl.PipelineStartup.as_view(), name="api_pipeline_startup"),
+    path("startup/actualizacoes", pl.Actualizacoes.as_view(), name="api_actualizacoes"),
+    path("investidor/pipeline", pl.PipelineInvestidor.as_view(), name="api_pipeline_investidor"),
+    path("pipeline/<uuid:pk>", pl.Relacao.as_view(), name="api_relacao"),
+    path("pipeline/<uuid:pk>/<str:accao>", pl.AccaoRelacao.as_view(), name="api_relacao_accao"),
     path("startup/selos/<uuid:pk>", st.CancelarSelo.as_view(), name="api_startup_selo"),
     path("startup/equipa", st.EquipaStartup.as_view(), name="api_startup_equipa"),
     path("startup/equipa/convites/<uuid:pk>/cancelar", st.CancelarConviteEquipaStartup.as_view(), name="api_startup_equipa_cancelar"),

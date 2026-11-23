@@ -69,6 +69,8 @@ INSTALLED_APPS = [
     "rasto.investidores",
     "rasto.compatibilidade",
     "rasto.acessos",
+    "rasto.pipeline",
+    "rasto.actualizacoes",
     "rasto.api",
 ]
 
@@ -287,6 +289,8 @@ PRAZOS_DEFEITO = {
     "lembrete_validacao_dias": 7,
     "pedido_acesso_dias": 14,
     "novo_pedido_dias": 90,
+    "relacao_parada_dias": 21,
+    "lembrete_actualizacao_dia": 3,  # dia do mês em que se lembra a startup da actualização do mês anterior
 }
 
 LOGGING = {

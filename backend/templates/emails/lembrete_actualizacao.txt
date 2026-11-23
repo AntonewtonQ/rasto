@@ -1,0 +1,7 @@
+{% autoescape off %}Olá.
+
+Ainda não publicou a actualização de {{ mes }} da {{ s.nome }}. As métricas da fase vêm pré-preenchidas com os valores da última; demora poucos minutos.
+{% if n %}{{ n }} investidor{{ n|pluralize:"es" }} com acesso vão recebê-la.{% else %}Ainda ninguém tem acesso; fica visível a quem o tiver no futuro.{% endif %}
+
+{{ ligacao }}
+{% endautoescape %}

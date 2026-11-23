@@ -1,0 +1,7 @@
+{% autoescape off %}Olá.
+
+A relação com {{ outro }} está em {{ etapa }} e não teve movimento nem contacto nos últimos {{ dias }} dias.
+
+Pode registar um contacto, mudar a etapa, adiar este lembrete 7 dias ou marcá-la como perdida:
+{{ ligacao }}
+{% endautoescape %}

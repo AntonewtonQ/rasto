@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { ResumoStartup } from "@/componentes/Compatibilidade";
 import { Cabecalho, CartaoSinal, Cartao } from "@/componentes/Ui";
 import { api, exigirPapel } from "@/lib/api-servidor";
@@ -26,6 +27,9 @@ export default async function PaginaPerfil() {
               : <p className="t-sm muted">Pronto a publicar. Nenhum investidor o vê enquanto estiver em rascunho.</p>}
         </Cartao>
         <FormPerfil perfil={p} catalogo={catalogo} />
+        <Cartao titulo="Selos e sinais" accao={<Link className="link" href="/s/selos">Gerir selos</Link>}>
+          <p className="t-sm muted">{p.verificados.length ? `${p.verificados.length} validado${p.verificados.length === 1 ? "" : "s"} por entidades verificadas.` : "Ainda sem selos validados."} Peça à sua aceleradora o selo de participação.</p>
+        </Cartao>
         <FormRonda ronda={p.ronda} />
         <Documentos documentos={p.documentos ?? []} />
         <Cartao titulo="Como o investidor vê (antes de aceitar)">

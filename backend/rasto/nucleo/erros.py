@@ -4,3 +4,7 @@ class ErroDominio(Exception):
 
 class TransicaoInvalida(ErroDominio):
     pass
+
+
+class Conflito(ErroDominio):
+    """Outra pessoa alterou o objecto entretanto (concorrência optimista, base técnica 8.1)."""

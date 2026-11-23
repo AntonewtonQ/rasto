@@ -287,3 +287,18 @@ dl, dd { margin: 0; }
 dt + dd { margin-top: 2px; }
 
 .aviso-rede { position: sticky; top: 0; z-index: 30; border-radius: 0; justify-content: center; }
+
+/* Pipeline (S-08): grupos por etapa no telemóvel (mais avançada primeiro), Kanban de 7 colunas a partir de 1280 */
+.kanban { display: flex; flex-direction: column-reverse; gap: 16px; }
+.kanban-col { background: var(--color-surface-sunken); border-radius: var(--radius-md); padding: 12px; display: flex; flex-direction: column; gap: 8px; min-height: 72px; }
+.kanban-col.alvo { outline: 2px dashed var(--color-primary); outline-offset: 2px; }
+.kanban-col > h3 { font: var(--text-caption); font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--color-text-muted); display: flex; justify-content: space-between; }
+.cartao-rel { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 12px; display: flex; flex-direction: column; gap: 6px; }
+.cartao-rel.parada { border-color: var(--color-warning); }
+.cartao-rel.perdida { opacity: .75; }
+.cartao-rel[draggable="true"] { cursor: grab; }
+.metricas { display: grid; gap: 12px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 1280px) {
+  .kanban { flex-direction: row; overflow-x: auto; align-items: flex-start; padding-bottom: 8px; }
+  .kanban-col { flex: 0 0 196px; }
+}

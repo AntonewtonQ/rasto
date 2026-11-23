@@ -8,7 +8,7 @@ from rest_framework import exceptions, status
 from rest_framework.response import Response
 from rest_framework.views import exception_handler
 
-from rasto.nucleo.erros import ErroDominio, TransicaoInvalida
+from rasto.nucleo.erros import Conflito, ErroDominio, TransicaoInvalida
 
 
 def _mensagem(detalhe) -> str:
@@ -22,6 +22,8 @@ def _mensagem(detalhe) -> str:
 def tratar_excepcao(exc, contexto):
     if isinstance(exc, TransicaoInvalida):
         return Response({"erro": {"codigo": "transicao_invalida", "mensagem": str(exc)}}, status=status.HTTP_409_CONFLICT)
+    if isinstance(exc, Conflito):
+        return Response({"erro": {"codigo": "conflito", "mensagem": str(exc)}}, status=status.HTTP_409_CONFLICT)
     if isinstance(exc, ErroDominio):
         return Response({"erro": {"codigo": "regra_de_negocio", "mensagem": str(exc)}}, status=status.HTTP_400_BAD_REQUEST)
     if isinstance(exc, ValidacaoDjango):

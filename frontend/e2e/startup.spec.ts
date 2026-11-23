@@ -45,7 +45,8 @@ test("a startup cria conta, convida a equipa e pede o selo", async ({ page, cont
   await test.step("a fundadora pede o selo à aceleradora", async () => {
     await entrar(page, fundadora);
     await page.waitForURL(/\/s$/);
-    await page.getByRole("link", { name: "Selos", exact: true }).click();
+    await page.getByRole("link", { name: "Perfil", exact: true }).click();
+    await page.getByRole("link", { name: "Gerir selos" }).click();
     await page.getByLabel("Aceleradora ou universidade").selectOption({ label: "Aceleradora Kalandula" });
     await page.getByLabel("Turma em que participou").selectOption({ label: "Programa de Aceleração 2026 · Turma 3 · Mar.–Jun. 2026" });
     await page.getByLabel("Nota para a aceleradora").fill("Demo day em Junho");
