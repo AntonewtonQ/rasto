@@ -32,7 +32,7 @@ CONCL = [
       "{{[RESULTADO A INSERIR: o que a avaliação mostrou sobre a compreensão e a confiança.]}}"),
 ("p", "As principais limitações são a amostra pequena e de conveniência do inquérito e da avaliação, a ausência de "
       "uso real prolongado da plataforma, os pesos da compatibilidade e as métricas por fase ainda por validar com "
-      "mais investidores, e a dependência de as aceleradoras aderirem à plataforma, sem as quais não há sinais "
+      "mais investidores, o peso do JavaScript inicial acima do limite do RNF01 (Capítulo IV, secção 4.1), e a dependência de as aceleradoras aderirem à plataforma, sem as quais não há sinais "
       "validados."),
 
 ("h2", "Trabalhos futuros"),
@@ -50,5 +50,7 @@ CONCL = [
 ("al", "g) Cofre de documentos com controlo de acesso, em substituição das ligações externas;"),
 ("al", "h) Painel da aceleradora com os resultados de captação agregados por turma, com o consentimento das "
        "startups;"),
-("al", "i) Aplicação nativa para telemóvel, a partir da mesma API."),
+("al", "i) Aplicação nativa para telemóvel, a partir da mesma API;"),
+("al", "j) Revisão do limite de JavaScript do RNF01 face ao peso base do Next.js e do React, medida da primeira "
+       "pintura em telemóveis reais e redução do código de cliente nos ecrãs mais usados."),
 ]

@@ -11,7 +11,8 @@ CAP4 = [
 
 ("h2", "4.1 Verificação técnica"),
 ("p", "A verificação técnica confirma que o código cumpre os requisitos que se conseguem testar de forma automática. "
-      "Os resultados da Tabela 16 foram obtidos na versão entregue, com os comandos de teste do repositório."),
+      "Os resultados da Tabela 16 foram obtidos na versão entregue, com os comandos de teste do repositório; o "
+      "peso dos ecrãs foi medido no navegador do Playwright, a 390 px."),
 ("tab", "Tabela", "Resultados da verificação técnica",
    ["Verificação", "Critério", "Resultado"],
    [["Testes do servidor (pytest)", "Todos passam", "109 de 109"],
@@ -20,11 +21,21 @@ CAP4 = [
     ["Acessibilidade (axe, WCAG 2.2 AA)", "0 violações graves ou críticas, a 390 e a 1280 px", "0 em 8 verificações"],
     ["Exemplo da HU19", "% comprometida de 37,5", "37,5%"],
     ["Imutabilidade", "A base de dados recusa alterar uma actualização publicada e o registo de auditoria", "Passa"],
-    ["Análise estática (Ruff, ESLint)", "Sem erros", "Sem erros"]],
+    ["Análise estática (Ruff, ESLint)", "Sem erros", "Sem erros"],
+    ["Peso inicial dos ecrãs (RNF01)", "HTML e CSS ≤ 50 KB; JavaScript inicial ≤ 120 KB, comprimidos",
+     "9,4 a 13,1 KB; 142,5 a 148,8 KB (não cumpre)"]],
    "Autor (2026).", [5.4, 7.4, 3.2], {"small": True}),
-("p", "Ficaram por medir dois requisitos não funcionais: o desempenho em rede lenta (RNF01), que exige uma medição "
-      "com o Lighthouse num perfil de rede móvel, e a disponibilidade (RNF10), que só se mede com a plataforma "
-      "alojada. {{[RESULTADO A INSERIR: medição do RNF01.]}}"),
+("p", "O desempenho em rede lenta (RNF01) tem duas partes. A primeira é o peso do que cada ecrã descarrega. Foi "
+      "medida na versão de produção, com a compressão gzip do servidor, em quatro ecrãs: a página inicial, a "
+      "entrada, as sugestões do investidor e o *pipeline* da startup. O HTML e o CSS ficam entre 9,4 e 13,1 KB, "
+      "dentro do limite de 50 KB. O JavaScript inicial fica entre 142,5 e 148,8 KB, acima do limite de 120 KB, "
+      "pelo que esta parte do requisito não é cumprida. A causa está na base comum a todos os ecrãs: o React e o "
+      "*router* do Next.js somam 131,3 KB comprimidos, antes de qualquer código da aplicação, que acrescenta entre 11 e "
+      "20 KB por ecrã. Nem o empacotador webpack nem a compressão brotli baixam o total para menos de 120 KB, pelo que "
+      "o limite, definido antes da escolha da *stack*, não é compatível com ela. A segunda parte, a primeira pintura de conteúdo em menos de "
+      "3 segundos numa rede móvel lenta, exige uma medição com o Lighthouse e ainda não foi feita. "
+      "{{[RESULTADO A INSERIR: primeira pintura de conteúdo em «Slow 4G», medida com o Lighthouse.]}} A "
+      "disponibilidade (RNF10) só se mede com a plataforma alojada."),
 
 ("h2", "4.2 Protocolo da avaliação com utilizadores"),
 ("p", "A avaliação segue as tarefas e as métricas da base de experiência do utilizador, adaptadas ao que o código "

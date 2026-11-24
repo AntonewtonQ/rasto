@@ -20,9 +20,9 @@ REFS = [
  "markets in the financial growth cycle. **Journal of Banking & Finance**, [*s. l.*], v. 22, n. 6-8, p. 613-673, 1998.",
  "BMZ DIGITAL.GLOBAL. **VC4A**. [*S. l.*]: BMZ Digital.Global, [20--]. Disponível em: "
  "https://www.bmz-digital.global/en/partners/vc4a/. " + AC,
- "BROOKE, J. SUS: a \"quick and dirty\" usability scale. *In*: JORDAN, P. W.; THOMAS, B.; WEERDMEESTER, B. A.; "
- "MCCLELLAND, I. L. (ed.). **Usability evaluation in industry**. London: Taylor & Francis, 1996. p. 189-194. "
- "{{[CONFIRMAR as iniciais dos editores no livro.]}}",
+ "BROOKE, J. SUS: a \"quick and dirty\" usability scale. *In*: JORDAN, P. W.; THOMAS, B.; MCCLELLAND, I. L.; "
+ "WEERDMEESTER, B. (ed.). **Usability evaluation in industry**. [*S. l.*]: CRC Press, 1996. p. 207-212. "
+ "DOI: 10.1201/9781498710411-35.",
  "COHEN, S.; FEHDER, D. C.; HOCHBERG, Y. V.; MURRAY, F. The design of startup accelerators. **Research Policy**, "
  "[*s. l.*], v. 48, n. 7, p. 1781-1797, 2019. DOI: 10.1016/j.respol.2019.04.003.",
  "COHEN, S.; HOCHBERG, Y. V. **Accelerating startups**: the seed accelerator phenomenon. [*S. l.*]: SSRN, 2014. "
@@ -38,7 +38,7 @@ REFS = [
  "n. 2, p. 145-168, 2001. DOI: 10.1257/jep.15.2.145.",
  "GONGA, J. Lei do crowdfunding na Assembleia Nacional, mas só com \"tudo ou nada\". **Expansão**, Luanda, 1 maio 2026. "
  "Disponível em: https://expansao.co.ao/angola/detalhe/lei-do-crowdfunding-na-assembleia-nacional-mas-so-com-tudo-ou-nada-71521.html. "
- + AC + " {{[CONFIRMAR o título exacto do artigo.]}}",
+ + AC,
  "GUST. **About Gust**. [*S. l.*]: Gust, [20--]. Disponível em: https://gust.com/about/. " + AC,
  "HEVNER, A. R.; MARCH, S. T.; PARK, J.; RAM, S. Design science in information systems research. **MIS Quarterly**, "
  "[*s. l.*], v. 28, n. 1, p. 75-105, 2004.",
@@ -52,10 +52,10 @@ REFS = [
  "Disponível em: https://pti.ao/fintechs-continuam-a-dominar-o-ecossistema-de-startups-em/. " + AC,
  "MARTINS, A. I.; ROSA, A. F.; QUEIRÓS, A.; SILVA, A.; ROCHA, N. P. European Portuguese validation of the System "
  "Usability Scale (SUS). **Procedia Computer Science**, [*s. l.*], v. 67, p. 293-300, 2015. "
- "{{[CONFIRMAR DOI na página do editor.]}}",
+ "DOI: 10.1016/j.procs.2015.09.273.",
  "MAYYA, R.; HUANG, P. Startup accelerators, information asymmetry, and corporate venture capital investments. "
- "**Management Science**, [*s. l.*], 2025. Publicação antecipada. DOI: 10.1287/mnsc.2020.03494. "
- "{{[CONFIRMAR volume, número e páginas.]}}",
+ "**Management Science**, [*s. l.*], v. 71, n. 11, p. 9123-9144, 2025. "
+ "DOI: 10.1287/mnsc.2020.03494.",
  "M'RAIHI, D.; MACHANI, S.; PEI, M.; RYDELL, J. **TOTP**: time-based one-time password algorithm. [*S. l.*]: "
  "IETF, maio 2011. (RFC 6238). Disponível em: https://www.rfc-editor.org/rfc/rfc6238. Acesso em: 23 nov. 2026.",
  "OWASP FOUNDATION. **OWASP Top 10:2025**. [*S. l.*]: OWASP Foundation, 2025. Disponível em: "
@@ -76,11 +76,11 @@ REFS = [
  "https://scrumguides.org/docs/scrumguide/v2020/2020-Scrum-Guide-US.pdf. " + AC,
  "SPENCE, M. Job market signaling. **The Quarterly Journal of Economics**, [*s. l.*], v. 87, n. 3, p. 355-374, 1973.",
  "VIGLIALORO, D.; SANSONE, G.; UGHETTO, E.; LANDONI, P. A new organisational model to promote entrepreneurial "
- "finance: business angel platforms. **Journal of Technology Transfer**, [*s. l.*], 2026. No prelo. Disponível em: "
- "https://ueaeprints.uea.ac.uk/id/eprint/102305. " + AC + " {{[CONFIRMAR volume, páginas e DOI.]}}",
+ "finance: business angel platforms. **The Journal of Technology Transfer**, [*s. l.*], 2026. Publicação antecipada em linha. "
+ "DOI: 10.1007/s10961-026-10342-x.",
  "W3C. **Web Content Accessibility Guidelines (WCAG) 2.2**. [*S. l.*]: W3C, 5 out. 2023. W3C Recommendation. "
  "Disponível em: https://www.w3.org/TR/2023/REC-WCAG22-20231005/. Acesso em: 23 nov. 2026.",
  "YANG, Y.; FANG, Y.; WANG, N.; SU, X. Mitigating information asymmetry to acquire venture capital financing for "
- "digital startups in China: the role of weak and strong signals. **Information Systems Journal**, [*s. l.*], 2023. "
- "DOI: 10.1111/isj.12452. {{[CONFIRMAR volume, número e páginas.]}}",
+ "digital startups in China: the role of weak and strong signals. **Information Systems Journal**, [*s. l.*], "
+ "v. 33, n. 6, p. 1312-1342, 2023. DOI: 10.1111/isj.12452.",
 ]

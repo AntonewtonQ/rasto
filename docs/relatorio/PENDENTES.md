@@ -1,6 +1,6 @@
 # Marcadores pendentes no relatório
 
-Actualizado a 23/11/2026, depois da redacção dos Capítulos III a VI e das Conclusões.
+Actualizado a 24/11/2026.
 
 | Onde | Marcador | O que falta |
 |---|---|---|
@@ -13,12 +13,13 @@ Actualizado a 23/11/2026, depois da redacção dos Capítulos III a VI e das Con
 | Cap. II 2.3.8 | [CONFIRMAR] | Revisão final das categorias das respostas abertas |
 | Cap. II Tabela 2 | [A INSERIR] | Data de conclusão do *sprint* 7 (avaliação e implantação) |
 | Cap. III 3.9 | [A FAZER] | Verificação com TalkBack num Android |
-| Cap. IV 4.1 | [RESULTADO A INSERIR: medição do RNF01] | Lighthouse em perfil de rede móvel |
+| Cap. IV 4.1 | [RESULTADO A INSERIR: primeira pintura de conteúdo em «Slow 4G»] | Lighthouse no perfil de telemóvel (o peso dos ecrãs já está medido) |
 | Cap. IV Tabelas 17–20 e 4.3–4.6 | [RESULTADO A INSERIR] | Participantes, tarefas, SUS (calcular com `docs/testes/ronda-1/calcular.py`), entrevistas, compreensão, discussão |
 | Cap. V Quadro 17 | [CONFIRMAR com o orientador e o texto da lei] | Notificação à APD e transferência internacional |
 | Cap. VI Quadro 19, Tabela 21, 6.3, 6.4 | [A INSERIR], [CONFIRMAR preço] (3), [A CALCULAR], [CONFIRMAR com o orientador], [A FAZER] | Data de produção; preços do servidor, cópias e domínio; localização do servidor; monitorização |
 | Conclusões, alínea f) e resposta à pergunta | [RESULTADO A INSERIR] (2) | Resultados da avaliação |
-| Referências | [CONFIRMAR] (6) | Volume/páginas de Mayya e Huang (2025), Yang et al. (2023), Viglialoro et al. (2026); título de Gonga (2026); DOI de Martins et al. (2015); iniciais dos editores de Brooke (1996) |
 | Apêndice A (`content_apendices.py`) | [A INSERIR] | Questionário do inquérito tal como foi aplicado (não está no repositório) |
 
 Resolvido nesta revisão: Apêndices B (guião e termo) e C (manual por papel); Capítulos III a VI e Conclusões redigidos; Quadro 3 (ferramentas); Tabela 2 (datas dos *sprints* 1 a 6); marcadores em inglês do Abstract.
+
+Resolvido a 24/11: as 6 referências por confirmar (Crossref e página do editor); peso inicial dos ecrãs (RNF01, Tabela 16). Continua por confirmar a votação final da Lei das Startups: até 24/11 só se encontra a aprovação na generalidade (19/03/2026).

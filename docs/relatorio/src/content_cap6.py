@@ -36,8 +36,8 @@ CAP6 = [
 ("p", "A integração contínua corre no GitHub Actions a cada envio para o repositório, em quatro tarefas: o servidor "
       "(análise estática com o Ruff, verificação de migrações em falta, testes com PostgreSQL, `check --deploy` e "
       "`pip-audit`); o frontend (ESLint e construção); os testes ponta a ponta e de acessibilidade contra a pilha "
-      "completa com dados de demonstração; e a construção das imagens Docker. Uma alteração só entra no ramo "
-      "principal com as quatro tarefas a passar."),
+      "completa com dados de demonstração; e a construção das imagens Docker. A versão entregue passa nas quatro "
+      "tarefas."),
 
 ("h2", "6.3 Custos"),
 ("p", "A Tabela 21 estima o custo mensal. Os preços dependem do fornecedor e da data e têm de ser confirmados antes "
