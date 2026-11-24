@@ -32,7 +32,10 @@ jobs:
         run: pytest
       - name: Verificação de implantação
         env: { DJANGO_DEBUG: "0", DJANGO_ALLOWED_HOSTS: rasto.example }
-        run: python manage.py check --deploy --fail-level WARNING
+        # Chave aleatória só para este passo: a de cima é curta de propósito e falharia o security.W009.
+        run: |
+          DJANGO_SECRET_KEY="$(python -c 'import secrets; print(secrets.token_urlsafe(64))')" \
+            python manage.py check --deploy --fail-level WARNING
       - name: Dependências vulneráveis
         run: pip-audit
   frontend:
