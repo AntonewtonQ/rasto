@@ -22,13 +22,13 @@ CAP6 = [
       "enviados, o que evita mensagens para endereços fictícios dos dados de demonstração."),
 
 ("h2", "6.2 Ambientes e integração contínua"),
-("p", "Existem três ambientes (Quadro 19). Até haver servidor, as sessões de teste correm num computador do autor "
+("p", "Existem três ambientes (Quadro 19). Até haver servidor, as sessões de teste correm num computador pessoal "
       "com a mesma pilha de produção e uma base de dados separada, acessível pela rede local ou por um túnel com "
       "HTTPS; só se usam dados fictícios."),
 ("tab", "Quadro", "Ambientes",
    ["Ambiente", "Onde", "Dados", "Uso"],
-   [["Desenvolvimento", "Computador do autor; PostgreSQL em contentor", "Fictícios", "Programação e testes"],
-    ["Demonstração", "Computador do autor com a pilha de produção (`infra/demo.sh`), em rede local ou por túnel",
+   [["Desenvolvimento", "Computador pessoal; PostgreSQL em contentor", "Fictícios", "Programação e testes"],
+    ["Demonstração", "Computador pessoal com a pilha de produção (`infra/demo.sh`), em rede local ou por túnel",
      "Fictícios", "Sessões de teste e revisão do orientador"],
     ["Produção", "Servidor virtual com Docker Compose", "Reais, depois da secção 5.6 resolvida",
      "Piloto com aceleradoras {{[A INSERIR: data de entrada em produção]}}"]],

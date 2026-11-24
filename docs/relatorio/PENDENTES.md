@@ -5,7 +5,7 @@ Actualizado a 24/11/2026.
 | Onde | Marcador | O que falta |
 |---|---|---|
 | Capa, folha de rosto, aprovação (`content_pre.py`, `build.py`) | [DEPARTAMENTO — CONFIRMAR], [Nome], [dia] [mês] [ano] da aprovação | Departamento por extenso; banca (DET/ISPTEC); data da defesa; título académico do orientador |
-| Dedicatória e Agradecimentos | [Rascunho para personalizar] | Texto pessoal do autor |
+| Dedicatória e Agradecimentos | [Rascunho para personalizar] | Texto pessoal |
 | Resumo e Abstract | [RESULTADO A INSERIR] (2 + 2) | Síntese dos testes (SUS, tarefas) e das entrevistas; frase de conclusão |
 | Siglas | DET [CONFIRMAR] | Nome por extenso do departamento |
 | Cap. I 1.1.1 e Quadro 1 | [CONFIRMAR FONTE] (2) | Votação final, número e data de publicação da Lei das Startups |

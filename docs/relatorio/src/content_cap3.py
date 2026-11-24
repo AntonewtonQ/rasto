@@ -23,8 +23,8 @@ CAP3 = [
      "referência no administrador interno; lê a auditoria"]],
    "Autor (2026).", [3.0, 4.0, 9.0]),
 ("p", "Em relação ao planeamento inicial, a entrada das startups mudou. A base de experiência do utilizador previa "
-      "que as startups só entrassem por convite da aceleradora. Por decisão do autor, a startup passou a criar a "
-      "conta sozinha e a pedir à aceleradora o selo de participação numa das turmas dela; o convite pela aceleradora "
+      "que as startups só entrassem por convite da aceleradora. Optou-se por deixar a startup criar a "
+      "conta sozinha e pedir à aceleradora o selo de participação numa das turmas dela; o convite pela aceleradora "
       "continua disponível como alternativa. Também o investidor passou a ter a conta activa logo após o registo, em "
       "vez de esperar por aprovação manual, porque nada da camada privada de uma startup lhe chega sem o "
       "consentimento desta (secção 3.7). As duas alterações estão registadas no histórico de decisões do projecto."),
@@ -44,7 +44,7 @@ CAP3 = [
      "rascunho antes da verificação", "Implementado"],
     ["RF08–RF11", "Turmas, convites por e-mail ou por ligação, estados dos convites, entrada da startup pelo convite",
      "Implementado"],
-    ["—", "Registo próprio da startup, equipa da startup e pedido do selo à aceleradora (alteração do autor)",
+    ["—", "Registo próprio da startup, equipa da startup e pedido do selo à aceleradora (alteração ao planeamento)",
      "Implementado"],
     ["RF12, RF13", "Validação, recusa e retirada de sinais; frase validada guardada tal como a entidade a viu",
      "Implementado"],
@@ -136,7 +136,7 @@ CAP3 = [
     ["Qualidade", "pytest, Playwright, axe-core, Ruff, ESLint, GitHub Actions", "Testes, acessibilidade, análise "
      "estática e integração contínua"]],
    "Autor (2026).", [2.8, 6.4, 6.8], {"small": True}),
-("p", "A escolha da *stack* foi do autor. Na comparação inicial da base técnica, a opção recomendada era um só "
+("p", "A *stack* foi fixada no início do projecto. Na comparação inicial da base técnica, a opção recomendada era um só "
       "Django com páginas desenhadas no servidor; a separação entre Next.js e Django acrescenta uma aplicação e um "
       "contrato de API, mas dá componentes interactivos sem recarregar a página e deixa as regras num único sítio."),
 

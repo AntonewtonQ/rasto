@@ -63,8 +63,8 @@ CAP2 = [
       "realizam o planeamento, as reuniões diárias, a revisão e a retrospectiva. O *Product Backlog* é a lista "
       "ordenada do que é necessário para melhorar o produto e cada *sprint* produz um incremento utilizável, que só "
       "é considerado concluído quando cumpre a definição de «pronto» (Schwaber; Sutherland, 2020)."),
-("p", "Sendo um projecto individual, os papéis do Scrum foram adaptados: o autor acumula as funções de "
-      "desenvolvimento e de gestão do *backlog*, e o orientador e os participantes da validação desempenham o papel "
+("p", "Sendo um projecto individual, os papéis do Scrum foram adaptados: as funções de desenvolvimento e "
+      "de gestão do *backlog* foram acumuladas, e o orientador e os participantes da validação desempenham o papel "
       "de partes interessadas nas revisões. A Tabela 2 apresenta os *sprints*, que começam pela "
       "autenticação com papéis e pelo módulo da aceleradora, porque são a base de todos os outros módulos e "
       "permitem trazer as primeiras startups para a plataforma."),
@@ -286,8 +286,8 @@ CAP2 = [
     ["", "Outras (colaboração, eficiência, acessibilidade, certificações)", "1 cada", "4,2 cada"]],
    "Autor (2026), dados do inquérito. Uma resposta pode pertencer a mais de uma categoria.",
    [4.4, 7.6, 1.6, 2.4], {"num_cols": [2, 3]}),
-("p", "A classificação foi feita por regras de palavras-chave definidas para cada categoria, sem um "
-      "segundo codificador independente. {{[CONFIRMAR: revisão final das categorias pelo autor.]}}"),
+("p", "As respostas abertas foram classificadas por regras de palavras-chave definidas para cada categoria, sem um "
+      "segundo codificador independente. {{[CONFIRMAR: revisão final das categorias.]}}"),
 
 ("h3", "2.3.9 Dos dados às decisões de escopo"),
 ("p", "O Quadro 4 liga os principais resultados do inquérito às decisões tomadas no produto mínimo viável. As "

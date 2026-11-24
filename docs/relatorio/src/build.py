@@ -397,7 +397,8 @@ else:
     settings.append(uf)
 
 doc.core_properties.title = strip(PRE.TITULO)
-doc.core_properties.author = "[Autor]"
+doc.core_properties.author = "Antonewton Emanuel Lungoge Quima"
+doc.core_properties.last_modified_by = "Antonewton Emanuel Lungoge Quima"
 doc.save(OUT)
 json.dump({"headings": HEADINGS, "captions": CAPTIONS}, open("build/structure.json", "w"), ensure_ascii=False)
 print("ok", len(HEADINGS), {k: len(v) for k, v in CAPTIONS.items()})

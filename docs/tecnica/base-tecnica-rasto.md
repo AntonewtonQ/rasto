@@ -4,7 +4,7 @@
 **Autor:** Antonewton Emanuel Lungoge Quima
 **Âmbito:** TCC de Engenharia Informática, ISPTEC
 **Entradas usadas** (em `docs/produto/`, `docs/marca/` e `docs/relatorio/`): `base-ux-plataforma.md` v1.0 (comportamento), `especificacao-interface-rasto.md` v1.0 (ecrãs, rotas, Sprint 1), `guia-de-marca-rasto.md` v1.0, `rasto.css` e `rasto.tokens.json` v1.0, `wireframes-rasto.html`, `indice-tcc-rasto.md` v1.0 e o relatório já gerado (Capítulos I e II aprovados).
-**Estado:** aprovada pelo autor a 3 de Novembro de 2026. Entrega do TCC a 30 de Novembro de 2026. *Stack* fixada pelo autor: Next.js no *frontend*, Django no *backend*, PostgreSQL.
+**Estado:** aprovada a 3 de Novembro de 2026. Entrega do TCC a 30 de Novembro de 2026. *Stack* fixada: Next.js no *frontend*, Django no *backend*, PostgreSQL.
 
 **Regra de precedência dos números:** os números do inquérito usados aqui são os do Capítulo II do relatório (com uma casa decimal), que vêm do Excel. Onde a base de UX ou o contexto arredondam ("96%", "quase todas as respostas"), prevalece o Capítulo II.
 
@@ -54,17 +54,17 @@ Nomes de código (tabelas, classes, rotas) em português sem acentos (`Organizac
 
 **Verificação feita nesta versão** (PostgreSQL 16.15 e Python 3.12, numa instância temporária): as 6 consultas da secção 6.2 que não dependem das tabelas das turmas correram sobre um caso de teste com o exemplo da HU19. Deram 37,5% comprometido, 17 dias até ao primeiro soft commit, a conversão esperada por etapa, a relação parada certa, mediana de resposta de 2 dias, aceitação de 50% e 75% no top-3. Sem taxa de câmbio, `sem_conversao = 1`. As restrições da 4.2 (validado completo, pesos a somar 100, uma só configuração activa, um só pedido pendente) recusam as linhas proibidas. Os 12 testes da 5.5 passam contra o código da 5.4, incluindo a propriedade com Hypothesis. A consulta do estado da turma e os *triggers* da auditoria não foram executados: só serão testados com as migrações reais.
 
-### 0.4 Alteração de fluxo (decisão do autor, 4 de Novembro de 2026)
+### 0.4 Alteração de fluxo (decisão própria, 4 de Novembro de 2026)
 
 A startup passa a **criar a conta sozinha**, a **convidar a equipa** e a **pedir à aceleradora o selo** de participação numa turma (com nota opcional). A aceleradora confirma ou recusa na fila de validações (E-07/E-08), com a frase exacta à vista; ao confirmar, a startup fica ligada à turma. O convite pela aceleradora (E-06, C-03) mantém-se como alternativa. Substitui a decisão Dec-2 da base de UX («startups só por convite»). Novos ecrãs: registo da startup, Selos (`/s/selos`) e Equipa (`/s/equipa`).
 
-### 0.3 Alterações face à v1.2 (decisão do autor, 3 de Novembro de 2026)
+### 0.3 Alterações face à v1.2 (decisão própria, 3 de Novembro de 2026)
 
 | Secção | Alteração | Porquê |
 |---|---|---|
-| 1.5 (nova), ADR-02, ADR-11 | *Stack* passa a **Next.js (*frontend*) + Django REST (*backend*) + PostgreSQL**. A recomendação da 1.3 (Django + HTMX) fica como análise; não é a escolha final. | Decisão do autor. A 1.5 regista a justificação e as consequências, para o relatório. |
+| 1.5 (nova), ADR-02, ADR-11 | *Stack* passa a **Next.js (*frontend*) + Django REST (*backend*) + PostgreSQL**. A recomendação da 1.3 (Django + HTMX) fica como análise; não é a escolha final. | Decisão própria. A 1.5 regista a justificação e as consequências, para o relatório. |
 | 8.1 | A API JSON deixa de ser secundária: é a única interface do *backend*. Autenticação por sessão com *cookie* na mesma origem e CSRF; entrada, 2FA e recuperação pelo modo *headless* do allauth. | Consequência da 1.5; mantém a ADR-04 (sem JWT). |
-| 10 | Entrega a **30/11/2026**; voltam ao âmbito a API JSON, os lembretes por e-mail, as actualizações periódicas e o Kanban com arrastar. | Decisão do autor. |
+| 10 | Entrega a **30/11/2026**; voltam ao âmbito a API JSON, os lembretes por e-mail, as actualizações periódicas e o Kanban com arrastar. | Decisão própria. |
 | 13.1 | Repositório com `backend` Django (pasta raiz actual) e `frontend/` Next.js. | Consequência da 1.5. |
 
 ---
@@ -111,9 +111,9 @@ Todas as opções usam PostgreSQL, Docker e um monólito modular (ADR-01).
 
 **Custo da escolha:** menos componentes React prontos (o Kanban com arrastar, S-08, exige JavaScript próprio, ~5 KB) e menos oferta de emprego em Angola para Python do que para JavaScript [S]. Aceito o custo: o Kanban é P2 e o arrastar é só um atalho [UI 3.3].
 
-### 1.5 Decisão final do autor: Next.js + Django REST (v1.3)
+### 1.5 Decisão final: Next.js + Django REST (v1.3)
 
-O autor fixou a *stack* em **Next.js no *frontend*, Django no *backend* e PostgreSQL**. É uma quarta opção, D, que não estava na comparação da 1.2: junta o *backend* da opção A ao *frontend* das opções B e C.
+A *stack* foi fixada em **Next.js no *frontend*, Django no *backend* e PostgreSQL**. É uma quarta opção, D, que não estava na comparação da 1.2: junta o *backend* da opção A ao *frontend* das opções B e C.
 
 | Critério | Efeito da opção D face à A |
 |---|---|
@@ -1419,7 +1419,7 @@ Regras do repositório: `main` protegido; integração só por *pull request* co
 
 ## 10. Plano até à entrega (30 de Novembro de 2026)
 
-**Mudança face à v1.2.** A entrega passou para **segunda-feira, 30 de Novembro de 2026**, e voltam ao âmbito a API JSON, os lembretes por e-mail, as actualizações periódicas e o Kanban com arrastar (decisão do autor). Com a passagem para Next.js (1.5), o Sprint 1 inclui também a API e a base do *frontend*; os serviços, modelos e testes do *backend* já feitos mantêm-se. Feriado de 11 de Novembro (quarta-feira) no Sprint 2.
+**Mudança face à v1.2.** A entrega passou para **segunda-feira, 30 de Novembro de 2026**, e voltam ao âmbito a API JSON, os lembretes por e-mail, as actualizações periódicas e o Kanban com arrastar (decisão própria). Com a passagem para Next.js (1.5), o Sprint 1 inclui também a API e a base do *frontend*; os serviços, modelos e testes do *backend* já feitos mantêm-se. Feriado de 11 de Novembro (quarta-feira) no Sprint 2.
 
 | Sprint | Datas | Objectivo | Âmbito | Saída |
 |---|---|---|---|---|
@@ -1494,7 +1494,7 @@ Formato curto: **Contexto · Decisão · Alternativas · Consequências.** Cada 
 - *Consequências:* uma implantação e uma base de dados; transacções simples; se um módulo precisar de escalar, a fronteira já existe.
 
 **ADR-02 · Next.js no *frontend* e Django REST no *backend*** (revista na v1.3; substitui «Django + HTMX»)
-- *Contexto:* secção 1; decisão do autor na 1.5.
+- *Contexto:* secção 1; decisão final na 1.5.
 - *Decisão:* Next.js (App Router) para os ecrãs; Django 5.2 LTS com Django REST Framework para a API, as regras de negócio, as permissões e a auditoria; mesma origem através do Caddy.
 - *Alternativas:* Django + HTMX (recomendação inicial, 1.3); Next.js + NestJS; Next.js de ponta a ponta.
 - *Consequências:* duas aplicações e um contrato de API (OpenAPI); componentes React para o Kanban e as interacções; o modelo de segurança do Django mantém-se porque as sessões continuam na mesma origem.
