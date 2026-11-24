@@ -16,10 +16,10 @@ Actualizado a 24/11/2026.
 | Cap. IV 4.1 | [RESULTADO A INSERIR: primeira pintura de conteúdo em «Slow 4G»] | Lighthouse no perfil de telemóvel (o peso dos ecrãs já está medido) |
 | Cap. IV Tabelas 17–20 e 4.3–4.6 | [RESULTADO A INSERIR] | Participantes, tarefas, SUS (calcular com `docs/testes/ronda-1/calcular.py`), entrevistas, compreensão, discussão |
 | Cap. V Quadro 17 | [CONFIRMAR com o orientador e o texto da lei] | Notificação à APD e transferência internacional |
-| Cap. VI Quadro 19, Tabela 21, 6.3, 6.4 | [A INSERIR], [CONFIRMAR preço] (3), [A CALCULAR], [CONFIRMAR com o orientador], [A FAZER] | Data de produção; preços do servidor, cópias e domínio; localização do servidor; monitorização |
+| Cap. VI Quadro 19, Tabela 21, 6.3, 6.4 | [A INSERIR], [CONFIRMAR preço no registo .ao], [CONFIRMAR com o orientador], [A FAZER] | Data de produção; preço oficial do domínio .ao (o dns.ao só mostra a campanha de Junho de 2026); localização do servidor; monitorização |
 | Conclusões, alínea f) e resposta à pergunta | [RESULTADO A INSERIR] (2) | Resultados da avaliação |
-| Apêndice A (`content_apendices.py`) | [A INSERIR] | Questionário do inquérito tal como foi aplicado (não está no repositório) |
+| Apêndice A (`content_apendices.py`) | [A INSERIR] | Questionário do inquérito tal como foi aplicado: `dados/` só tem os códigos das perguntas e as opções, não o enunciado |
 
 Resolvido nesta revisão: Apêndices B (guião e termo) e C (manual por papel); Capítulos III a VI e Conclusões redigidos; Quadro 3 (ferramentas); Tabela 2 (datas dos *sprints* 1 a 6); marcadores em inglês do Abstract.
 
-Resolvido a 24/11: as 6 referências por confirmar (Crossref e página do editor); peso inicial dos ecrãs (RNF01, Tabela 16). Continua por confirmar a votação final da Lei das Startups: até 24/11 só se encontra a aprovação na generalidade (19/03/2026).
+Resolvido a 24/11: as 6 referências por confirmar (Crossref e página do editor); peso inicial dos ecrãs (RNF01, Tabela 16). Continua por confirmar a votação final da Lei das Startups: até 24/11 só se encontra a aprovação na generalidade (19/03/2026). Preços do servidor e das cópias na Tabela 21 (páginas da Hetzner e da Backblaze, 24/11) e total do piloto.

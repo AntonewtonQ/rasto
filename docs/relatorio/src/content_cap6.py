@@ -40,15 +40,18 @@ CAP6 = [
       "tarefas."),
 
 ("h2", "6.3 Custos"),
-("p", "A Tabela 21 estima o custo mensal. Os preços dependem do fornecedor e da data e têm de ser confirmados antes "
-      "da contratação."),
+("p", "A Tabela 21 estima o custo mensal do piloto, com os preços das páginas dos fornecedores a 24 de Novembro de "
+      "2026 (Hetzner, [2026]; Backblaze, [2026]). O servidor previsto, o CX23, aparece nessa data com disponibilidade "
+      "limitada; os preços mudaram duas vezes em 2026 e têm de ser confirmados antes da contratação."),
 ("tab", "Tabela", "Custo mensal estimado",
    ["Peça", "Escolha prevista", "Custo mensal"],
-   [["Servidor", "Servidor virtual com 2 vCPU e 4 GB de RAM (ex.: Hetzner CX22)", "{{[CONFIRMAR preço]}}"],
+   [["Servidor", "Servidor virtual com 2 vCPU, 4 GB de RAM e 40 GB de disco (Hetzner CX23)", "5,99 € sem IVA"],
     ["E-mail", "SMTP de uma conta existente, com limite diário suficiente para o MVP", "0"],
-    ["Cópias de segurança fora do servidor", "Armazenamento de objectos noutro fornecedor", "{{[CONFIRMAR preço]}}"],
-    ["Domínio", "Domínio próprio ou subdomínio gratuito para testes", "{{[CONFIRMAR preço]}}"],
-    ["Total", "", "{{[A CALCULAR]}}"]],
+    ["Cópias de segurança fora do servidor", "Backblaze B2 (6,95 USD por TB; os primeiros 10 GB são gratuitos). "
+     "Volume do piloto estimado abaixo de 10 GB", "0"],
+    ["Domínio", "Subdomínio gratuito no piloto; domínio .ao próprio antes da produção "
+     "{{[CONFIRMAR preço no registo .ao]}}", "0"],
+    ["Total", "", "5,99 € sem IVA"]],
    "Autor (2026).", [4.0, 8.4, 3.6], {"total_row": True, "small": True}),
 ("p", "A localização do servidor está por decidir. Um servidor na Europa é mais barato e tem mais oferta, mas implica "
       "transferência internacional de dados pessoais, o que pode exigir autorização da autoridade de protecção de "

@@ -13,6 +13,8 @@ REFS = [
  "ASSEMBLEIA Nacional aprova proposta de lei das startups. **Ver Angola**, Luanda, 19 mar. 2026. Disponível em: "
  "https://www.verangola.net/va/pt/032026/Politica/48130/Assembleia-Nacional-aprova-proposta-de-lei-das-startups.htm. "
  + AC,
+ "BACKBLAZE. **B2 cloud storage pricing**. [*S. l.*]: Backblaze, [2026]. Disponível em: "
+ "https://www.backblaze.com/cloud-storage/pricing. Acesso em: 24 nov. 2026.",
  "BANGOR, A.; KORTUM, P. T.; MILLER, J. T. An empirical evaluation of the System Usability Scale. "
  "**International Journal of Human-Computer Interaction**, [*s. l.*], v. 24, n. 6, p. 574-594, 2008. "
  "DOI: 10.1080/10447310802205776.",
@@ -40,6 +42,8 @@ REFS = [
  "Disponível em: https://expansao.co.ao/angola/detalhe/lei-do-crowdfunding-na-assembleia-nacional-mas-so-com-tudo-ou-nada-71521.html. "
  + AC,
  "GUST. **About Gust**. [*S. l.*]: Gust, [20--]. Disponível em: https://gust.com/about/. " + AC,
+ "HETZNER. **Cost-optimized cloud servers**. [*S. l.*]: Hetzner Online, [2026]. Disponível em: "
+ "https://www.hetzner.com/cloud/cost-optimized. Acesso em: 24 nov. 2026.",
  "HEVNER, A. R.; MARCH, S. T.; PARK, J.; RAM, S. Design science in information systems research. **MIS Quarterly**, "
  "[*s. l.*], v. 28, n. 1, p. 75-105, 2004.",
  "KABENGELE, C.; HAHN, R. Venture capital funding in Africa: a mixed-methods study of evolving ecosystems and "
