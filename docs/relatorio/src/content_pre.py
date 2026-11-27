@@ -3,7 +3,7 @@
 
 TITULO = "RASTO: PLATAFORMA WEB DE GESTÃO E LIGAÇÃO ENTRE STARTUPS ACELERADAS E INVESTIDORES EM ANGOLA"
 ESTUDANTE = "Antonewton Emanuel Lungoge Quima"
-DEPARTAMENTO = "{{[DEPARTAMENTO — CONFIRMAR]}}"
+DEPARTAMENTO = "DEPARTAMENTO DE ENGENHARIAS E TECNOLOGIAS"
 ORIENTADOR = "Sediangani Sofrimento"
 ANO = "2026"
 
@@ -78,7 +78,7 @@ SIGLAS = [
     ("ANIESA", "Autoridade Nacional de Inspecção Económica e Segurança Alimentar"),
     ("APD", "Agência de Protecção de Dados"),
     ("CVC", "*Corporate Venture Capital* (capital de risco empresarial)"),
-    ("DET", "Departamento de Engenharias e Tecnologias {{[CONFIRMAR]}}"),
+    ("DET", "Departamento de Engenharias e Tecnologias"),
     ("DSR", "*Design Science Research*"),
     ("IFC", "*International Finance Corporation*"),
     ("INAPEM", "Instituto Nacional de Apoio às Micro, Pequenas e Médias Empresas"),

@@ -56,6 +56,7 @@ Formato: data · decisão · justificação (dado: inquérito, literatura, entre
 - 2026-11-24 · Referências confirmadas no Crossref e na página do editor: volume e páginas de Mayya e Huang (2025) e de Yang *et al.* (2023); DOI de Martins *et al.* (2015); DOI de Viglialoro *et al.* (2026, publicação antecipada em linha, ainda sem volume); editores e edição com DOI de Brooke (1996), com as páginas dessa edição (207-212); título de Gonga (2026) · instruções do relatório, secção 3 · Referências.
 - 2026-11-24 · Custos do piloto (Tabela 21): Hetzner CX23 (substituiu o CX22; 2 vCPU, 4 GB, 40 GB) a 5,99 € por mês sem IVA, com disponibilidade limitada; cópias no Backblaze B2 (6,95 USD/TB, 10 GB gratuitos), com o volume do piloto abaixo de 10 GB como **suposição**; subdomínio gratuito no piloto. Total de 5,99 € por mês sem IVA · páginas dos fornecedores a 24/11/2026 · Cap. VI 6.3, Referências.
 - 2026-11-24 · Cap. VI deixa de dizer que uma alteração só entra no ramo principal com a CI a passar: os envios vão directos ao `main` e a CI falhou de 3 a 24/11 (chave curta no `check --deploy`), corrigida em 52735ba · o código manda sobre o texto · Cap. VI, 6.2.
+- 2026-11-27 · Departamento confirmado: Departamento de Engenharias e Tecnologias (DET) · sítio do ISPTEC (isptec.co.ao), consultado a 27/11/2026 · capa, Siglas.
 
 ## Sincronizações
 - 2026-11-03 · Relatório gerado com pré-textuais, Introdução e Capítulos I e II · commit: {{ainda sem código}}
